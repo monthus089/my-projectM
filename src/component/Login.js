@@ -1,11 +1,16 @@
 import React, { useState } from 'react';
 import app_icon from "../img/app_icon.png"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUser, faLock ,faEnvelope} from '@fortawesome/free-solid-svg-icons'
+import { faUser, faLock, faEnvelope, faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'
 
 export const Login = (props) => {
     const [email, setEmail] = useState('');
     const [pass, setPass] = useState('');
+    const [passwordShown, setPasswordShown] = useState(false);
+
+    const togglePassword = () => {
+        setPasswordShown(!passwordShown);
+    };
 
     const handlerSubmit = (e) => {
         e.preventDefault();
@@ -21,7 +26,7 @@ export const Login = (props) => {
                         <FontAwesomeIcon icon={faEnvelope}></FontAwesomeIcon>
                     </i>
                     <div className="div">
-                        <input type="text" placeholder="Email" className="input" value={email} />
+                        <input type="text" placeholder="Email" className="input" />
                     </div>
                 </div>
                 <div className="input-div pass">
@@ -29,8 +34,12 @@ export const Login = (props) => {
                         <FontAwesomeIcon icon={faLock}></FontAwesomeIcon>
                     </i>
                     <div className="div">
-                        <input type="password" placeholder="Password" className="input" value={pass} />
+                        <input type={passwordShown ? "text" : "password"} placeholder="Password" className="input" />
+
                     </div>
+                    <i className="i">
+                        <FontAwesomeIcon icon={faEye} onClick={togglePassword}></FontAwesomeIcon>
+                    </i>
                 </div>
                 <input type="submit" class="btn" value={"Login"}></input>
                 <div class="signup_link">

@@ -1,20 +1,39 @@
 const inputs = document.querySelectorAll(".input");
 
-function addClass() {
-  let parent = this.parentNode.parentNode;
+
+function down(){
+	let parent = this.parentNode.parentNode;
+	parent.classList.add("focus");
+}
+
+function up(){
+	let parent = this.parentNode.parentNode;
+	if(this.value == ""){
+		parent.classList.remove("focus");
+	}
+}
+
+
+inputs.forEach(input => {
+	input.addEventListener("focus", down);
+	input.addEventListener("blur", up);
+});
+
+function focusFunc() {
+  let parent = this.parentNode;
   parent.classList.add("focus");
 }
 
-function removeClass() {
-  let parent = this.parentNode.parentNode;
-  if (this.value === "") {
+function blurFunc() {
+  let parent = this.parentNode;
+  if (this.value == "") {
     parent.classList.remove("focus");
   }
 }
 
 inputs.forEach((input) => {
-  input.addEventListener("focus", addClass);
-  input.addEventListener("blur", removeClass);
-});   
+  input.addEventListener("focus", focusFunc);
+  input.addEventListener("blur", blurFunc);
+});
 
 
