@@ -1,161 +1,177 @@
 import React, { useState } from 'react';
-import bg from "./img/bg.svg";
-import mirror from "./img/mirror.svg";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUser, faLock, faEnvelope, faEye, faEyeSlash, faPhone } from '@fortawesome/free-solid-svg-icons';
+
 import "./css/App.css";
 import "./css/Login.css";
-import "./js/Login.js"
-// import { Login } from "./component/Login.js"
-// import { Register } from "./component/Register"
-import app_icon from "./img/app_icon.png"
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUser, faLock, faEnvelope, faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'
+import "./js/Login.js";
+
+import app_icon from "./img/app_icon.png";
+import bg from "./img/bg.svg";
+import mirror from "./img/mirror.svg";
+import { hover } from '@testing-library/user-event/dist/hover';
+
 
 
 
 function App() {
-  const [currentForm, setCurrentForm] = useState('login');
+    const [currentForm, setCurrentForm] = useState('login');
 
-  const toggleForm = (formName) => {
-    setCurrentForm(formName);
-  }
+    const toggleForm = (formName) => {
+        setCurrentForm(formName);
+    }
 
-  return (
-    <div>
-      <img src={mirror} className="wave" alt="" />
-      <div className="container">
-        <div className="img">
-          <img src={bg} alt="" />
-        </div>
-        <div className="login-content">
-          {
-            currentForm === "login" ? <Login onFromSwitch={toggleForm} /> : <Register onFromSwitch={toggleForm} />
-          }
-        </div>
-      </div>
-    </div>
-  );
+    return (
+        <>
+            <img src={mirror} className="wave" alt="" />
+            <div className="container">
+                <div className="img">
+                    <img src={bg} alt="" />
+                </div>
+                <div className="login-content">
+                    {
+                        currentForm === "login" ? <Login onFromSwitch={toggleForm} /> : <Register onFromSwitch={toggleForm} />
+                    }
+                </div>
+            </div>
+        </>
+    );
 }
 
 const Login = (props) => {
-  const [email, setEmail] = useState('');
-  const [pass, setPass] = useState('');
-  const [passwordShown, setPasswordShown] = useState(false);
+    const [email, setEmail] = useState('');
+    const [pass, setPass] = useState('');
+    const [passwordShown, setPasswordShown] = useState(false);
+    const [icon, setIcon] = useState(true);
 
-  const togglePassword = () => {
-      setPasswordShown(!passwordShown);
-  };
+    const togglePassword = () => {
+        setPasswordShown(!passwordShown);
+        setIcon(!icon);
+    };
 
-  const handlerSubmit = (e) => {
-      e.preventDefault();
-      console.log(email)
-  }
-  return (
-      <div>
-          <form className="login-form" onSubmit={handlerSubmit}>
-              <img src={app_icon} alt="" />
-              <h2 className="title">Welcome</h2>
-              <div className="input-div one">
-                  <i className="i">
-                      <FontAwesomeIcon icon={faEnvelope}></FontAwesomeIcon>
-                  </i>
-                  <div className="div">
-                      <input type="text" placeholder="Email" className="input" />
-                  </div>
-              </div>
-              <div className="input-div pass">
-                  <i className="i">
-                      <FontAwesomeIcon icon={faLock}></FontAwesomeIcon>
-                  </i>
-                  <div className="div">
-                      <input type={passwordShown ? "text" : "password"} placeholder="Password" className="input" />
+    const handlerSubmit = (e) => {
+        e.preventDefault();
+        console.log(email)
+    }
+    return (
+        <>
+            <form className="login-form" onSubmit={handlerSubmit}>
+                <img src={app_icon} alt="" />
+                <h2 className="title">Welcome</h2>
+                <div className="input-div one">
+                    <i className="i">
+                        <FontAwesomeIcon icon={faEnvelope}></FontAwesomeIcon>
+                    </i>
+                    <div className="div">
+                        <input type="text" placeholder="Email" className="input" />
+                    </div>
+                </div>
+                <div className="input-div pass">
+                    <i className="i">
+                        <FontAwesomeIcon icon={faLock}></FontAwesomeIcon>
+                    </i>
+                    <div className="div">
+                        <input type={passwordShown ? "text" : "password"} placeholder="Password" className="input" />
 
-                  </div>
-                  <i className="i">
-                      <FontAwesomeIcon icon={faEye} onClick={togglePassword}></FontAwesomeIcon>
-                  </i>
-              </div>
-              <input type="submit" class="btn" value={"Login"}></input>
-              <div class="signup_link">
-                  Now Member? <a onClick={() => props.onFromSwitch("register")}> Registers </a>
-              </div>
-          </form>
-      </div>
-  );
+                    </div>
+                    <i className="i ihover">
+                        <FontAwesomeIcon icon={icon ? faEyeSlash : faEye  } onClick={togglePassword} style={{ cursor: 'pointer' }}></FontAwesomeIcon>
+                    </i>
+                </div>
+                <input type="submit" class="btn" value={"Login"}></input>
+                <div class="signup_link">
+                    Now Member? <a onClick={() => props.onFromSwitch("register")}> Registers </a>
+                </div>
+            </form>
+        </>
+    );
 }
 
 const Register = (props) => {
-  const [email, setEmail] = useState('');
-  const [pass, setPass] = useState('');
-  const [fname, setFirstName] = useState('');
-  const [lname, setLastName] = useState('');
-  const [passwordShown, setPasswordShown] = useState(false);
-  const [confirmPasswordShown, setConfirmPasswordShown] = useState(false);
+    const [email, setEmail] = useState('');
+    const [pass, setPass] = useState('');
+    const [fname, setFirstName] = useState('');
+    const [lname, setLastName] = useState('');
+    const [passwordShown, setPasswordShown] = useState(false);
+    const [confirmPasswordShown, setConfirmPasswordShown] = useState(false);
+    const [icon, setIcon] = useState(true);
+    const [confirmicon, setConfirmIcon] = useState(true);
 
-  const togglePassword = () => {
-      setPasswordShown(!passwordShown);
-  };
-  const toggleConfirmPassword = () => {
-      setConfirmPasswordShown(!confirmPasswordShown);
-  };
+    const togglePassword = () => {
+        setPasswordShown(!passwordShown);
+        setIcon(!icon);
+    };
+    const toggleConfirmPassword = () => {
+        setConfirmPasswordShown(!confirmPasswordShown);
+        setConfirmIcon(!confirmicon);
+    };
 
-  const handlerSubmit = (e) => {
-      e.preventDefault();
-      console.log(email)
-  }
-  return (
-      <div>
-          <form className="login-form" onSubmit={handlerSubmit}>
-              <img src={app_icon} alt="" />
-              <h2 className="title">Register</h2>
-              <div className="input-div one">
-                  <i className="i">
-                      <FontAwesomeIcon icon={faEnvelope}></FontAwesomeIcon>
-                  </i>
-                  <div className="div">
-                      <input type="text" placeholder="Email" className="input" />
-                  </div>
-              </div>
-              <div className="input-div-name one">
-                  <i className="i">
-                      <FontAwesomeIcon icon={faUser}></FontAwesomeIcon>
-                  </i>
-                  <div className="fdiv">
-                      <input type="text" placeholder="First Name" className="input" />
-                  </div>
-                  <div className="ldiv">
-                      <input type="text" placeholder="Last Name" className="input" />
-                  </div>
-              </div>
-              <div className="input-div pass">
-                  <i className="i">
-                      <FontAwesomeIcon icon={faLock}></FontAwesomeIcon>
-                  </i>
-                  <div className="div">
-                      <input type={passwordShown ? "text" : "password"} placeholder="Password" className="input" />
-                  </div>
-                  <i className="i">
-                      <FontAwesomeIcon icon={faEye} onClick={togglePassword}></FontAwesomeIcon>
-                  </i>
-              </div>
-              <div className="input-div pass">
-                  <i className="i">
-                      <FontAwesomeIcon icon={faLock}></FontAwesomeIcon>
-                  </i>
-                  <div className="div">
-                      <input type={confirmPasswordShown ? "text" : "password"} placeholder="Confirm Password" className="input" />
+    const handlerSubmit = (e) => {
+        e.preventDefault();
+        console.log(email)
+    }
+    return (
+        <>
+            <form className="login-form" onSubmit={handlerSubmit}>
+                <img src={app_icon} alt="" />
+                <h2 className="title">Register</h2>
+                <div className="input-div one">
+                    <i className="i">
+                        <FontAwesomeIcon icon={faEnvelope}></FontAwesomeIcon>
+                    </i>
+                    <div className="div">
+                        <input type="email" placeholder="Email" className="input" />
+                    </div>
+                </div>
+                <div className="input-div-name one">
+                    <i className="i">
+                        <FontAwesomeIcon icon={faUser}></FontAwesomeIcon>
+                    </i>
+                    <div className="fdiv">
+                        <input type="text" placeholder="First Name" className="input" />
+                    </div>
+                    <div className="ldiv">
+                        <input type="text" placeholder="Last Name" className="input" />
+                    </div>
+                </div>
+                <div className="input-div one">
+                    <i className="i">
+                        <FontAwesomeIcon icon={faPhone}></FontAwesomeIcon>
+                    </i>
+                    <div className="div">
+                        <input type="phone" placeholder="Phone" className="input" />
+                    </div>
+                </div>
+                <div className="input-div pass">
+                    <i className="i">
+                        <FontAwesomeIcon icon={faLock}></FontAwesomeIcon>
+                    </i>
+                    <div className="div">
+                        <input type={passwordShown ? "text" : "password"} placeholder="Password" className="input" />
+                    </div>
+                    <i className="i ihover">
+                        <FontAwesomeIcon icon={icon ? faEyeSlash : faEye  } onClick={togglePassword} style={{ cursor: 'pointer' }}></FontAwesomeIcon>
+                    </i>
+                </div>
+                <div className="input-div pass">
+                    <i className="i">
+                        <FontAwesomeIcon icon={faLock}></FontAwesomeIcon>
+                    </i>
+                    <div className="div">
+                        <input type={confirmPasswordShown ? "text" : "password"} placeholder="Confirm Password" className="input" />
 
-                  </div>
-                  <i className="i">
-                      <FontAwesomeIcon icon={faEye} onClick={toggleConfirmPassword}></FontAwesomeIcon>
-                  </i>
-              </div>
-              <input type="submit" class="btn" value={"REGISTER"}></input>
-              <div class="signup_link">
-                  Already have an account? <a onClick={() => props.onFromSwitch("login")}>Login </a>
-              </div>
-          </form>
-      </div>
-  )
+                    </div>
+                    <i className="i ihover">
+                        <FontAwesomeIcon icon={confirmicon ? faEyeSlash : faEye  } onClick={toggleConfirmPassword} style={{ cursor: 'pointer' }}></FontAwesomeIcon>
+                    </i>
+                </div>
+                <input type="submit" class="btn" value={"REGISTER"}></input>
+                <div class="signup_link">
+                    Already have an account? <a onClick={() => props.onFromSwitch("login")}>Login </a>
+                </div>
+            </form>
+        </>
+    )
 }
 
 export default App;
