@@ -4,12 +4,10 @@ import { faUser, faLock, faEnvelope, faEye, faEyeSlash, faPhone } from '@fortawe
 
 import "./css/App.css";
 import "./css/Login.css";
-import "./js/Login.js";
 
 import app_icon from "./img/app_icon.png";
 import bg from "./img/bg.svg";
 import mirror from "./img/mirror.svg";
-import { hover } from '@testing-library/user-event/dist/hover';
 
 
 
