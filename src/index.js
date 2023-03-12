@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './css/index.css';
+import './components/Style/index.css';
 import App from './App';
-import AdminApp from './AdminApp';
+import AdminApp from './components/AdminApp';
 import reportWebVitals from './reportWebVitals';
 
 
