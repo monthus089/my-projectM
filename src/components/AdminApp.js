@@ -6,7 +6,7 @@ import { MdOutlineCreateNewFolder, MdMoreTime } from "react-icons/md";
 import { BiLogOut } from "react-icons/bi";
 
 import logo from "../img/36-icon.png";
-import { BrowserRouter as Router, Routes, Route, Link, } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 
 function AdminApp() {
   const [open] = useState(true);
@@ -51,19 +51,11 @@ function AdminApp() {
         <ul className="pt-2">
           {Menu.map((menu, index) => (
             <>
-              <li
-                key={index}
-                className={`flex text-white text-sm item-center gap-x-4 cursor-pointer p-4 mr-14 hover:text-black hover:bg-slate-200 rounded-[25px] last:bg-slate-200 last:text-black ${
-                  menu.spacing ? "mt-[500px]" : "mt-2"
-                } `}
-              >
-               
-                <span className="text-xl block float-left ">{menu.icon}</span>
-                <span
-                  className={`text-base font-medium flex-1 ${
-                    !open && "hidden"
-                  }`}
-                >
+              <li key={index} className={`flex text-white text-sm item-center gap-x-4 cursor-pointer p-4 mr-14 hover:text-black hover:bg-slate-200 rounded-[25px] last:bg-slate-200 last:text-black ${menu.spacing ? "mt-[500px]" : "mt-2"} `}>
+                <span className="text-xl block float-left ">
+                  {menu.icon}
+                </span>
+                <span className={`text-base font-medium flex-1 ${!open && "hidden"}`}>
                   {menu.title}
                 </span>
               </li>
@@ -75,13 +67,16 @@ function AdminApp() {
       {/* Page */}
 
       <div className="absolute p-0 left-[335px] h-screen w-full border rounded-l-extent bg-white">
-        <div className=""></div>
-        <Router>
+        <div className="flex w-full h-[60px] justify-between items-center px-[10px]">
+          <div>{/* Search Bar */}</div>
+          <div className="text-[12px]"><span>Monthat Muensaeng</span></div>
+        </div>
+        {/* <Router>
           <Routes>
             <Route path="/" element={<Broad />} exact></Route>
             <Route path="/Create" element={<Create />}></Route>
           </Routes>
-        </Router>
+        </Router> */}
       </div>
     </div>
   );
@@ -90,7 +85,7 @@ function AdminApp() {
 const Broad = (props) => {
   return (
     <>
-      <h2>Broad</h2>
+      <h2 className="">Broad</h2>
     </>
   );
 };
@@ -98,7 +93,7 @@ const Broad = (props) => {
 const Create = (props) => {
   return (
     <>
-      <h2 >Create</h2>
+      <h2>Create</h2>
     </>
   );
 };

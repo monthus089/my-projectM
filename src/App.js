@@ -1,8 +1,23 @@
+import AdminApp from "./components/AdminApp.js";
 import Login from "./components/Login.js";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 function App() {
+  const token = localStorage.getItem("accesstoken");
+  if (!token) {
+    return <Login />;
+  }
   return (
     <>
-      <Login />
+      <BrowserRouter>
+        <Routes>
+          <Route path="/">
+            <AdminApp />
+          </Route>
+          <Route path="/adminapp">
+            <AdminApp />
+          </Route>
+        </Routes>
+      </BrowserRouter>
     </>
   );
 }
