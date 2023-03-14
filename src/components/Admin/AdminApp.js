@@ -1,14 +1,15 @@
 import React, { useState } from "react";
-// import { BsArrowLeftShort } from "react-icons/bs";
 import { AiOutlineUser } from "react-icons/ai";
 import { IoMdClipboard } from "react-icons/io";
 import { MdOutlineCreateNewFolder, MdMoreTime } from "react-icons/md";
 import { BiLogOut } from "react-icons/bi";
-import Broad from "./Board";
-import Create from "./Create";
 
-import logo from "../img/36-icon.png";
-import { BrowserRouter as Router, Routes, Route, Link, Switch } from "react-router-dom";
+import logo from "./img/36-icon.png";
+import { BrowserRouter as Router, Routes, Route,} from "react-router-dom";
+import { Link } from "react-router-dom";
+
+import Create from'./Create';
+import Board from'./Board';
 
 function AdminApp() {
   const [open] = useState(true);
@@ -17,11 +18,13 @@ function AdminApp() {
       title: "Project Board",
       icon: <IoMdClipboard></IoMdClipboard>,
       url: "/",
+      to: "/"
     },
     {
       title: "Create",
       icon: <MdOutlineCreateNewFolder></MdOutlineCreateNewFolder>,
       url: "/Create",
+      to: "/Create"
     },
     { title: "User", icon: <AiOutlineUser></AiOutlineUser> },
     { title: "Appointment", icon: <MdMoreTime></MdMoreTime> },
@@ -46,7 +49,7 @@ function AdminApp() {
           <h1
             className={`text-white origin-left font-medium  text-[1.5rem] duration-300 truncate ${!open && "scale-0"
               }`}
-          >menu
+          >
             ProjectManagement
           </h1>
         </div>
@@ -54,12 +57,14 @@ function AdminApp() {
           {Menu.map((menu, index) => (
             <>
               <li key={index} className={`flex text-white text-sm item-center gap-x-4 cursor-pointer p-4 mr-14 hover:text-black hover:bg-slate-200 rounded-[25px] last:bg-slate-200 last:text-black ${menu.spacing ? "mt-[500px]" : "mt-2"} `}>
+                {/* <Link to={menu.to}> */}
                 <span className="text-xl block float-left ">
                   {menu.icon}
                 </span>
                 <span className={`text-base font-medium flex-1 ${!open && "hidden"}`}>
                   {menu.title}
                 </span>
+                {/* </Link> */}
               </li>
               
             </>
@@ -70,14 +75,14 @@ function AdminApp() {
       {/* Page */}
 
       <div className="absolute p-0 left-[335px] h-screen w-full border rounded-l-extent bg-white">
-        <div className="flex w-full h-[60px] justify-between items-center px-[10px]">
+        <div className="flex w-full h-[60px]  items-center px-[10px]">
           <div>{/* Search Bar */}</div>
           <div className="text-[12px]"><span>Monthat Muensaeng</span></div>
         </div>
         <Router>
           <Routes>
    
-              <Route path="/" element={<Broad />} exact></Route>
+              <Route path="/" element={<Board/>} exact></Route>
               <Route path="/Create" element={<Create />}></Route>
          
           </Routes>
