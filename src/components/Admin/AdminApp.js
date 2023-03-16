@@ -50,7 +50,7 @@ function AdminApp() {
             className={`text-white origin-left font-medium  text-[1.5rem] duration-300 truncate ${!open && "scale-0"
               }`}
           >
-            ProjectManagement
+            Project Management
           </h1>
         </div>
         <ul className="pt-2">
