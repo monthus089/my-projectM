@@ -2,15 +2,15 @@ import React, { useState } from "react";
 import { AiOutlineUser } from "react-icons/ai";
 import { IoMdClipboard } from "react-icons/io";
 import { MdOutlineCreateNewFolder, MdMoreTime } from "react-icons/md";
-import { BiLogOut, BiSearch } from "react-icons/bi";
+import { BiLogOut} from "react-icons/bi";
 
 import logo from "./img/36-icon.png";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Link } from "react-router-dom";
 
-import Create from "./Create";
 import Board from "./Board";
 import Search from "./Search";
+import Details from "./Details";
 
 function AdminApp() {
   const [open] = useState(true);
@@ -55,15 +55,15 @@ function AdminApp() {
           </h1>
         </div>
         <ul className="pt-2">
-          {Menu.map((menu, index) => (
-            <>
+          {Menu.map((menu, index) => {
+            return (
               <li
                 key={index}
                 className={`flex text-white text-sm item-center gap-x-4 cursor-pointer p-4 mr-14 hover:text-black hover:bg-slate-200 rounded-[25px] last:bg-slate-200 last:text-black ${
                   menu.spacing ? "mt-[500px]" : "mt-2"
                 } `}
               >
-                {/* <Link to={menu.to}> */}
+                {/* <Link to={menu.to}/>  */}
                 <span className="text-xl block float-left ">{menu.icon}</span>
                 <span
                   className={`text-base font-medium flex-1 ${
@@ -72,10 +72,10 @@ function AdminApp() {
                 >
                   {menu.title}
                 </span>
-                {/* </Link> */}
+                
               </li>
-            </>
-          ))}
+            );
+          })}
         </ul>
       </div>
 
@@ -83,36 +83,20 @@ function AdminApp() {
 
       <div className="absolute p-0 left-[335px] h-screen w-full border rounded-l-extent bg-white">
         <div className="flex w-full h-[60px]  items-center px-[10px] ">
-          <Search/>
-          <div className="text-[14px] ml-[350px]"> 
+          <Search />
+          <div className="text-[14px] ml-[350px]">
             <span className="">Monthat Muensaeng</span>
           </div>
         </div>
         <Router>
           <Routes>
             <Route path="/" element={<Board />} exact></Route>
-            <Route path="/Create" element={<Create />}></Route>
+            <Route path="/Details" element={<Details />} ></Route>
           </Routes>
         </Router>
       </div>
     </div>
   );
 }
-
-// const Broad = (props) => {
-//   return (
-//     <>
-//       <h2 className="">Broad</h2>
-//     </>
-//   );
-// };
-
-// const Create = (props) => {
-//   return (
-//     <>
-//       <h2>Create</h2>
-//     </>
-//   );
-// };
 
 export default AdminApp;

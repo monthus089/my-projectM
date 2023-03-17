@@ -1,10 +1,12 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 // import React, { useState } from "react";
-import { MdNavigateNext } from "react-icons/md";
 
 const Broad = (props) => {
   return (
     <>
+      <div className="ml-[50px] text-[20px]">
+        <h5>Project Broad</h5>
+      </div>
       <div className="relative w-[70%] h-[83%] overflow-y-auto shadow-md sm:rounded-[20px] left-[80px] mt-12 scrollbar-hide ">
         <table className="w-full text-sm text-center text-gray-500 dark:text-gray-400 ">
           <thead className="text-sm font-bold text-black uppercase bg-gray-50 dark:bg-gray-100 ">
@@ -21,10 +23,12 @@ const Broad = (props) => {
               <th scope="col" className="px-6 py-3">
                 People
               </th>
-              <th scope="col" className="px-6 py-3">Action</th>
+              <th scope="col" className="px-6 py-3">
+                Action
+              </th>
             </tr>
           </thead>
-          <tbody className="overflow-y-auto" >
+          <tbody className="overflow-y-auto">
             <tr className="bg-white border-b ">
               <th scope="row" className="px-6 py-4 ">
                 1
@@ -217,7 +221,6 @@ const Broad = (props) => {
                 </button>
               </td>
             </tr>
-
           </tbody>
         </table>
       </div>

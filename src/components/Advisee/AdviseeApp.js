@@ -53,14 +53,4 @@ function AdminApp() {
         </div>
     );
 }
-
-
-const Broad = (props)=>{
-    return(
-        <>
-
-        </>
-    )
-}
-
 export default AdminApp;

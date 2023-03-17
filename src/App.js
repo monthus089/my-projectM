@@ -1,4 +1,4 @@
-import AdminApp from './components/Admin/AdminApp';
+import AdminApp from './components/Admin/AdminNavbar';
 import Login from "./components/Login.js";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 function App() {
