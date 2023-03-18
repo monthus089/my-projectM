@@ -11,6 +11,7 @@ import { Link } from "react-router-dom";
 import Board from "./Board";
 import Search from "./Search";
 import Details from "./Details";
+import RoleBoard from "./RoleBoard";
 
 function AdminApp() {
   const [open] = useState(true);
@@ -92,6 +93,7 @@ function AdminApp() {
           <Routes>
             <Route path="/" element={<Board />} exact></Route>
             <Route path="/Details" element={<Details />} ></Route>
+            <Route path="/Role" element={<RoleBoard/>} ></Route>
           </Routes>
         </Router>
       </div>
