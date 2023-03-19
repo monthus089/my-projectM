@@ -38,18 +38,19 @@ const Broad = (props) => {
               <td className="px-6 py-4">
                 <select
                   id="role"
-                  class="bg-gray-50 border border-gray-300 text-gray-300 text-sm rounded-[18px] block w-full py-2.5 px-2 dark:bg-white focus:outline-none dark:text-gray-400 "
+                  className="bg-gray-50 border border-gray-300 text-gray-300 text-sm rounded-[18px] block w-full py-2.5 px-2 dark:bg-white focus:outline-none dark:text-gray-400 "
+                  defaultValue={'Admin'}
                 >
-                  <option selected>Admin</option>
-                  <option value="">Advisor</option>
-                  <option value="">Advisee</option>
-                  <option value="">Student</option>
+                  <option value='Admin'>Admin</option>
+                  <option value='Advisor'>Advisor</option>
+                  <option value='Advisee'>Advisee</option>
+                  <option value='Student'>Student</option>
                 </select>
               </td>
               <td className="px-6 py-4">
                 <button
                   type="button"
-                  class="text-white bg-gradient-to-r from-teal-400 via-teal-500 to-teal-600 hover:bg-gradient-to-br font-medium rounded-[18px] text-sm px-5 py-2.5 text-center mr-2 mb-2 focus:outline-none"
+                  className="text-white bg-gradient-to-r from-teal-400 via-teal-500 to-teal-600 hover:bg-gradient-to-br font-medium rounded-[18px] text-sm px-5 py-2.5 text-center mr-2 mb-2 focus:outline-none"
                 >
                   Change
                 </button>

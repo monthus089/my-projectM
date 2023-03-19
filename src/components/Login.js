@@ -26,7 +26,7 @@ async function loginUser(userData) {
   }).then((data) => data.json());
 }
 
-function App() {
+const App = () => {
   const [currentForm, setCurrentForm] = useState("login");
 
   const toggleForm = (formName) => {
@@ -50,7 +50,7 @@ function App() {
       </div>
     </>
   );
-}
+};
 
 const Login = (props) => {
   const [email, setEmail] = useState("");

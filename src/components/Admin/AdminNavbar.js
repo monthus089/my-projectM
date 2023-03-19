@@ -2,11 +2,10 @@ import React, { useState } from "react";
 import { AiOutlineUser } from "react-icons/ai";
 import { IoMdClipboard } from "react-icons/io";
 import { MdOutlineCreateNewFolder, MdMoreTime } from "react-icons/md";
-import { BiLogOut} from "react-icons/bi";
+import { BiLogOut } from "react-icons/bi";
 
 import logo from "./img/36-icon.png";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { Link } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Link, Outlet } from "react-router-dom";
 
 import Board from "./Board";
 import Search from "./Search";
@@ -20,17 +19,15 @@ function AdminApp() {
       title: "Project Board",
       icon: <IoMdClipboard></IoMdClipboard>,
       url: "/",
-      to: "/",
     },
     {
       title: "Create",
       icon: <MdOutlineCreateNewFolder></MdOutlineCreateNewFolder>,
       url: "/Create",
-      to: "/Create",
     },
-    { title: "User", icon: <AiOutlineUser></AiOutlineUser> },
-    { title: "Appointment", icon: <MdMoreTime></MdMoreTime> },
-    { title: "Logout", icon: <BiLogOut></BiLogOut>, spacing: true },
+    { title: "User", icon: <AiOutlineUser></AiOutlineUser>, url: "/Role" },
+    { title: "Appointment", icon: <MdMoreTime></MdMoreTime>, url: "" },
+    { title: "Logout", icon: <BiLogOut></BiLogOut>, url: "", spacing: true },
   ];
 
   return (
@@ -40,7 +37,7 @@ function AdminApp() {
           open ? "w-96" : "w-20"
         }`}
       >
-        {/* <BsArrowLeftShort className={`absolute bg-white text-black text-3xl top-1/2 bottom-1/2  border border-white rounded-[9999px] cursor-pointer -right-[-50px] ${!open && "rotate-180"} `} onClick={() => setOpen(!open) && ""}></BsArrowLeftShort> */}
+        {/* <BsArrowLeftShort className={`absolute bg-white text-black text-3xl urlp-1/2 boturlm-1/2  border border-white rounded-[9999px] cursor-pointer -right-[-50px] ${!open && "rotate-180"} `} onClick={() => seurlpen(!open) && ""}></BsArrowLeftShort> */}
         <div className="inline-flex pb-5">
           <img
             src={logo}
@@ -64,7 +61,7 @@ function AdminApp() {
                   menu.spacing ? "mt-[500px]" : "mt-2"
                 } `}
               >
-                {/* <Link to={menu.to}/>  */}
+                {/* <Link to={menu.url}> */}
                 <span className="text-xl block float-left ">{menu.icon}</span>
                 <span
                   className={`text-base font-medium flex-1 ${
@@ -73,7 +70,7 @@ function AdminApp() {
                 >
                   {menu.title}
                 </span>
-                
+                {/* </Link> */}
               </li>
             );
           })}
@@ -86,16 +83,10 @@ function AdminApp() {
         <div className="flex w-full h-[60px]  items-center px-[10px] ">
           <Search />
           <div className="text-[14px] ml-[350px]">
-            <span className="">Monthat Muensaeng</span>
+            <span className="">Monthat Muensaeng</span> {/*ชื่อผู้ใช้ */}
           </div>
         </div>
-        <Router>
-          <Routes>
-            <Route path="/" element={<Board />} exact></Route>
-            <Route path="/Details" element={<Details />} ></Route>
-            <Route path="/Role" element={<RoleBoard/>} ></Route>
-          </Routes>
-        </Router>
+        <Outlet/>
       </div>
     </div>
   );

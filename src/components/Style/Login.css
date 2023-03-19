@@ -205,18 +205,6 @@
 	z-index: 2;
 }
 
-a {
-	text-align: center;
-	color: rgb(0, 31, 167);
-	font-size: 0.9rem;
-	transition: .3s;
-	cursor: pointer;
-}
-
-a:hover {
-	color: #38d39f;
-}
-
 .btn {
 	display: block;
 	width: 100%;

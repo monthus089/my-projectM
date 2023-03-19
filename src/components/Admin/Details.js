@@ -23,7 +23,7 @@ const Details = (props) => {
         <h2>Project Detail</h2>
       </div>
       <div className="relative w-[70%] h-[83%] overflow-y-auto shadow-md sm:rounded-[20px] left-[80px] mt-12 scrollbar-hide ">
-        <div className="projectName">
+        <div className="mt-[30px]">
           <h4 className="ml-[40px] mt-[20px]">Project Name</h4>
           <p className="ml-[50px] mt-[10px] pr-[300px] text-[20px]">
             Line chatbot Rent Room

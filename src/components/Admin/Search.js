@@ -5,7 +5,7 @@ const Search = (props) => {
   return (
     <>
       <form className="flex ml-[500px]  w-[550px]">
-        <label for="simple-search" className="sr-only">
+        <label htmlFor="simple-search" className="sr-only">
           Search
         </label>
         <div className="relative w-full">

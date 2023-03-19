@@ -1,24 +1,27 @@
-import AdminApp from './components/Admin/AdminNavbar';
-import Login from "./components/Login.js";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import {Route, Routes } from "react-router-dom";
+import MainAdminNavbar from "./components/MainAdminNavbar";
+import Board from "./components/Admin/Board";
+import Details from "./components/Admin/Details";
+import Editing from "./components/Admin/Editing";
+import RoleBoard from "./components/Admin/RoleBoard";
+import Login from "./components/Login";
+import AdminApp from "./components/Admin/AdminNavbar";
+
 function App() {
-  const token = localStorage.getItem("accesstoken");
-  if (!token) {
-    return <Login />;
-  }
+  // const token = localStorage.getItem("accesstoken");
+  // if (!token) {
+  //   return <Login />;
+  // }
   return (
-    <>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/">
-            <AdminApp />
-          </Route>
-          <Route path="/adminapp">
-            <AdminApp />
-          </Route>
-        </Routes>
-      </BrowserRouter>
-    </>
+    <Routes>
+      <Route path="/" element={<MainAdminNavbar />}>
+        <Route path="" element={<Board />} />
+        <Route path="Board" element={<Board />} />
+        <Route path="Details" element={<Details />} />
+        <Route path="Editing" element={<Editing />} />
+        <Route path="Role" element={<RoleBoard />} />
+      </Route>
+    </Routes>
   );
 }
 
