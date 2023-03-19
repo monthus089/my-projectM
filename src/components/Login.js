@@ -36,7 +36,7 @@ function App() {
   return (
     <>
       <img src={mirror} className="wave" alt="" />
-      <div className="container">
+      <div className="mycontainer container w-screen h-screen grid grid-cols-2 gap-28 px-8">
         <div className="img">
           <img src={bg} alt="" />
         </div>
