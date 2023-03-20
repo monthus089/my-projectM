@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 const Details = (props) => {
   const [showModal, setShowModal] = useState(false);
@@ -22,7 +23,7 @@ const Details = (props) => {
       <div className="ml-[50px] text-[20px]">
         <h2>Project Detail</h2>
       </div>
-      <div className="relative w-[70%] h-[83%] overflow-y-auto shadow-md sm:rounded-[20px] left-[80px] mt-12 scrollbar-hide ">
+      <div className="relative w-[70%] h-[83%] overflow-y-auto shadow-[1px_1px_6px_-1px_rgba(0,0,0,0.1)] sm:rounded-[20px] left-[80px] mt-12 scrollbar-hide ">
         <div className="mt-[30px]">
           <h4 className="ml-[40px] mt-[20px]">Project Name</h4>
           <p className="ml-[50px] mt-[10px] pr-[300px] text-[20px]">
@@ -58,16 +59,17 @@ const Details = (props) => {
         </div>
 
         <div className="pt-20 pr-2 grid grid-cols-12 ">
-          <button
-            type="button"
-            class="col-start-11 text-white bg-yellow-400 hover:bg-yellow-500 focus:outline-none font-medium rounded-[18px] text-sm px-8 py-2.5 text-center mr-2 mb-2 dark:focus:ring-yellow-900"
-          >
-            Edit
-          </button>
+          <Link to="/Editing" className="col-start-11 text-white bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-500 hover:bg-gradient-to-br focus:outline-none  dark:focus:ring-yellow-800 font-medium rounded-[18px] text-sm px-6 py-2.5 text-center mr-2 mb-2">
+            <button
+              type="button"
+            >
+              Edit
+            </button>
+          </Link>
 
           <button
             type="button"
-            class="col-start-12 text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:outline-none  dark:focus:ring-red-800 font-medium rounded-[18px] text-sm px-6 py-2.5 text-center mr-2 mb-2"
+            className="col-start-12 text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:outline-none  dark:focus:ring-red-800 font-medium rounded-[18px] text-sm px-6 py-2.5 text-center mr-2 mb-2"
             onClick={handleDelete}
           >
             Delete
@@ -75,7 +77,12 @@ const Details = (props) => {
         </div>
       </div>
 
-      <div id="id01" className={`fixed left-0 top-[280px] w-full h-full overflow-auto pt-200  ${showModal ? "block" : "hidden"}`}>
+      <div
+        id="id01"
+        className={`fixed left-0 top-[280px] w-full h-full overflow-auto pt-200  ${
+          showModal ? "block" : "hidden"
+        }`}
+      >
         <form className="bg-white mx-auto mt-5 mb-15 border border-gray-300 shadow-lg w-[422px] h-[250px] rounded-[18px]">
           <div className="py-8 text-center">
             <h1>Delete Project</h1>

@@ -5,7 +5,6 @@ import Details from "./components/Admin/Details";
 import Editing from "./components/Admin/Editing";
 import RoleBoard from "./components/Admin/RoleBoard";
 import Login from "./components/Login";
-import AdminApp from "./components/Admin/AdminNavbar";
 
 function App() {
   // const token = localStorage.getItem("accesstoken");
