@@ -17,13 +17,8 @@ const MainLayoutAdmin = () => {
       icon: <IoMdClipboard></IoMdClipboard>,
       url: "/",
     },
-    {
-      title: "Create",
-      icon: <MdOutlineCreateNewFolder></MdOutlineCreateNewFolder>,
-      url: "/Create",
-    },
     { title: "User", icon: <AiOutlineUser></AiOutlineUser>, url: "/Role" },
-    { title: "Appointment", icon: <MdMoreTime></MdMoreTime>, url: "" },
+    { title: "Appointment", icon: <MdMoreTime></MdMoreTime>, url: "/Appoint" },
     { title: "Logout", icon: <BiLogOut></BiLogOut>, url: "", spacing: true },
   ];
   return (
