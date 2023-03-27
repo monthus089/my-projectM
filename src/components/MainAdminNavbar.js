@@ -3,7 +3,6 @@ import Search from "./Admin/Search";
 import React, { useState } from "react";
 import { AiOutlineUser } from "react-icons/ai";
 import { IoMdClipboard } from "react-icons/io";
-import { MdOutlineCreateNewFolder, MdMoreTime } from "react-icons/md";
 import { BiLogOut } from "react-icons/bi";
 import { Link } from "react-router-dom";
 
@@ -18,7 +17,6 @@ const MainLayoutAdmin = () => {
       url: "/",
     },
     { title: "User", icon: <AiOutlineUser></AiOutlineUser>, url: "/Role" },
-    { title: "Appointment", icon: <MdMoreTime></MdMoreTime>, url: "/Appoint" },
     { title: "Logout", icon: <BiLogOut></BiLogOut>, url: "", spacing: true },
   ];
   return (
@@ -49,7 +47,7 @@ const MainLayoutAdmin = () => {
                 <li
                   key={index}
                   className={`flex text-white text-sm item-center gap-x-4 cursor-pointer p-4 mr-14 hover:text-black hover:bg-slate-200 rounded-[25px] last:bg-slate-200 last:text-black ${
-                    menu.spacing ? "mt-[500px]" : "mt-2"
+                    menu.spacing ? "mt-[612px]" : "mt-2"
                   } `}
                 >
                   <Link to={menu.url} className={``}>
