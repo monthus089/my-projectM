@@ -2,7 +2,7 @@ import { Outlet } from "react-router-dom";
 import Search from "./Admin/Search";
 import React, { useState } from "react";
 import { IoMdClipboard } from "react-icons/io";
-import { MdMoreTime } from "react-icons/md";
+import { MdMoreTime,MdOutlineCreateNewFolder } from "react-icons/md";
 import { BiLogOut } from "react-icons/bi";
 import{GiProgression} from "react-icons/gi"
 import { Link } from "react-router-dom";
@@ -15,14 +15,19 @@ const MainLayoutAdvisor = () => {
     {
       title: "My Project",
       icon: <IoMdClipboard/>,
-      url: "/MyProject",
+      url: "MyProject",
+    },
+    {
+      title: "Create",
+      icon: <MdOutlineCreateNewFolder/>,
+      url: "Create",
     },
     {
         title: "Project Progress",
         icon: <GiProgression/>,
-        url: "/Progress",
+        url: "Progress",
       },
-    { title: "Appointment", icon: <MdMoreTime/>, url: "/Appoint" },
+    { title: "Appointment", icon: <MdMoreTime/>, url: "Appoint" },
     { title: "Logout", icon: <BiLogOut/>, url: "", spacing: true },
   ];
   return (

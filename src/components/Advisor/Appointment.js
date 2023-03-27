@@ -11,22 +11,22 @@ const Appointment = () => {
           <h4 className="mt-2">Title</h4>
           <input
             type="text"
-            className="block w-full pl-3 p-2.5 border-gray-100 bg-gray-100 border  text-gray-900 text-sm rounded-[18px] focus:outline-none "
+            className="block w-full pl-3 p-2.5 border-gray-100 bg-gray-200 border  text-gray-900 text-sm rounded-[18px] focus:outline-none "
           />
           <h4 className="mt-2">Date</h4>
           <input
             type="date"
-            className="block w-full pl-3 p-2.5 border-gray-100 bg-gray-100 border  text-gray-900 text-sm rounded-[18px] focus:outline-none "
+            className="block w-full pl-3 p-2.5 border-gray-100 bg-gray-200 border  text-gray-900 text-sm rounded-[18px] focus:outline-none "
           />
           <h4 className="mt-2">From</h4>
           <input
             type="time"
-            className="block w-full pl-3 p-2.5 border-gray-100 bg-gray-100 border  text-gray-900 text-sm rounded-[18px] focus:outline-none "
+            className="block w-full pl-3 p-2.5 border-gray-100 bg-gray-200 border  text-gray-900 text-sm rounded-[18px] focus:outline-none "
           />
           <h4 className="mt-2">To</h4>
           <input
             type="time"
-            className="block w-full pl-3 p-2.5 border-gray-100 bg-gray-100 border  text-gray-900 text-sm rounded-[18px] focus:outline-none "
+            className="block w-full pl-3 p-2.5 border-gray-100 bg-gray-200 border  text-gray-900 text-sm rounded-[18px] focus:outline-none "
           />
 
           <button
