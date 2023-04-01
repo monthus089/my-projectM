@@ -7,7 +7,6 @@ import Details from "./components/Admin/Details";
 import Editing from "./components/Admin/Editing";
 import RoleBoard from "./components/Admin/RoleBoard";
 
-
 import MainAdvisorNavbar from "./components/MainAdvisorNavbar";
 import MyProject from "./components/Advisor&Advisee/MyProject";
 import MyDetails from "./components/Advisor&Advisee/MyDetails";
@@ -15,7 +14,6 @@ import MyEditing from "./components/Advisor&Advisee/MyEditing";
 import Create from "./components/Advisor&Advisee/Create";
 import Progress from "./components/Advisor&Advisee/Progress";
 import Appointment from "./components/Advisor&Advisee/Appointment";
-
 
 import MainAdviseeNavbar from "./components/MainAdviseeNavbar";
 function App() {
@@ -34,9 +32,9 @@ function App() {
       </Route>
       <Route path="/Advisor" element={<MainAdvisorNavbar />}>
         <Route path="" element={<MyProject />} />
-        <Route path="MyProject" element={<MyProject />} />
-        <Route path="MyDetails" element={<MyDetails />} />
-        <Route path="MyEditing" element={<MyEditing />} />
+        <Route path="MyProject" element={<MyProject />}/>
+          <Route path="MyDetails" element={<MyDetails />} />
+          <Route path="MyEditing" element={<MyEditing />} />
         <Route path="Create" element={<Create />} />
         <Route path="Progress" element={<Progress />} />
         <Route path="Appoint" element={<Appointment />} />

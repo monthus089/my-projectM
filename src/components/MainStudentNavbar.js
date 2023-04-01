@@ -1,8 +1,8 @@
 import { Outlet } from "react-router-dom";
 import Search from "./Admin/Search";
-import React, { useState} from "react";
+import React, { useState } from "react";
 import { IoMdClipboard } from "react-icons/io";
-import { MdOutlineCreateNewFolder } from "react-icons/md";
+import { MdMoreTime,MdOutlineCreateNewFolder } from "react-icons/md";
 import { BiLogOut } from "react-icons/bi";
 import{GiProgression} from "react-icons/gi"
 import { Link } from "react-router-dom";
@@ -27,6 +27,7 @@ const MainLayoutAdvisor = () => {
         icon: <GiProgression/>,
         url: "Progress",
       },
+    { title: "Appointment", icon: <MdMoreTime/>, url: "Appoint" },
     { title: "Logout", icon: <BiLogOut/>, url: "", spacing: true },
   ];
   return (
@@ -57,9 +58,8 @@ const MainLayoutAdvisor = () => {
                 <li
                   key={index}
                   className={`flex text-white text-sm item-center gap-x-4 cursor-pointer p-4 mr-14 hover:text-black hover:bg-slate-200 rounded-[25px] last:bg-slate-200 last:text-black ${
-                    menu.spacing ? "mt-[556px]" : "mt-2"
+                    menu.spacing ? "mt-[500px]" : "mt-2"
                   } `}
-                 
                 >
                   <Link to={menu.url} className={``}>
                     <span className="text-xl block float-left ">
