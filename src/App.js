@@ -16,6 +16,8 @@ import Progress from "./components/Advisor&Advisee/Progress";
 import Appointment from "./components/Advisor&Advisee/Appointment";
 
 import MainAdviseeNavbar from "./components/MainAdviseeNavbar";
+
+import MainStudentNavbar  from "./components/MainStudentNavbar";
 function App() {
   // const token = localStorage.getItem("accesstoken");
   // if (!token) {
@@ -47,6 +49,10 @@ function App() {
         <Route path="Create" element={<Create />} />
         <Route path="Progress" element={<Progress />} />
         <Route path="Appoint" element={<Appointment />} />
+      </Route>
+      <Route path="/Student" element={<MainStudentNavbar />}>
+        <Route path="" element={<MyProject />} />
+        <Route path="MyProject" element={<MyProject />} />
       </Route>
     </Routes>
   );
