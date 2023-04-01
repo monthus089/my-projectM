@@ -1,12 +1,9 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
-// import React, { useState } from "react";
+import React from "react";
+import { useNavigate} from "react-router-dom";
 
-import { useNavigate } from "react-router-dom";
-
-const Broad = (props) => {
+const JoinBroad = (props) => {
   let navigate = useNavigate()
   return (
-    
     <>
       <div className="ml-[50px] text-[20px]">
         <h5>Project Broad</h5>
@@ -41,15 +38,13 @@ const Broad = (props) => {
               <td className="px-6 py-4">B K</td>
               <td className="px-6 py-4">3</td>
               <td className="px-6 py-4">
-                
                 <button
                   type="button"
                   className="text-white bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 hover:bg-gradient-to-br   shadow-purple-500/50  dark:shadow-purple-800/80 font-medium rounded-[25px] text-sm px-12 py-2.5 text-center mr-2 mb-2"
-                  onClick={() =>{navigate("/Advisor/MyDetails")}}
+                  onClick={()=>navigate("/Student/JoinDetails")}
                 >
                   Detail
                 </button>
-                
               </td>
             </tr>
           </tbody>
@@ -59,4 +54,4 @@ const Broad = (props) => {
   );
 };
 
-export default Broad;
+export default JoinBroad;

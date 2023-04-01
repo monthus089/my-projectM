@@ -91,12 +91,5 @@ const Appointment = () => {
   );
 };
 
-// const BookingBoard = (props) => {
-//   return (
-//     <>
-
-//     </>
-//   );
-// };
 
 export default Appointment;

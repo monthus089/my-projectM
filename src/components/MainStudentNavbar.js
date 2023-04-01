@@ -4,9 +4,8 @@ import React, { useState } from "react";
 import { IoMdClipboard } from "react-icons/io";
 import { MdMoreTime } from "react-icons/md";
 import { BiLogOut } from "react-icons/bi";
-import {BsClipboard2Check} from "react-icons/bs";
-import{GiProgression} from "react-icons/gi"
-import { Link } from "react-router-dom";
+import { GiProgression } from "react-icons/gi";
+import { NavLink} from "react-router-dom";
 
 import logo from "../img/36-icon.png";
 
@@ -15,21 +14,16 @@ const MainLayoutStudent = () => {
   const Menu = [
     {
       title: "Project Board",
-      icon: <IoMdClipboard/>,
-      url: "Board",
+      icon: <IoMdClipboard />,
+      url: "JoinBoard",
     },
     {
-      title: "My Project",
-      icon: <BsClipboard2Check/>,
-      url: "MyProject",
+      title: "Project Progress",
+      icon: <GiProgression />,
+      url: "JoinProgress",
     },
-    {
-        title: "Project Progress",
-        icon: <GiProgression/>,
-        url: "Progress",
-      },
-    { title: "Appointment", icon: <MdMoreTime/>, url: "Appoint" },
-    { title: "Logout", icon: <BiLogOut/>, url: "", spacing: true },
+    { title: "Appointment", icon: <MdMoreTime />, url: "JoinApppointment" },
+    { title: "Logout", icon: <BiLogOut />, url: "", spacing: true },
   ];
   return (
     <>
@@ -62,7 +56,7 @@ const MainLayoutStudent = () => {
                     menu.spacing ? "mt-[500px]" : "mt-2"
                   } `}
                 >
-                  <Link to={menu.url} className={``}>
+                  <NavLink to={menu.url} className={``}>
                     <span className="text-xl block float-left ">
                       {menu.icon}
                     </span>
@@ -73,7 +67,7 @@ const MainLayoutStudent = () => {
                     >
                       {menu.title}
                     </span>
-                  </Link>
+                  </NavLink>
                 </li>
               );
             })}

@@ -5,7 +5,7 @@ import { IoMdClipboard } from "react-icons/io";
 import { MdMoreTime,MdOutlineCreateNewFolder } from "react-icons/md";
 import { BiLogOut } from "react-icons/bi";
 import{GiProgression} from "react-icons/gi"
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 import logo from "../img/36-icon.png";
 
@@ -61,7 +61,7 @@ const MainLayoutAdvisor = () => {
                     menu.spacing ? "mt-[500px]" : "mt-2"
                   } `}
                 >
-                  <Link to={menu.url} className={``}>
+                  <NavLink to={menu.url} className={``}>
                     <span className="text-xl block float-left ">
                       {menu.icon}
                     </span>
@@ -72,7 +72,7 @@ const MainLayoutAdvisor = () => {
                     >
                       {menu.title}
                     </span>
-                  </Link>
+                  </NavLink>
                 </li>
               );
             })}

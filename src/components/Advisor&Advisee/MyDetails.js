@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Details = (props) => {
   const [showModal, setShowModal] = useState(false);
-
+  let navigate = useNavigate()
   const handleDelete = () => {
     setShowModal(true);
   };
@@ -59,13 +59,13 @@ const Details = (props) => {
         </div>
 
         <div className="pt-20 pr-2 grid grid-cols-12 ">
-          <Link to="/Advisor/MyEditing" className="col-start-11 text-white bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-500 hover:bg-gradient-to-br focus:outline-none  dark:focus:ring-yellow-800 font-medium rounded-[18px] text-sm px-6 py-2.5 text-center mr-2 mb-2">
-            <button
-              type="button"
-            >
-              Edit
-            </button>
-          </Link>
+          <button
+            type="button"
+            className="col-start-11 text-white bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-500 hover:bg-gradient-to-br focus:outline-none  dark:focus:ring-yellow-800 font-medium rounded-[18px] text-sm px-6 py-2.5 text-center mr-2 mb-2"
+            onClick={() => navigate("/Advisor/MyEditing")}
+          >
+            Edit
+          </button>
 
           <button
             type="button"

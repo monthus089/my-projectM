@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { AiOutlineUser } from "react-icons/ai";
 import { IoMdClipboard } from "react-icons/io";
 import { BiLogOut } from "react-icons/bi";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 import logo from "../img/36-icon.png";
 
@@ -14,9 +14,9 @@ const MainLayoutAdmin = () => {
     {
       title: "Project Board",
       icon: <IoMdClipboard></IoMdClipboard>,
-      url: "/",
+      url: "Board",
     },
-    { title: "User", icon: <AiOutlineUser></AiOutlineUser>, url: "/Role" },
+    { title: "User", icon: <AiOutlineUser></AiOutlineUser>, url: "Role" },
     { title: "Logout", icon: <BiLogOut></BiLogOut>, url: "", spacing: true },
   ];
   return (
@@ -50,7 +50,7 @@ const MainLayoutAdmin = () => {
                     menu.spacing ? "mt-[612px]" : "mt-2"
                   } `}
                 >
-                  <Link to={menu.url} className={``}>
+                  <NavLink to={menu.url} className={``}>
                     <span className="text-xl block float-left ">
                       {menu.icon}
                     </span>
@@ -61,7 +61,7 @@ const MainLayoutAdmin = () => {
                     >
                       {menu.title}
                     </span>
-                  </Link>
+                  </NavLink>
                 </li>
               );
             })}
