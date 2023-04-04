@@ -19,6 +19,7 @@ import MainStudentNavbar from "./components/MainStudentNavbar";
 import JoinBoard from "./components/Student/JoinBoard";
 import JoinDetails from "./components/Student/JoinDetails";
 import JoinProgress from "./components/Student/JoinProgress";
+import CreateProgress from "./components/Student/CreateProgress";
 import JoinApppointment from "./components/Student/JoinApppointment";
 function App() {
   // const token = localStorage.getItem("accesstoken");
@@ -48,6 +49,7 @@ function App() {
         <Route path="JoinBoard" element={<JoinBoard />} />
         <Route path="JoinDetails" element={<JoinDetails />} />
         <Route path="JoinProgress" element={<JoinProgress />} />
+        <Route path="CreateProgress" element={<CreateProgress/>}/>
         <Route path="JoinApppointment" element={<JoinApppointment />} />
       </Route>
     </Routes>
