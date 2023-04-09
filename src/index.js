@@ -4,12 +4,14 @@ import './components/Style/index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter as Router } from 'react-router-dom';
-
+import { AuthProvider } from './components/Auth/AuthProvider';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  < Router>
-    <App/>
+  <AuthProvider>
+< Router>
+      <App/>
   </ Router>
+  </AuthProvider>
 );
 
 reportWebVitals();

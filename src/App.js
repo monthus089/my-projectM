@@ -22,12 +22,12 @@ import JoinProgress from "./components/Student/JoinProgress";
 import CreateProgress from "./components/Student/CreateProgress";
 import JoinApppointment from "./components/Student/JoinApppointment";
 function App() {
-  // const token = localStorage.getItem("accesstoken");
-  // if (!token) {
-  //   return <Login />;
-  // }
+  const token = localStorage.getItem("accesstoken");
+  if (!token) {
+    return <Login />;
+  }
   return (
-    <Routes>
+      <Routes>
       <Route path="/Admin" element={<MainAdminNavbar />}>
         <Route path="" element={<Board />} />
         <Route path="Board" element={<Board />}></Route>
@@ -53,6 +53,7 @@ function App() {
         <Route path="JoinApppointment" element={<JoinApppointment />} />
       </Route>
     </Routes>
+    
   );
 }
 

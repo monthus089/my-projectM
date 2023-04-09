@@ -1,8 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate} from "react-router-dom";
 
 const Broad = (props) => {
-  let navigate = useNavigate()
+  let navigate = useNavigate();
+  const [projectList, setProject] = useState();
+
+//   useEffect(() => {
+//     let token = sessionStorage.getItem('accessToken');
+//     fetch("https://localhost:7120/api/Project", {
+//         headers: {
+//             'Authorization': 'bearer ' + token
+//         }
+//     }).then((res) => res.json()).then((resp) => setProject(resp)).catch((err) => console.log(err.message));
+// }, []);
+
   return (
     <>
       <div className="ml-[50px] text-[20px]">

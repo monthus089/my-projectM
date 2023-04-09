@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faUser,
@@ -15,16 +15,9 @@ import "./Style/Login.css";
 import app_icon from "../img/app_icon.png";
 import bg from "../img/bg.svg";
 import mirror from "../img/mirror.svg";
-
-async function loginUser(userData) {
-  return fetch("https://www.melivecode.com/api/users", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(userData),
-  }).then((data) => data.json());
-}
+import { useNavigate } from "react-router-dom";
+import AuthContext from "./Auth/AuthProvider";
+import axios from "axios";
 
 const App = () => {
   const [currentForm, setCurrentForm] = useState("login");
@@ -53,6 +46,8 @@ const App = () => {
 };
 
 const Login = (props) => {
+  const { login } = useContext(AuthContext);
+
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
   const [passwordShown, setPasswordShown] = useState(false);
@@ -63,17 +58,53 @@ const Login = (props) => {
     setIcon(!icon);
   };
 
-  const handlerSubmit = async (e) => {
+  const navigate = useNavigate();
+
+  useEffect(()=>{
+    sessionStorage.clear();
+        },[]);
+
+  const LoginFunc = async (e) => {
     e.preventDefault();
-    const response = await loginUser({
-      email,
-      pass,
-    });
-    console.log(response);
-  };
+    let payload = {
+      "memberUserEmail": email,
+      "memberUserPassword": pass
+    };
+    await login(payload);
+
+    // try {
+    //   const response = await axios.post("https://localhost:7120/api/Authenticate/Authenticate",
+    //   JSON.stringify(payload),{
+    //     headers: {"content-type" : "application/json"},
+    //     withCredentials: false
+    //   });
+    //   console.log(JSON.stringify(response?.data));
+    //   const accessToken = response?.data?.accessToken;
+    //   const role = response?.data?.role;
+    //   setAuth({ accessToken, email, role});
+    // } catch (err) {
+    //   if(!err?.response) {
+    //     console.log(err.message);
+    //   }else if(err.response?.status === 401){
+    //     console.log("Missing email or password");
+    //   }else {
+    //     console.log("error");
+    //   }
+    // }
+    // fetch("https://localhost:7120/api/Authenticate/Authenticate",{
+    //   method: "POST",
+    //   headers: {"content-type" : "application/json"},
+    //   body:JSON.stringify(input)
+    // }).then((res) => res.json()).then((resp) => {
+    //   sessionStorage.setItem("email", email);
+    //   sessionStorage.setItem("token", resp.accessToken);
+    //   navigate("/Admin")
+
+    // }).catch((err) => console.log(err.message))
+  }
   return (
     <>
-      <form className="login-form" onSubmit={handlerSubmit}>
+      <form className="login-form" onSubmit={LoginFunc}>
         <img src={app_icon} alt="" />
         <h2 className="title">Welcome</h2>
         <div className="input-div one">
@@ -109,8 +140,8 @@ const Login = (props) => {
             ></FontAwesomeIcon>
           </i>
         </div>
-        <input type="submit" class="btn" value={"Login"}></input>
-        <div class="signup_link">
+        <input type="submit" className="btn" value={"Login"}></input>
+        <div className="signup_link">
           Now Member?{" "}
           <a onClick={() => props.onFromSwitch("register")}> Registers </a>
         </div>
@@ -232,8 +263,8 @@ const Register = (props) => {
             ></FontAwesomeIcon>
           </i>
         </div>
-        <input type="submit" class="btn" value={"REGISTER"}></input>
-        <div class="signup_link">
+        <input type="submit" className="btn" value={"REGISTER"}></input>
+        <div className="signup_link">
           Already have an account?{" "}
           <a onClick={() => props.onFromSwitch("login")}>Login </a>
         </div>
