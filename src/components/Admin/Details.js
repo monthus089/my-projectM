@@ -1,5 +1,6 @@
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import jwtInterceptor from "../Auth/jwtInterceptor";
 
 const Details = (props) => {
   const [showModal, setShowModal] = useState(false);
@@ -18,6 +19,15 @@ const Details = (props) => {
     setShowModal(false);
   };
 
+  const { getProjectId } = useParams();
+  const [project, setProject] = useState({});
+
+  useEffect(() => {
+    
+    jwtInterceptor.get("https://localhost:7120/api/Project/" + getProjectId).then((response) => setProject(response?.data));
+}, []);
+
+
   return (
     <>
       <div className="ml-[50px] text-[20px]">
@@ -27,7 +37,7 @@ const Details = (props) => {
         <div className="mt-[30px]">
           <h4 className="ml-[40px] mt-[20px]">Project Name</h4>
           <p className="ml-[50px] mt-[10px] pr-[300px] text-[20px]">
-            Line chatbot Rent Room
+            {project.projectName}
           </p>
         </div>
         <div className="mt-[50px]">
@@ -37,24 +47,19 @@ const Details = (props) => {
           </p>
         </div>
         <div className="mt-[50px]">
-          <h4 className="ml-[40px] mt-[20px]">People</h4>
-          <p className="ml-[50px] mt-[10px] pr-[300px] text-[20px]">1 People</p>
+          <h4 className="ml-[40px] mt-[20px]">Year</h4>
+          <p className="ml-[50px] mt-[10px] pr-[300px] text-[20px]">{project.projectYear}</p>
         </div>
         <div className="mt-[50px]">
           <h4 className="ml-[40px] mt-[20px]">Details</h4>
           <p className="ml-[50px] mt-[10px] pr-[300px] text-[20px]">
-            A LINE account created to automate interactions with users. without
-            which we do not have to sit and answer because there is no need to
-            answer the same question many times a day But many of you who are
-            newbies are not good at it and are worried about whether to write
-            code or write programs. It's very easy to do with the Line Messaging
-            API and Dialogflow. easy to use
+            {project.projectDetail}
           </p>
         </div>
         <div className="mt-[50px]">
           <h4 className="ml-[40px] mt-[20px]">Contact</h4>
           <p className="ml-[50px] mt-[10px] pr-[300px] text-[20px]">
-            Line : carrotkorndee
+            {project.projectContact}
           </p>
         </div>
 
@@ -62,7 +67,7 @@ const Details = (props) => {
           <button
             type="button"
             className="col-start-11 text-white bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-500 hover:bg-gradient-to-br focus:outline-none  dark:focus:ring-yellow-800 font-medium rounded-[18px] text-sm px-6 py-2.5 text-center mr-2 mb-2"
-            onClick={() => navigate("/Admin/Editing")}
+            onClick={() => navigate("/Admin/Editing/" + project.projectId)}
           >
             Edit
           </button>

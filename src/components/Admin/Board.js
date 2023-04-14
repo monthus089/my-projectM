@@ -1,18 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate} from "react-router-dom";
-
+import jwtInterceptor from "../Auth/jwtInterceptor";
 const Broad = (props) => {
   let navigate = useNavigate();
-  const [projectList, setProject] = useState();
+  const [projects, setProjects] = useState([]);
+  // const [advisers, setAdvisers] = useState([]);
 
-//   useEffect(() => {
-//     let token = sessionStorage.getItem('accessToken');
-//     fetch("https://localhost:7120/api/Project", {
-//         headers: {
-//             'Authorization': 'bearer ' + token
-//         }
-//     }).then((res) => res.json()).then((resp) => setProject(resp)).catch((err) => console.log(err.message));
-// }, []);
+  useEffect(() => {
+    
+    jwtInterceptor.get("https://localhost:7120/api/Project").then((response) => setProjects(response?.data));
+  }, []);
+    console.log(projects);
 
   return (
     <>
@@ -33,33 +31,37 @@ const Broad = (props) => {
                 Consultant
               </th>
               <th scope="col" className="px-6 py-3">
-                People
+                Year
               </th>
               <th scope="col" className="px-6 py-3">
                 Action
               </th>
             </tr>
           </thead>
-          <tbody className="overflow-y-auto">
-            <tr className="bg-white border-b ">
+          <tbody className="overflow-y-auto">{
+            projects.map((project, i) => (
+              <tr className="bg-white border-b " key={project.projectId}>
               <th scope="row" className="px-6 py-4 ">
-                1
+                { i + 1 }
               </th>
-              <td className="px-6 py-4">Project Management</td>
-              <td className="px-6 py-4">B K</td>
-              <td className="px-6 py-4">3</td>
+              <td className="px-6 py-4">{project.projectName}</td> 
+              <td className="px-6 py-4">{}</td>
+              <td className="px-6 py-4">{project.projectYear}</td>
               <td className="px-6 py-4">
-                {/* <Link to="Details"> */}
+                {}
                 <button
                   type="button"
                   className="text-white bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 hover:bg-gradient-to-br   shadow-purple-500/50  dark:shadow-purple-800/80 font-medium rounded-[25px] text-sm px-12 py-2.5 text-center mr-2 mb-2"
-                  onClick={()=>navigate("/Admin/Details")}
+                  onClick={()=>navigate("/Admin/Details/" + project.projectId)}
                 >
                   Detail
                 </button>
                 {/* </Link> */}
               </td>
             </tr>
+            ))
+            
+            }
           </tbody>
         </table>
       </div>

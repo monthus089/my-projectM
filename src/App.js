@@ -22,17 +22,18 @@ import JoinProgress from "./components/Student/JoinProgress";
 import CreateProgress from "./components/Student/CreateProgress";
 import JoinApppointment from "./components/Student/JoinApppointment";
 function App() {
-  const token = localStorage.getItem("accesstoken");
-  if (!token) {
-    return <Login />;
-  }
+  // const token = localStorage.getItem("accesstoken");
+  // if (!token) {
+  //   return <Login />;
+  // }
   return (
       <Routes>
+        <Route path="/" element={<Login/>}></Route>
       <Route path="/Admin" element={<MainAdminNavbar />}>
         <Route path="" element={<Board />} />
         <Route path="Board" element={<Board />}></Route>
-        <Route path="Details" element={<Details />} />
-        <Route path="Editing" element={<Editing />} />
+        <Route path="Details/:getProjectId" element={<Details />} />
+        <Route path="Editing/:getProjectId" element={<Editing />} />
         <Route path="Role" element={<RoleBoard />} />
       </Route>
       <Route path="/Advisor" element={<MainAdvisorNavbar />}>

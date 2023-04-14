@@ -1,14 +1,16 @@
 import { Outlet } from "react-router-dom";
 import Search from "./Admin/Search";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { AiOutlineUser } from "react-icons/ai";
 import { IoMdClipboard } from "react-icons/io";
 import { BiLogOut } from "react-icons/bi";
 import { NavLink } from "react-router-dom";
 
 import logo from "../img/36-icon.png";
+import AuthContext from "./Auth/AuthProvider";
 
 const MainLayoutAdmin = () => {
+  const { user } = useContext(AuthContext);
   const [open] = useState(true);
   const Menu = [
     {
@@ -71,7 +73,7 @@ const MainLayoutAdmin = () => {
           <div className="flex w-full h-[60px]  items-center px-[10px] ">
             <Search />
             <div className="text-[14px] ml-[350px]">
-              <span className="">Monthat Muensaeng</span> {/*ชื่อผู้ใช้ */}
+              <span className="">{user.email} {user.given_name}</span> 
             </div>
           </div>
           <Outlet />

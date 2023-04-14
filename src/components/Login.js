@@ -47,6 +47,7 @@ const App = () => {
 
 const Login = (props) => {
   const { login } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
 
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
@@ -60,9 +61,9 @@ const Login = (props) => {
 
   const navigate = useNavigate();
 
-  useEffect(()=>{
-    sessionStorage.clear();
-        },[]);
+  // useEffect(()=>{
+  //   sessionStorage.clear();
+  //       },[]);
 
   const LoginFunc = async (e) => {
     e.preventDefault();
@@ -71,36 +72,19 @@ const Login = (props) => {
       "memberUserPassword": pass
     };
     await login(payload);
-
-    // try {
-    //   const response = await axios.post("https://localhost:7120/api/Authenticate/Authenticate",
-    //   JSON.stringify(payload),{
-    //     headers: {"content-type" : "application/json"},
-    //     withCredentials: false
-    //   });
-    //   console.log(JSON.stringify(response?.data));
-    //   const accessToken = response?.data?.accessToken;
-    //   const role = response?.data?.role;
-    //   setAuth({ accessToken, email, role});
-    // } catch (err) {
-    //   if(!err?.response) {
-    //     console.log(err.message);
-    //   }else if(err.response?.status === 401){
-    //     console.log("Missing email or password");
-    //   }else {
-    //     console.log("error");
-    //   }
-    // }
-    // fetch("https://localhost:7120/api/Authenticate/Authenticate",{
-    //   method: "POST",
-    //   headers: {"content-type" : "application/json"},
-    //   body:JSON.stringify(input)
-    // }).then((res) => res.json()).then((resp) => {
-    //   sessionStorage.setItem("email", email);
-    //   sessionStorage.setItem("token", resp.accessToken);
-    //   navigate("/Admin")
-
-    // }).catch((err) => console.log(err.message))
+    if(user.role === "PM00"){
+      navigate("/Admin");
+    }else if (user.role === "PM01"){
+      navigate("/Advisor");
+    }else if (user.role === "PM02"){
+      navigate("/Advisor");
+    }else if (user.role === "PM03"){
+      // navigate("/Student");
+      navigate("/Advisor");
+    }else {
+      navigate("");
+    }
+    
   }
   return (
     <>
@@ -117,6 +101,7 @@ const Login = (props) => {
               placeholder="Email"
               className="input"
               onChange={(e) => setEmail(e.target.value)}
+              required
             />
           </div>
         </div>
@@ -130,6 +115,7 @@ const Login = (props) => {
               placeholder="Password"
               className="input"
               onChange={(e) => setPass(e.target.value)}
+              required
             />
           </div>
           <i className="i ihover">
@@ -153,6 +139,8 @@ const Login = (props) => {
 const Register = (props) => {
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
+  const [confirmPass, setConfirmPass] = useState("");
+  const [phone, setPhone] = useState("");
   const [fname, setFirstName] = useState("");
   const [lname, setLastName] = useState("");
   const [passwordShown, setPasswordShown] = useState(false);
@@ -168,10 +156,46 @@ const Register = (props) => {
     setConfirmPasswordShown(!confirmPasswordShown);
     setConfirmIcon(!confirmicon);
   };
+  //validate
+  const userRegex = /^\d+\d{11}@dpu.ac.th$/;
+  const passRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
+  const navigate = useNavigate();
+  // useEffect(() => {
+  //   const result = userRegex.test(email);
+  //   console.log(result);
+  //   console.log(email);
+  // }, [email]);
 
-  const handlerSubmit = (e) => {
+  // useEffect(() => {
+  //   const result = passRegex.test(pass);
+  //   console.log(result);
+  //   console.log(pass);
+  //   const match = pass === confirmPass;
+  // })
+  const handlerSubmit = async (e) => {
     e.preventDefault();
-    console.log(email, pass, fname, lname);
+    let payload = {
+      "memberUserEmail": email,
+      "memberUserPassword": pass,
+      "phoneNumber": phone,
+      "fristname": fname,
+      "lastname": lname
+    };
+    // console.log(email, pass, fname, lname, phone);
+    // if(!userRegex || !passRegex){
+    //   console.log("error")
+    //   return;
+    // }else if(pass === confirmPass){
+    //   console.log("error")
+    //   return;
+    // }
+    try {
+      const response = await axios.post("https://localhost:7120/api/MemberUser", payload);
+      console.log(response.data);
+      navigate("/login");
+    } catch (error) {
+      
+    }
   };
   return (
     <>
@@ -188,6 +212,8 @@ const Register = (props) => {
               placeholder="Email"
               className="input"
               value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
             />
           </div>
         </div>
@@ -201,6 +227,8 @@ const Register = (props) => {
               placeholder="First Name"
               className="input"
               value={fname}
+              onChange={(e) => setFirstName(e.target.value)}
+              required
             />
           </div>
           <div className="ldiv">
@@ -209,6 +237,8 @@ const Register = (props) => {
               placeholder="Last Name"
               className="input"
               value={lname}
+              onChange={(e) => setLastName(e.target.value)}
+              required
             />
           </div>
         </div>
@@ -221,7 +251,9 @@ const Register = (props) => {
               type="phone"
               placeholder="Phone"
               className="input"
-              value={pass}
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+              required
             />
           </div>
         </div>
@@ -234,6 +266,9 @@ const Register = (props) => {
               type={passwordShown ? "text" : "password"}
               placeholder="Password"
               className="input"
+              value={pass}
+              onChange={(e) => setPass(e.target.value)}
+              required
             />
           </div>
           <i className="i ihover">
@@ -253,6 +288,9 @@ const Register = (props) => {
               type={confirmPasswordShown ? "text" : "password"}
               placeholder="Confirm Password"
               className="input"
+              value={confirmPass}
+              onChange={(e) => setConfirmPass(e.target.value)}
+              required
             />
           </div>
           <i className="i ihover">

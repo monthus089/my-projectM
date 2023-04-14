@@ -1,11 +1,18 @@
 import { createContext, useState } from "react";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
-import { useNavigate } from "react-router-dom";
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-    const [user, setUser] = useState();
+
+    const [user, setUser] = useState(() => {
+        if(localStorage.getItem("tokens")) {
+            let tokenData = JSON.parse(localStorage.getItem("tokens"));
+            let token = (jwt_decode(tokenData.accessToken));
+            return token;
+        }
+        return null;
+    });
     const login = async (payload) => {
         const response = await axios.post("https://localhost:7120/api/Authenticate/Authenticate",
         payload);
@@ -13,18 +20,8 @@ export const AuthProvider = ({ children }) => {
         let token = (jwt_decode(response.data.accessToken));
         console.log(token);
         setUser(token);
+        localStorage.setItem("tokens", JSON.stringify(response?.data));
 
-        // if(user.role === "PM00"){
-        //     navigate("/Admin");
-        // }else if(user.role === "PM01"){
-        //     navigate("/Advisor");
-        // }else if(user.role === "PM02"){
-        //     navigate("/Advisor");
-        // }else if(user.role === "PM03"){
-        //     navigate("/Student");
-        // }else {
-        //     console.log("Missing your role");
-        // }
     }
 
     return <AuthContext.Provider value={{login, user}}>
