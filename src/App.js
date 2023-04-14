@@ -50,11 +50,11 @@ function App() {
         <Route path="JoinBoard" element={<JoinBoard />} />
         <Route path="JoinDetails" element={<JoinDetails />} />
         <Route path="JoinProgress" element={<JoinProgress />} />
-        <Route path="CreateProgress" element={<CreateProgress/>}/>
+        <Route path="CreateProgress" element={<CreateProgress />} />
         <Route path="JoinApppointment" element={<JoinApppointment />} />
       </Route>
     </Routes>
-    
+
   );
 }
 
