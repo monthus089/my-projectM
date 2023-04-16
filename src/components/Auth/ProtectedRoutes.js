@@ -1,5 +1,6 @@
 import { useContext } from "react"
 import AuthContext from "./AuthProvider"
+import { Navigate } from "react-router-dom";
 
 const ProtectedRoutes = ({ children, accessBy }) => {
     const { user } = useContext(AuthContext);
@@ -13,6 +14,7 @@ const ProtectedRoutes = ({ children, accessBy }) => {
             return children;
         }
     }
+    return <Navigate to="/"></Navigate>
 }
 
 export default ProtectedRoutes

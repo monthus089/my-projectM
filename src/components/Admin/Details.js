@@ -3,6 +3,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import jwtInterceptor from "../Auth/jwtInterceptor";
 
 const Details = (props) => {
+  const { getProjectId } = useParams();
   const [showModal, setShowModal] = useState(false);
   let navigate = useNavigate();
   const handleDelete = () => {
@@ -14,18 +15,25 @@ const Details = (props) => {
   };
 
   const handleDeleteConfirm = () => {
-    // ลบ Project จากฐานข้อมูล API
+    
+    // try {
+    //   jwtInterceptor.delete(`https://localhost:7120/api/Project/${project.projectId}`);
+    // } catch (error) {
+    //   console.log(error);
+    // }
+    // navigate("/Admin/Board");
+
     console.log("Delete Project");
     setShowModal(false);
   };
 
-  const { getProjectId } = useParams();
   const [project, setProject] = useState({});
 
   useEffect(() => {
     
     jwtInterceptor.get("https://localhost:7120/api/Project/" + getProjectId).then((response) => setProject(response?.data));
 }, []);
+  console.log(project)
 
 
   return (
@@ -42,9 +50,11 @@ const Details = (props) => {
         </div>
         <div className="mt-[50px]">
           <h4 className="ml-[40px] mt-[20px]">Consultant</h4>
-          <p className="ml-[50px] mt-[10px] pr-[300px] text-[20px]">
-            Bundit Korndee
-          </p>
+          {project.advisers && project.advisers.map((adviser, index) => (
+    <p key={index} className="ml-[50px] mt-[10px] pr-[300px] text-[20px]">
+      {adviser.memberUser.fristname} {adviser.memberUser.lastname}
+    </p>
+  ))}
         </div>
         <div className="mt-[50px]">
           <h4 className="ml-[40px] mt-[20px]">Year</h4>

@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
 import Search from "./Admin/Search";
-import React, { useState} from "react";
+import React, { useContext, useState} from "react";
 import { IoMdClipboard } from "react-icons/io";
 import { MdOutlineCreateNewFolder } from "react-icons/md";
 import { BiLogOut } from "react-icons/bi";
@@ -8,8 +8,10 @@ import{GiProgression} from "react-icons/gi"
 import { NavLink } from "react-router-dom";
 
 import logo from "../img/36-icon.png";
+import AuthContext from "./Auth/AuthProvider";
 
 const MainLayoutAdvisor = () => {
+  const { user, logout } = useContext(AuthContext);
   const [open] = useState(true);
   const Menu = [
     {
@@ -27,8 +29,14 @@ const MainLayoutAdvisor = () => {
         icon: <GiProgression/>,
         url: "Progress",
       },
-    { title: "Logout", icon: <BiLogOut/>, url: "", spacing: true },
+    { title: "Logout", icon: <BiLogOut/>, url: "/", spacing: true },
   ];
+
+  const handleNavLinkClick = (menu) => {
+    if (menu.spacing) {
+      logout(); // call logout function if spacing is truthy
+    }
+  };
   return (
     <>
       <div className="flex w-max">
@@ -61,7 +69,7 @@ const MainLayoutAdvisor = () => {
                   } `}
                  
                 >
-                  <NavLink to={menu.url} className={``}>
+                  <NavLink to={menu.url} className={``} onClick={() => handleNavLinkClick(menu)}>
                     <span className="text-xl block float-left ">
                       {menu.icon}
                     </span>
@@ -82,7 +90,7 @@ const MainLayoutAdvisor = () => {
           <div className="flex w-full h-[60px]  items-center px-[10px] ">
             <Search />
             <div className="text-[14px] ml-[350px]">
-              <span className="">Monthat Muensaeng</span> {/*ชื่อผู้ใช้ */}
+              <span className="">{user.email} {user.given_name}</span> {/*ชื่อผู้ใช้ */}
             </div>
           </div>
           <Outlet />

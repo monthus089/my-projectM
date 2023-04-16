@@ -4,7 +4,6 @@ const jwtInterceptor = axios.create({});
 
 jwtInterceptor.interceptors.request.use((config) => {
     let tokenData = JSON.parse(localStorage.getItem("tokens"));
-    // config.headers.common["Authorization"] = `bearer ${tokenData.accessToken}`;
     config.headers.Authorization = `bearer ${tokenData.accessToken}`;
     return config;
 });

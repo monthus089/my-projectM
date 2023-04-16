@@ -20,7 +20,7 @@ import JoinBoard from "./components/Student/JoinBoard";
 import JoinDetails from "./components/Student/JoinDetails";
 import JoinProgress from "./components/Student/JoinProgress";
 import CreateProgress from "./components/Student/CreateProgress";
-import JoinApppointment from "./components/Student/JoinApppointment";
+import JoinAppointment from "./components/Student/JoinAppointment";
 function App() {
   // const token = localStorage.getItem("accesstoken");
   // if (!token) {
@@ -29,7 +29,7 @@ function App() {
   return (
       <Routes>
         <Route path="/" element={<Login/>}></Route>
-      <Route path="/Admin" element={<MainAdminNavbar />}>
+        <Route path="/Admin" element={<MainAdminNavbar />}>
         <Route path="" element={<Board />} />
         <Route path="Board" element={<Board />}></Route>
         <Route path="Details/:getProjectId" element={<Details />} />
@@ -39,8 +39,8 @@ function App() {
       <Route path="/Advisor" element={<MainAdvisorNavbar />}>
         <Route path="" element={<MyProject />} />
         <Route path="MyProject" element={<MyProject />} />
-        <Route path="MyDetails" element={<MyDetails />} />
-        <Route path="MyEditing" element={<MyEditing />} />
+        <Route path="MyDetails/:getProjectId" element={<MyDetails />} />
+        <Route path="MyEditing/:getProjectId" element={<MyEditing />} />
         <Route path="Create" element={<Create />} />
         <Route path="Progress" element={<Progress />} />
         <Route path="Appoint" element={<Appointment />} />
@@ -48,10 +48,10 @@ function App() {
       <Route path="/Student" element={<MainStudentNavbar />}>
         <Route path="" element={<JoinBoard />} />
         <Route path="JoinBoard" element={<JoinBoard />} />
-        <Route path="JoinDetails" element={<JoinDetails />} />
+        <Route path="JoinDetails/:getProjectId" element={<JoinDetails />} />
         <Route path="JoinProgress" element={<JoinProgress />} />
-        <Route path="CreateProgress" element={<CreateProgress />} />
-        <Route path="JoinApppointment" element={<JoinApppointment />} />
+        <Route path="CreateProgress/:getProjectId" element={<CreateProgress />} />
+        <Route path="JoinAppointment" element={<JoinAppointment />} />
       </Route>
     </Routes>
 

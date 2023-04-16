@@ -36,45 +36,45 @@ const Appointment = () => {
             Create
           </button>
         </form>
-        <div class="inline-flex items-center justify-center w-full">
-          <hr class="w-full h-px my-5 bg-gray-500 border-0 " />
-          <span class="absolute px-1 text-lg  text-gray-600 -translate-x-1/2 bg-white left-1/2  ">
+        <div className="inline-flex items-center justify-center w-full">
+          <hr className="w-full h-px my-5 bg-gray-500 border-0 " />
+          <span className="absolute px-1 text-lg  text-gray-600 -translate-x-1/2 bg-white left-1/2  ">
             Appointment List
           </span>
         </div>
-        <div class="relative overflow-y-auto sm:rounded-[18px] ">
-          <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400 ">
-            <thead class="text-xs text-gray-900 uppercase bg-gray-300 ">
+        <div className="relative overflow-y-auto sm:rounded-[18px] ">
+          <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 ">
+            <thead className="text-xs text-gray-900 uppercase bg-gray-300 ">
               <tr>
-                <th scope="col" class="px-6 py-3">
+                <th scope="col" className="px-6 py-3">
                   Title
                 </th>
-                <th scope="col" class="px-6 py-3">
+                <th scope="col" className="px-6 py-3">
                   Date
                 </th>
-                <th scope="col" class="px-6 py-3">
+                <th scope="col" className="px-6 py-3">
                   From
                 </th>
-                <th scope="col" class="px-6 py-3">
+                <th scope="col" className="px-6 py-3">
                   To
                 </th>
-                <th scope="col" class="px-6 py-3 text-center">
+                <th scope="col" className="px-6 py-3 text-center">
                   Booking
                 </th>
               </tr>
             </thead>
             <tbody>
-              <tr class="bg-white border-b ">
+              <tr className="bg-white border-b ">
                 <th
                   scope="row"
-                  class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
+                  className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
                 >
                   Appointment 1
                 </th>
-                <td class="px-6 py-4">29/2/23</td>
-                <td class="px-6 py-4">9.00</td>
-                <td class="px-6 py-4">16.00</td>
-                <td class="px-6 py-4 text-center">
+                <td className="px-6 py-4">29/2/23</td>
+                <td className="px-6 py-4">9.00</td>
+                <td className="px-6 py-4">16.00</td>
+                <td className="px-6 py-4 text-center">
                   <button
                     type="button"
                     className="text-white bg-gradient-to-r from-violet-400 via-violet-500 to-violet-600 hover:bg-gradient-to-br font-medium rounded-[18px] text-sm  px-12 py-1.5 text-center focus:outline-none"

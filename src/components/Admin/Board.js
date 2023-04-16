@@ -4,11 +4,11 @@ import jwtInterceptor from "../Auth/jwtInterceptor";
 const Broad = (props) => {
   let navigate = useNavigate();
   const [projects, setProjects] = useState([]);
-  // const [advisers, setAdvisers] = useState([]);
 
   useEffect(() => {
     
     jwtInterceptor.get("https://localhost:7120/api/Project").then((response) => setProjects(response?.data));
+
   }, []);
     console.log(projects);
 
@@ -45,7 +45,9 @@ const Broad = (props) => {
                 { i + 1 }
               </th>
               <td className="px-6 py-4">{project.projectName}</td> 
-              <td className="px-6 py-4">{}</td>
+              <td className="px-6 py-4">{project.advisers.map((adviser, j) => (
+                    <span key={j}>{adviser.memberUser.fristname} {adviser.memberUser.lastname}</span>
+                  ))}</td>
               <td className="px-6 py-4">{project.projectYear}</td>
               <td className="px-6 py-4">
                 {}

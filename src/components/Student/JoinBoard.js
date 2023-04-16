@@ -1,8 +1,19 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate} from "react-router-dom";
+import jwtInterceptor from "../Auth/jwtInterceptor";
 
 const JoinBroad = (props) => {
-  let navigate = useNavigate()
+  let navigate = useNavigate();
+
+  const [projects, setProjects] = useState([]);
+  // const [advisers, setAdvisers] = useState([]);
+
+  useEffect(() => {
+    
+    jwtInterceptor.get("https://localhost:7120/api/Project").then((response) => setProjects(response?.data));
+  }, []);
+    console.log(projects);
+
   return (
     <>
       <div className="ml-[50px] text-[20px]">
@@ -22,31 +33,33 @@ const JoinBroad = (props) => {
                 Consultant
               </th>
               <th scope="col" className="px-6 py-3">
-                People
+                Year
               </th>
               <th scope="col" className="px-6 py-3">
                 Action
               </th>
             </tr>
           </thead>
-          <tbody className="overflow-y-auto">
-            <tr className="bg-white border-b ">
+          <tbody className="overflow-y-auto">{
+            projects.map((project, i) => (
+            <tr className="bg-white border-b " key={project.projectId}>
               <th scope="row" className="px-6 py-4 ">
-                1
+              {i + 1}
               </th>
-              <td className="px-6 py-4">Project Management</td>
+              <td className="px-6 py-4">{project.projectName}</td>
               <td className="px-6 py-4">B K</td>
-              <td className="px-6 py-4">3</td>
+              <td className="px-6 py-4">{project.projectYear}</td>
               <td className="px-6 py-4">
                 <button
                   type="button"
                   className="text-white bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 hover:bg-gradient-to-br   shadow-purple-500/50  dark:shadow-purple-800/80 font-medium rounded-[25px] text-sm px-12 py-2.5 text-center mr-2 mb-2"
-                  onClick={()=>navigate("/Student/JoinDetails")}
+                  onClick={()=>navigate("/Student/JoinDetails/" + project.projectId)}
                 >
                   Detail
                 </button>
               </td>
             </tr>
+            ))}
           </tbody>
         </table>
       </div>

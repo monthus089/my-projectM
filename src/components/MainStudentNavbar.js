@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
 import Search from "./Admin/Search";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { IoMdClipboard } from "react-icons/io";
 import { MdMoreTime } from "react-icons/md";
 import { BiLogOut } from "react-icons/bi";
@@ -8,8 +8,10 @@ import { GiProgression } from "react-icons/gi";
 import { NavLink} from "react-router-dom";
 
 import logo from "../img/36-icon.png";
+import AuthContext from "./Auth/AuthProvider";
 
 const MainLayoutStudent = () => {
+  const { user, logout } = useContext(AuthContext);
   const [open] = useState(true);
   const Menu = [
     {
@@ -22,9 +24,15 @@ const MainLayoutStudent = () => {
       icon: <GiProgression />,
       url: "JoinProgress",
     },
-    { title: "Appointment", icon: <MdMoreTime />, url: "JoinApppointment" },
+    { title: "Appointment", icon: <MdMoreTime />, url: "JoinAppointment" },
     { title: "Logout", icon: <BiLogOut />, url: "", spacing: true },
   ];
+
+  const handleNavLinkClick = (menu) => {
+    if (menu.spacing) {
+      logout(); // call logout function if spacing is truthy
+    }
+  };
   return (
     <>
       <div className="flex w-max">
@@ -56,7 +64,7 @@ const MainLayoutStudent = () => {
                     menu.spacing ? "mt-[500px]" : "mt-2"
                   } `}
                 >
-                  <NavLink to={menu.url} className={``}>
+                  <NavLink to={menu.url} className={``} onClick={() => handleNavLinkClick(menu)}s>
                     <span className="text-xl block float-left ">
                       {menu.icon}
                     </span>
@@ -77,7 +85,7 @@ const MainLayoutStudent = () => {
           <div className="flex w-full h-[60px]  items-center px-[10px] ">
             <Search />
             <div className="text-[14px] ml-[350px]">
-              <span className="">Monthat Muensaeng</span> {/*ชื่อผู้ใช้ */}
+              <span className="">{user.email} {user.given_name}</span> {/*ชื่อผู้ใช้ */}
             </div>
           </div>
           <Outlet />

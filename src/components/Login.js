@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faUser,
@@ -80,7 +80,7 @@ const Login = (props) => {
       navigate("/Advisor");
     }else if (user.role === "PM03"){
       // navigate("/Student");
-      navigate("/Advisor");
+      navigate("/Admin");
     }else {
       navigate("");
     }
@@ -192,7 +192,7 @@ const Register = (props) => {
     try {
       const response = await axios.post("https://localhost:7120/api/MemberUser", payload);
       console.log(response.data);
-      navigate("/login");
+      navigate("/");
     } catch (error) {
       
     }

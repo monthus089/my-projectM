@@ -12,22 +12,17 @@ const Broad = (props) => {
   }, []);
     console.log(MemberUsers);
 
-    const [selectedRole, setSelectedRole] = useState('Admin');
+    const [selectedRole, setSelectedRole] = useState('PM00');
 
     const handleRoleChange = (event) => {
       setSelectedRole(event.target.value);
     }
-    const handleSubmitRole = (e) => {
+    const handleSubmitRole = (e, memberUserId) => {
       // pass the selected role to the handler function
       //handlerSubmitRole(selectedRole);
       e.preventDefault();
-      console.log(selectedRole);
-    }
-    const RoleName = {
-      "Admin" : MemberUsers.roleId === "PM00",
-      "Subject Instructor" : MemberUsers.roleId === "PM01",
-      "Adviser" : MemberUsers.roleId === "PM02",
-      "Advisee" : MemberUsers.roleId === "PM03"
+      console.log("Selected Role:", selectedRole);
+      console.log("Member User ID:", memberUserId);
     }
   return (
     <>
@@ -70,22 +65,22 @@ const Broad = (props) => {
                   defaultValue={selectedRole}
                   onChange={handleRoleChange}
                 >
-                  {/* <option value='Admin'>Admin</option>
-                  <option value='Advisor'>Advisor</option>
-                  <option value='Advisee'>Advisee</option>
-                  <option value='Student'>Student</option> */}
-                  {Object.keys(RoleName).map((role) => (
+                  <option value='PM00'>Admin</option>
+                  <option value='PM01'>Advisor</option>
+                  <option value='PM02'>Advisee</option>
+                  <option value='PM03'>Student</option>
+                  {/* {Object.keys(RoleName).map((role) => (
                   <option key={role} value={role}>
                   {role}
                   </option>
-                    ))}
+                    ))} */}
                 </select>
               </td>
               <td className="px-6 py-4">
                 <button
                   type="button"
                   className="text-white bg-gradient-to-r from-teal-400 via-teal-500 to-teal-600 hover:bg-gradient-to-br font-medium rounded-[18px] text-sm px-5 py-2.5 text-center mr-2 mb-2 focus:outline-none"
-                  onClick={handleSubmitRole}
+                  onClick={(e) => handleSubmitRole(e, MemberUser.memberUserId)}
                 >
                   Change
                 </button>

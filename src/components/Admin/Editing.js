@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import jwtInterceptor from "../Auth/jwtInterceptor";
 
 const Editing = (props) => {
-
+ const navigate = useNavigate();
   const { getProjectId } = useParams();
 
   const [projectId, setProjectId] = useState("");
@@ -30,7 +30,15 @@ const Editing = (props) => {
 
 const handlerSubmitEdit = async (e) => {
   e.preventDefault();
-  
+  const updateProject = {
+    projectId, projectName, projectDetail, projectContact
+  }
+  try {
+    jwtInterceptor.put(`https://localhost:7120/api/Project/${getProjectId}`, updateProject);
+  } catch (error) {
+    console.log(error);
+  }
+  navigate("/Admin/Board");
 };
   return (
     <>
