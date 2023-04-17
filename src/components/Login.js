@@ -192,9 +192,9 @@ const Register = (props) => {
     try {
       const response = await axios.post("https://localhost:7120/api/MemberUser", payload);
       console.log(response.data);
-      navigate("/");
+      props.onFromSwitch("login");
     } catch (error) {
-      
+    console.log(error)
     }
   };
   return (
