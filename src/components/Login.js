@@ -53,6 +53,7 @@ const Login = (props) => {
   const [pass, setPass] = useState("");
   const [passwordShown, setPasswordShown] = useState(false);
   const [icon, setIcon] = useState(true);
+  const [setErrors] = useState("");
 
   const togglePassword = () => {
     setPasswordShown(!passwordShown);
@@ -61,31 +62,52 @@ const Login = (props) => {
 
   const navigate = useNavigate();
 
-  // useEffect(()=>{
-  //   sessionStorage.clear();
-  //       },[]);
-
   const LoginFunc = async (e) => {
     e.preventDefault();
     let payload = {
-      "memberUserEmail": email,
-      "memberUserPassword": pass
+      memberUserEmail: email,
+      memberUserPassword: pass,
     };
-    await login(payload);
-    if(user.role === "PM00"){
-      navigate("/Admin");
-    }else if (user.role === "PM01"){
-      navigate("/Advisor");
-    }else if (user.role === "PM02"){
-      navigate("/Advisor");
-    }else if (user.role === "PM03"){
-      // navigate("/Student");
-      navigate("/Admin");
-    }else {
-      navigate("");
+    const emailRegex = /^\d+\d{11}@dpu.ac.th$/;
+    const passwordRegex =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
+    let newErrors = {};
+
+    if (!emailRegex.test(email)) {
+      newErrors.email = "Please enter a valid email address";
+      alert("Please enter a valid email address")
     }
-    
-  }
+
+    if (!passwordRegex.test(pass)) {
+      newErrors.password =
+        "Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, and one number";
+        alert("Password enter a valid")
+    }
+
+    setErrors(newErrors);
+
+    if (Object.keys(newErrors).length === 0) {
+      alert(Object.values(newErrors).join(', '));
+      try {
+        await login(payload);
+        if (user.role === "PM00") {
+          navigate("/Admin");
+        } else if (user.role === "PM01") {
+          navigate("/Advisor");
+        } else if (user.role === "PM02") {
+          navigate("/Advisor");
+        } else if (user.role === "PM03") {
+          // navigate("/Student");
+          navigate("/Admin");
+        } else {
+          navigate("");
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
+
   return (
     <>
       <form className="login-form" onSubmit={LoginFunc}>
@@ -160,41 +182,26 @@ const Register = (props) => {
   const userRegex = /^\d+\d{11}@dpu.ac.th$/;
   const passRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
   const navigate = useNavigate();
-  // useEffect(() => {
-  //   const result = userRegex.test(email);
-  //   console.log(result);
-  //   console.log(email);
-  // }, [email]);
 
-  // useEffect(() => {
-  //   const result = passRegex.test(pass);
-  //   console.log(result);
-  //   console.log(pass);
-  //   const match = pass === confirmPass;
-  // })
   const handlerSubmit = async (e) => {
     e.preventDefault();
     let payload = {
-      "memberUserEmail": email,
-      "memberUserPassword": pass,
-      "phoneNumber": phone,
-      "fristname": fname,
-      "lastname": lname
+      memberUserEmail: email,
+      memberUserPassword: pass,
+      phoneNumber: phone,
+      fristname: fname,
+      lastname: lname,
     };
-    // console.log(email, pass, fname, lname, phone);
-    // if(!userRegex || !passRegex){
-    //   console.log("error")
-    //   return;
-    // }else if(pass === confirmPass){
-    //   console.log("error")
-    //   return;
-    // }
+
     try {
-      const response = await axios.post("https://localhost:7120/api/MemberUser", payload);
+      const response = await axios.post(
+        "https://localhost:7120/api/MemberUser",
+        payload
+      );
       console.log(response.data);
       props.onFromSwitch("login");
     } catch (error) {
-    console.log(error)
+      console.log(error);
     }
   };
   return (
