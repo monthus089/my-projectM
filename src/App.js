@@ -19,6 +19,7 @@ import MainStudentNavbar from "./components/MainStudentNavbar";
 import JoinBoard from "./components/Student/JoinBoard";
 import JoinDetails from "./components/Student/JoinDetails";
 import JoinProgress from "./components/Student/JoinProgress";
+import ProgressList from "./components/Student/ProgressList";
 import CreateProgress from "./components/Student/CreateProgress";
 import JoinAppointment from "./components/Student/JoinAppointment";
 function App() {
@@ -50,6 +51,7 @@ function App() {
         <Route path="JoinBoard" element={<JoinBoard />} />
         <Route path="JoinDetails/:getProjectId" element={<JoinDetails />} />
         <Route path="JoinProgress" element={<JoinProgress />} />
+        <Route path="ProgressList" element={<ProgressList />} />
         <Route path="CreateProgress/:getProjectId" element={<CreateProgress />} />
         <Route path="JoinAppointment" element={<JoinAppointment />} />
       </Route>

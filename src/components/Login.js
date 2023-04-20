@@ -75,19 +75,19 @@ const Login = (props) => {
 
     if (!emailRegex.test(email)) {
       newErrors.email = "Please enter a valid email address";
-      alert("Please enter a valid email address")
+      alert("Please enter a valid email address");
     }
 
     if (!passwordRegex.test(pass)) {
       newErrors.password =
         "Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, and one number";
-        alert("Password enter a valid")
+      alert("Password enter a valid");
     }
 
     setErrors(newErrors);
 
     if (Object.keys(newErrors).length === 0) {
-      alert(Object.values(newErrors).join(', '));
+      alert(Object.values(newErrors).join(", "));
       try {
         await login(payload);
         if (user.role === "PM00") {
@@ -169,6 +169,8 @@ const Register = (props) => {
   const [confirmPasswordShown, setConfirmPasswordShown] = useState(false);
   const [icon, setIcon] = useState(true);
   const [confirmicon, setConfirmIcon] = useState(true);
+  const [errors, setErrors] = useState({});
+
 
   const togglePassword = () => {
     setPasswordShown(!passwordShown);
@@ -177,11 +179,41 @@ const Register = (props) => {
   const toggleConfirmPassword = () => {
     setConfirmPasswordShown(!confirmPasswordShown);
     setConfirmIcon(!confirmicon);
-  };
+  }; 
+
   //validate
-  const userRegex = /^\d+\d{11}@dpu.ac.th$/;
-  const passRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
-  const navigate = useNavigate();
+  const validate = () => {
+    let newErrors = {};
+
+    const emailRegex = /^\d+\d{11}@dpu.ac.th$/;
+    const passwordRegex =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
+
+    if (!emailRegex.test(email)) {
+      newErrors.email = "Please enter a valid email";
+    }
+    if (!fname) {
+      newErrors.firstName = "Please enter your first name";
+    }
+    if (!lname) {
+      newErrors.lastName = "Please enter your last name";
+    }
+    if (!phone) {
+      newErrors.lastName = "Please enter your Phone Number";
+    }
+
+    if (!passwordRegex.test(pass)) {
+      newErrors.password =
+        "Password must be at least 8 characters long and contain at least one uppercase letter";
+    }
+    if (pass !== confirmPass) {
+      newErrors.confirmPassword = "Passwords do not match";
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+ 
 
   const handlerSubmit = async (e) => {
     e.preventDefault();
@@ -192,18 +224,17 @@ const Register = (props) => {
       fristname: fname,
       lastname: lname,
     };
-
-    try {
-      const response = await axios.post(
-        "https://localhost:7120/api/MemberUser",
-        payload
-      );
-      console.log(response.data);
-      props.onFromSwitch("login");
-    } catch (error) {
-      console.log(error);
+    if (validate()) {
+      try {
+        const response = await axios.post("https://localhost:7120/api/MemberUser", payload);
+        console.log(response.data);
+        props.onFromSwitch("login");
+      } catch (error) {
+        console.error(error);
+      }
     }
   };
+
   return (
     <>
       <form className="login-form" onSubmit={handlerSubmit}>

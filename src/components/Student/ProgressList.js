@@ -1,25 +1,13 @@
-import React, { useEffect, useState } from "react";
-import { useContext } from "react";
-import { useNavigate} from "react-router-dom";
-import AuthContext from "../Auth/AuthProvider";
-import jwtInterceptor from "../Auth/jwtInterceptor";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-const JoinProgress = (props) => {
+const ProgressList = (props) => {
   let navigate = useNavigate();
-
-  const { user } = useContext(AuthContext);
-  const [project, setProject] = useState([]);
-
-  useEffect(() => {
-    
-    jwtInterceptor.get("https://localhost:7120/api/MemberUser/project/" + user.nameid).then((response) => setProject(response?.data));
-}, []);
-console.log(project);
 
   return (
     <>
       <div className="ml-[50px] text-[20px]">
-        <h5>Project Progress</h5>
+        <h5>ProgressList</h5>
       </div>
       <div className="relative w-[70%] h-[83%] overflow-y-auto shadow-[1px_1px_6px_-1px_rgba(0,0,0,0.1)] sm:rounded-[20px] left-[80px] mt-12 scrollbar-hide ">
         <table className="w-full text-sm text-center text-gray-500 dark:text-gray-400 ">
@@ -32,37 +20,33 @@ console.log(project);
                 Project
               </th>
               <th scope="col" className="px-6 py-3">
-                Consultant
+                Date
               </th>
               <th scope="col" className="px-6 py-3">
-                Year
+                Percentage
               </th>
               <th scope="col" className="px-6 py-3">
                 Action
               </th>
             </tr>
           </thead>
-          <tbody className="overflow-y-auto">{
-            project.map((project, i) => (
-          
-            <tr className="bg-white border-b " key={project.projectId}>
-              <th scope="row" className="px-6 py-4 ">
-              {i + 1}
-              </th>
-              <td className="px-6 py-4">{project.projectName}</td>
-              <td className="px-6 py-4">B K</td>
-              <td className="px-6 py-4">{project.projectYear}</td>
+          <tbody className="overflow-y-auto">
+            <tr className="bg-white border-b ">
+               <th scope="row" className="px-6 py-4 "></th> {/* Number */}
+              <td className="px-6 py-4"></td> {/* ProjectNumber */}
+              <td className="px-6 py-4"></td>  {/* ProjectDate */}
+              <td className="px-6 py-4"></td> {/* ProjectPercentage */}
               <td className="px-6 py-4">
+                {}
                 <button
                   type="button"
                   className="text-white bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 hover:bg-gradient-to-br   shadow-purple-500/50  dark:shadow-purple-800/80 font-medium rounded-[25px] text-sm px-12 py-2.5 text-center mr-2 mb-2"
-                  onClick={()=>navigate("/Student/ProgressList/" + project.projectId)}
+                  onClick={() => navigate("/Student/CreateProgress")}
                 >
-                  Progress
+                  Detail
                 </button>
               </td>
             </tr>
-               ))}
           </tbody>
         </table>
       </div>
@@ -70,4 +54,4 @@ console.log(project);
   );
 };
 
-export default JoinProgress;
+export default ProgressList;
