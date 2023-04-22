@@ -25,30 +25,24 @@ const ProgressList = (props) => {
               <th scope="col" className="px-6 py-3">
                 Percentage
               </th>
-              <th scope="col" className="px-6 py-3">
-                Action
-              </th>
             </tr>
           </thead>
           <tbody className="overflow-y-auto">
             <tr className="bg-white border-b ">
-               <th scope="row" className="px-6 py-4 "></th> {/* Number */}
+              <th scope="row" className="px-6 py-4 "></th> {/* Number */}
               <td className="px-6 py-4"></td> {/* ProjectNumber */}
-              <td className="px-6 py-4"></td>  {/* ProjectDate */}
+              <td className="px-6 py-4"></td> {/* ProjectDate */}
               <td className="px-6 py-4"></td> {/* ProjectPercentage */}
-              <td className="px-6 py-4">
-                {}
-                <button
-                  type="button"
-                  className="text-white bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 hover:bg-gradient-to-br   shadow-purple-500/50  dark:shadow-purple-800/80 font-medium rounded-[25px] text-sm px-12 py-2.5 text-center mr-2 mb-2"
-                  onClick={() => navigate("/Student/CreateProgress")}
-                >
-                  Detail
-                </button>
-              </td>
             </tr>
           </tbody>
         </table>
+        <button
+          type="button"
+          className="text-white bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 hover:bg-gradient-to-br   shadow-purple-500/50  dark:shadow-purple-800/80 font-medium rounded-[25px] text-sm px-12 py-2.5 text-center mr-2 mb-2"
+          onClick={() => navigate("/Student/CreateProgress")}
+        >
+          +Create Progress
+        </button>
       </div>
     </>
   );

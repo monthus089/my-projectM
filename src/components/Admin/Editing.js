@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import jwtInterceptor from "../Auth/jwtInterceptor";
 
 const Editing = (props) => {
- const navigate = useNavigate();
+  const navigate = useNavigate();
   const { getProjectId } = useParams();
 
   const [projectId, setProjectId] = useState("");
@@ -14,32 +14,38 @@ const Editing = (props) => {
 
   useEffect(() => {
     try {
-      jwtInterceptor.get("https://localhost:7120/api/Project/" + getProjectId).then((response) => {
-      setProjectId(response.data.projectId);
-      setProjectName(response.data.projectName);
-      setProjectDetail(response.data.projectDetail);
-      setProjectYear(response.data.projectYear);
-      setProjectContact(response.data.projectContact);
-    });
-      
+      jwtInterceptor
+        .get("https://localhost:7120/api/Project/" + getProjectId)
+        .then((response) => {
+          setProjectId(response.data.projectId);
+          setProjectName(response.data.projectName);
+          setProjectDetail(response.data.projectDetail);
+          setProjectYear(response.data.projectYear);
+          setProjectContact(response.data.projectContact);
+        });
     } catch (error) {
       console.log(error);
     }
-    
-}, []);
+  }, []);
 
-const handlerSubmitEdit = async (e) => {
-  e.preventDefault();
-  const updateProject = {
-    projectId, projectName, projectDetail, projectContact
-  }
-  try {
-    jwtInterceptor.put(`https://localhost:7120/api/Project/${getProjectId}`, updateProject);
-  } catch (error) {
-    console.log(error);
-  }
-  navigate("/Admin/Board");
-};
+  const handlerSubmitEdit = async (e) => {
+    e.preventDefault();
+    const updateProject = {
+      projectId,
+      projectName,
+      projectDetail,
+      projectContact,
+    };
+    try {
+      jwtInterceptor.put(
+        `https://localhost:7120/api/Project/${getProjectId}`,
+        updateProject
+      );
+    } catch (error) {
+      console.log(error);
+    }
+    navigate("/Admin/Board");
+  };
   return (
     <>
       <div className="ml-[50px] text-[20px]">
