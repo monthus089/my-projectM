@@ -53,7 +53,7 @@ const Login = (props) => {
   const [pass, setPass] = useState("");
   const [passwordShown, setPasswordShown] = useState(false);
   const [icon, setIcon] = useState(true);
-  const [setErrors] = useState("");
+  const [errors, setErrors] = useState("");
 
   const togglePassword = () => {
     setPasswordShown(!passwordShown);
@@ -68,17 +68,15 @@ const Login = (props) => {
       memberUserEmail: email,
       memberUserPassword: pass,
     };
-    const emailRegex = /^\d+\d{11}@dpu.ac.th$/;
+    const emailRegex = (/^\d+\d{11}@dpu.ac.th$/.test(email) || /^\w+@dpu.ac.th$/.test(email));
     const passwordRegex =
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
     let newErrors = {};
 
-    if (!emailRegex.test(email)) {
+    if (!emailRegex) {
       newErrors.email = "Please enter a valid email address";
       alert("Please enter a valid email address");
-    }
-
-    if (!passwordRegex.test(pass)) {
+    } else if (!passwordRegex.test(pass)){
       newErrors.password =
         "Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, and one number";
       alert("Password enter a valid");
@@ -87,7 +85,7 @@ const Login = (props) => {
     setErrors(newErrors);
 
     if (Object.keys(newErrors).length === 0) {
-      alert(Object.values(newErrors).join(", "));
+      // alert(Object.values(newErrors).join(", "));
       try {
         await login(payload);
         if (user.role === "PM00") {
@@ -97,8 +95,8 @@ const Login = (props) => {
         } else if (user.role === "PM02") {
           navigate("/Advisor");
         } else if (user.role === "PM03") {
-          // navigate("/Student");
-          navigate("/Admin");
+          navigate("/Student");
+          // navigate("/Admin");
         } else {
           navigate("");
         }
@@ -185,11 +183,10 @@ const Register = (props) => {
   const validate = () => {
     let newErrors = {};
 
-    const emailRegex = /^\d+\d{11}@dpu.ac.th$/;
-    const passwordRegex =
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
+    const emailRegex = (/^\d+\d{11}@dpu.ac.th$/.test(email) || /^\w+@dpu.ac.th$/.test(email));
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 
-    if (!emailRegex.test(email)) {
+    if (!emailRegex) {
       newErrors.email = "Please enter a valid email";
     }
     if (!fname) {

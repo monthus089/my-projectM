@@ -14,13 +14,21 @@ export const AuthProvider = ({ children }) => {
         return null;
     });
     const login = async (payload) => {
-        const response = await axios.post("https://localhost:7120/api/Authenticate/Authenticate",
-        payload);
-        console.log(response.data)
-        let token = (jwt_decode(response.data.accessToken));
-        console.log(token);
-        setUser(token);
-        localStorage.setItem("tokens", JSON.stringify(response?.data));
+        try {
+            const response = await axios.post("https://localhost:7120/api/Authenticate/Authenticate",
+            payload);
+            console.log(response.data)
+            let token = (jwt_decode(response.data.accessToken));
+            console.log(token);
+            setUser(token);
+            localStorage.setItem("tokens", JSON.stringify(response?.data));
+        } catch (error) {
+            console.log(error);
+            if(error.response?.status === 401){
+                alert("Email or Password enter a valid");
+            }
+        }
+        
     }
 
     const logout = () => {

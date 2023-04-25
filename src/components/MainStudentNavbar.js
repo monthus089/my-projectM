@@ -25,7 +25,7 @@ const MainLayoutStudent = () => {
       url: "JoinProgress",
     },
     { title: "Appointment", icon: <MdMoreTime />, url: "JoinAppointment" },
-    { title: "Logout", icon: <BiLogOut />, url: "", spacing: true },
+    { title: "Logout", icon: <BiLogOut />, url: "/", spacing: true },
   ];
 
   const handleNavLinkClick = (menu) => {
@@ -64,7 +64,7 @@ const MainLayoutStudent = () => {
                     menu.spacing ? "mt-[500px]" : "mt-2"
                   } `}
                 >
-                  <NavLink to={menu.url} className={``} onClick={() => handleNavLinkClick(menu)}s>
+                  <NavLink to={menu.url} className={``} onClick={() => handleNavLinkClick(menu)}>
                     <span className="text-xl block float-left ">
                       {menu.icon}
                     </span>

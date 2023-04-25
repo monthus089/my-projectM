@@ -5,6 +5,8 @@ import jwtInterceptor from "../Auth/jwtInterceptor";
 const Broad = (props) => {
   let navigate = useNavigate();
   const [MemberUsers, setMemberUsers] = useState([]);
+  const [roles, setRoles] = useState([]);
+
 
   useEffect(() => {
     
@@ -12,17 +14,27 @@ const Broad = (props) => {
   }, []);
     console.log(MemberUsers);
 
-    const [selectedRole, setSelectedRole] = useState('PM00');
+    useEffect(() => {
+    
+      jwtInterceptor.get("https://localhost:7120/api/Role").then((response) => setRoles(response?.data));
+    }, []);
+      console.log(roles);
+
+    const [selectedRole, setSelectedRole] = useState('');
 
     const handleRoleChange = (event) => {
       setSelectedRole(event.target.value);
     }
-    const handleSubmitRole = (e, memberUserId) => {
-      // pass the selected role to the handler function
-      //handlerSubmitRole(selectedRole);
+    const handleSubmitRole = async (e, memberUserId) => {
       e.preventDefault();
-      console.log("Selected Role:", selectedRole);
-      console.log("Member User ID:", memberUserId);
+      try {
+        await jwtInterceptor.put(`https://localhost:7120/api/MemberUser/${memberUserId}?roleId=${selectedRole}`);
+      } catch (error) {
+        console.log(error);
+        if(error?.response?.status === 400){
+            alert("This is your current role!");
+        }     
+      }
     }
   return (
     <>
@@ -34,7 +46,7 @@ const Broad = (props) => {
           <thead className="text-sm font-bold text-black uppercase bg-gray-50 dark:bg-gray-100 ">
             <tr>
               <th scope="col" className="px-6 py-3">
-              ID
+              Email
               </th>
               <th scope="col" className="px-6 py-3">
               Name
@@ -54,27 +66,25 @@ const Broad = (props) => {
             MemberUsers.map(MemberUser => (
               <tr className="bg-white border-b " key={MemberUser.memberUserId}>
               <th scope="row" className="px-6 py-4 ">
-                {MemberUser.memberUserId}
+                {MemberUser.memberUserEmail}
               </th>
               <td className="px-6 py-4">{MemberUser.fristname} {MemberUser.lastname}</td>
               <td className="px-6 py-4">{MemberUser.phoneNumber}</td>
               <td className="px-6 py-4">
-                <select
+              <select
                   id="role"
                   className="bg-gray-50 border border-gray-300 text-gray-300 text-sm rounded-[18px] block w-full py-2.5 px-2 dark:bg-white focus:outline-none dark:text-gray-400 "
-                  defaultValue={selectedRole}
+                  defaultValue={MemberUser.role?.roleName} // update defaultValue
                   onChange={handleRoleChange}
-                >
-                  <option value='PM00'>Admin</option>
-                  <option value='PM01'>Advisor</option>
-                  <option value='PM02'>Advisee</option>
-                  <option value='PM03'>Student</option>
-                  {/* {Object.keys(RoleName).map((role) => (
-                  <option key={role} value={role}>
-                  {role}
-                  </option>
-                    ))} */}
+                  >
+                    <option>{MemberUser.role.roleName}</option>
+                    {roles.map(role => (
+                    <option key={role.roleId} value={role.roleId}>
+                    {role.roleName}
+                    </option>
+                  ))}
                 </select>
+
               </td>
               <td className="px-6 py-4">
                 <button

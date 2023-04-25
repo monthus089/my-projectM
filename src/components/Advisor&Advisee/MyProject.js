@@ -10,13 +10,22 @@ const Broad = (props) => {
   let navigate = useNavigate();
 
   const { user } = useContext(AuthContext);
-  const [project, setProject] = useState([]);
+  // const [project, setProject] = useState([]);
+  const [projects, setProjects] = useState([]);
 
   useEffect(() => {
+    try {
+      jwtInterceptor.get("https://localhost:7120/api/MemberUser/project/" + user.nameid).then((response) => setProjects(response?.data));
+
+      // jwtInterceptor.get("https://localhost:7120/api/Project/" + project.projectId).then((res) => setProjects(res.data));
+    } catch (error) {
+      console.log(error);
+    }
     
-    jwtInterceptor.get("https://localhost:7120/api/MemberUser/project/" + user.nameid).then((response) => setProject(response?.data));
 }, []);
-console.log(project)
+console.log(projects)
+// console.log(projects)
+
 
   return (
     
@@ -46,13 +55,15 @@ console.log(project)
             </tr>
           </thead>
           <tbody className="overflow-y-auto">{
-            project.map((project, i) => (
+            projects.map((project, i) => (
             <tr className="bg-white border-b " key={project.projectId}>
               <th scope="row" className="px-6 py-4 ">
                 {i + 1}
               </th>
               <td className="px-6 py-4">{project.projectName}</td>
-              <td className="px-6 py-4">B K</td>
+              {/* <td className="px-6 py-4">{project.advisers.map((adviser, j) => (
+                    <span key={j}>{adviser.memberUser.fristname} {adviser.memberUser.lastname}</span>
+                  ))}</td> */}
               <td className="px-6 py-4">{project.projectYear}</td>
               <td className="px-6 py-4">
                 <button

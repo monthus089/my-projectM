@@ -1,6 +1,41 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import jwtInterceptor from "../Auth/jwtInterceptor";
+import { useContext } from "react";
+import AuthContext from "../Auth/AuthProvider";
 
 const JoinDetails = (props) => {
+  const { getProjectId } = useParams();
+  const [project, setProject] = useState({});
+  const { user } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const handlerSubmitJoin = async (e) => {
+    e.preventDefault();
+    let payload = {
+      "memberUserId": user.nameid,
+      "projectId": getProjectId
+    };
+    try {
+      await jwtInterceptor.post("https://localhost:7120/api/Advisee", payload);
+    } catch (error) {
+      console.log(error);
+      if(error?.response?.status === 400){
+        alert("You are already in this project!");
+    }     
+    }
+    navigate("/Student/JoinBoard");
+    
+  };
+
+  useEffect(() => {
+    try {
+      jwtInterceptor.get("https://localhost:7120/api/Project/" + getProjectId).then((response) => setProject(response?.data));
+    } catch (error) {
+      console.log(error);
+    }
+    
+}, []);
   return (
     <>
       <div className="ml-[50px] text-[20px]">
@@ -10,34 +45,39 @@ const JoinDetails = (props) => {
         <div className="mt-[30px]">
           <h4 className="ml-[40px] mt-[20px]">Project Name</h4>
           <p className="ml-[50px] mt-[10px] pr-[300px] text-[20px]">
-            Line chatbot Rent Room
+            {project.projectName}
           </p>
         </div>
         <div className="mt-[50px]">
           <h4 className="ml-[40px] mt-[20px]">Consultant</h4>
-          <p className="ml-[50px] mt-[10px] pr-[300px] text-[20px]">
-            Bundit Korndee
-          </p>
+          {project.advisers && project.advisers.map((adviser, index) => (
+    <p key={index} className="ml-[50px] mt-[10px] pr-[300px] text-[20px]">
+      {adviser.memberUser.fristname} {adviser.memberUser.lastname}
+    </p>
+  ))}
         </div>
         <div className="mt-[50px]">
-          <h4 className="ml-[40px] mt-[20px]">People</h4>
-          <p className="ml-[50px] mt-[10px] pr-[300px] text-[20px]">1 People</p>
+          <h4 className="ml-[40px] mt-[20px]">Member List</h4>
+          {project.advisees && project.advisees.map((advisees, index) => (
+    <p key={index} className="ml-[50px] mt-[10px] pr-[300px] text-[20px]">
+      {advisees.memberUser.fristname} {advisees.memberUser.lastname}
+    </p>
+  ))}
+        </div>
+        <div className="mt-[50px]">
+          <h4 className="ml-[40px] mt-[20px]">Year</h4>
+          <p className="ml-[50px] mt-[10px] pr-[300px] text-[20px]">{project.projectYear}</p>
         </div>
         <div className="mt-[50px]">
           <h4 className="ml-[40px] mt-[20px]">Details</h4>
           <p className="ml-[50px] mt-[10px] pr-[300px] text-[20px]">
-            A LINE account created to automate interactions with users. without
-            which we do not have to sit and answer because there is no need to
-            answer the same question many times a day But many of you who are
-            newbies are not good at it and are worried about whether to write
-            code or write programs. It's very easy to do with the Line Messaging
-            API and Dialogflow. easy to use
+            {project.projectDetail}
           </p>
         </div>
         <div className="mt-[50px]">
           <h4 className="ml-[40px] mt-[20px]">Contact</h4>
           <p className="ml-[50px] mt-[10px] pr-[300px] text-[20px]">
-            Line : carrotkorndee
+            {project.projectContact}
           </p>
         </div>
 
@@ -45,6 +85,7 @@ const JoinDetails = (props) => {
           <button
             type="button"
             className="col-start-12 text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:outline-none  dark:focus:ring-red-800 font-medium rounded-[18px] text-sm px-6 py-2.5 text-center mr-2 mb-2"
+            onClick={handlerSubmitJoin}
           >
             Join
           </button>

@@ -11,28 +11,30 @@ const Editing = (props) => {
   const [projectDetail, setProjectDetail] = useState("");
   const [projectYear, setProjectYear] = useState("");
   const [projectContact, setProjectContact] = useState("");
+  const [project, setProject] = useState({});
 
   useEffect(() => {
     try {
-      jwtInterceptor
-        .get("https://localhost:7120/api/Project/" + getProjectId)
-        .then((response) => {
-          setProjectId(response.data.projectId);
-          setProjectName(response.data.projectName);
-          setProjectDetail(response.data.projectDetail);
-          setProjectYear(response.data.projectYear);
-          setProjectContact(response.data.projectContact);
-        });
+      jwtInterceptor.get("https://localhost:7120/api/Project/" + getProjectId).then((response) => {
+        setProject(response?.data);
+        setProjectId(response.data.projectId)
+        setProjectName(response.data.projectName);
+        setProjectDetail(response.data.projectDetail);
+        setProjectYear(response.data.projectYear);
+        setProjectContact(response.data.projectContact);
+      });
     } catch (error) {
       console.log(error);
     }
-  }, []);
+}, []);
+  console.log(project);
 
   const handlerSubmitEdit = async (e) => {
     e.preventDefault();
     const updateProject = {
       projectId,
       projectName,
+      projectYear,
       projectDetail,
       projectContact,
     };
@@ -63,9 +65,19 @@ const Editing = (props) => {
           </div>
           <div className="consultant">
             <h4 className="ml-[40px] mt-[20px]">Consultant</h4>
-            <p className="ml-[50px] mt-[10px] pr-[300px] text-[20px]">
-              Bundit Korndee
-            </p>
+            {project.advisers && project.advisers.map((adviser, index) => (
+    <p key={index} className="ml-[50px] mt-[10px] pr-[300px] text-[20px]">
+      {adviser.memberUser.fristname} {adviser.memberUser.lastname}
+    </p>
+  ))}
+          </div>
+          <div className="consultant">
+            <h4 className="ml-[40px] mt-[20px]">Member List</h4>
+            {project.advisees && project.advisees.map((advisees, index) => (
+    <p key={index} className="ml-[50px] mt-[10px] pr-[300px] text-[20px]">
+      {advisees.memberUser.fristname} {advisees.memberUser.lastname}
+    </p>
+  ))}
           </div>
           <div className="people">
             <h4 className="ml-[40px] mt-[20px]">Year</h4>

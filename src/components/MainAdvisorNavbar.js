@@ -31,7 +31,7 @@ const MainLayoutAdvisor = () => {
         url: "Progress",
       },
     { title: "Appointment", icon: <MdMoreTime/>, url: "Appoint" },
-    { title: "Logout", icon: <BiLogOut/>, url: "", spacing: true },
+    { title: "Logout", icon: <BiLogOut/>, url: "/", spacing: true },
   ];
 
   const handleNavLinkClick = (menu) => {

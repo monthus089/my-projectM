@@ -14,16 +14,14 @@ const Details = (props) => {
     setShowModal(false);
   };
 
-  const handleDeleteConfirm = () => {
+  const handleDeleteConfirm = (projectId) => {
     
-    // try {
-    //   jwtInterceptor.delete(`https://localhost:7120/api/Project/${project.projectId}`);
-    // } catch (error) {
-    //   console.log(error);
-    // }
-    // navigate("/Admin/Board");
-
-    console.log("Delete Project");
+    try {
+      jwtInterceptor.delete(`https://localhost:7120/api/Project/${projectId}`);
+    } catch (error) {
+      console.log(error);
+    }
+    navigate("/Admin/Board");
     setShowModal(false);
   };
 
@@ -53,6 +51,14 @@ const Details = (props) => {
           {project.advisers && project.advisers.map((adviser, index) => (
     <p key={index} className="ml-[50px] mt-[10px] pr-[300px] text-[20px]">
       {adviser.memberUser.fristname} {adviser.memberUser.lastname}
+    </p>
+  ))}
+        </div>
+        <div className="mt-[50px]">
+          <h4 className="ml-[40px] mt-[20px]">Member List</h4>
+          {project.advisees && project.advisees.map((advisees, index) => (
+    <p key={index} className="ml-[50px] mt-[10px] pr-[300px] text-[20px]">
+      {advisees.memberUser.fristname} {advisees.memberUser.lastname}
     </p>
   ))}
         </div>
@@ -114,7 +120,7 @@ const Details = (props) => {
               </button>
               <button
                 type="button"
-                onClick={handleDeleteConfirm}
+                onClick={() => handleDeleteConfirm(project.projectId)}
                 className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:outline-none  dark:focus:ring-red-800 font-medium rounded-[18px] text-sm px-6 py-2.5 text-center mr-2 mb-2"
               >
                 Yes, Delete
