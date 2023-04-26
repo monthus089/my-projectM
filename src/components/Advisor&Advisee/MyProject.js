@@ -7,25 +7,21 @@ import AuthContext from "../Auth/AuthProvider";
 import jwtInterceptor from "../Auth/jwtInterceptor";
 
 const Broad = (props) => {
-  let navigate = useNavigate();
 
+  let navigate = useNavigate();
   const { user } = useContext(AuthContext);
-  // const [project, setProject] = useState([]);
   const [projects, setProjects] = useState([]);
 
   useEffect(() => {
     try {
       jwtInterceptor.get("https://localhost:7120/api/MemberUser/project/" + user.nameid).then((response) => setProjects(response?.data));
 
-      // jwtInterceptor.get("https://localhost:7120/api/Project/" + project.projectId).then((res) => setProjects(res.data));
     } catch (error) {
       console.log(error);
     }
     
 }, []);
-console.log(projects)
-// console.log(projects)
-
+console.log(projects);
 
   return (
     
@@ -61,9 +57,9 @@ console.log(projects)
                 {i + 1}
               </th>
               <td className="px-6 py-4">{project.projectName}</td>
-              {/* <td className="px-6 py-4">{project.advisers.map((adviser, j) => (
+              <td className="px-6 py-4">{project.advisers.map((adviser, j) => (
                     <span key={j}>{adviser.memberUser.fristname} {adviser.memberUser.lastname}</span>
-                  ))}</td> */}
+                  ))}</td>
               <td className="px-6 py-4">{project.projectYear}</td>
               <td className="px-6 py-4">
                 <button
@@ -72,8 +68,7 @@ console.log(projects)
                   onClick={() =>{navigate("/Advisor/MyDetails/" + project.projectId)}}
                 >
                   Detail
-                </button>
-                
+                </button>              
               </td>
             </tr>
             ))}

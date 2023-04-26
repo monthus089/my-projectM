@@ -14,10 +14,10 @@ const Details = (props) => {
     setShowModal(false);
   };
 
-  const handleDeleteConfirm = (projectId) => {
+  const handleDeleteConfirm = async (projectId) => {
     
     try {
-      jwtInterceptor.delete(`https://localhost:7120/api/Project/${projectId}`);
+      await jwtInterceptor.delete(`https://localhost:7120/api/Project/${projectId}`);
     } catch (error) {
       console.log(error);
     }

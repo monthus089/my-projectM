@@ -39,7 +39,7 @@ const Editing = (props) => {
       projectContact,
     };
     try {
-      jwtInterceptor.put(
+      await jwtInterceptor.put(
         `https://localhost:7120/api/Project/${getProjectId}`,
         updateProject
       );
@@ -48,6 +48,7 @@ const Editing = (props) => {
     }
     navigate("/Admin/Board");
   };
+  
   return (
     <>
       <div className="ml-[50px] text-[20px]">

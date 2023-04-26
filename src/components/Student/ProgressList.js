@@ -1,9 +1,20 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import jwtInterceptor from "../Auth/jwtInterceptor";
 
 const ProgressList = (props) => {
   let navigate = useNavigate();
+  const { getProjectId } = useParams();
+  const [projectProgresses, setProjectProgresses] = useState([]);
+  useEffect(() => {
+    try {
+      jwtInterceptor.get("https://localhost:7120/api/ProjectProgress/project/" + getProjectId).then((response) => setProjectProgresses(response?.data));
 
+    } catch (error) {
+      console.log(error);
+    } 
+}, []);
+  console.log(projectProgresses);
   return (
     <>
       <div className="ml-[50px] text-[20px]">
@@ -27,19 +38,21 @@ const ProgressList = (props) => {
               </th>
             </tr>
           </thead>
-          <tbody className="overflow-y-auto">
-            <tr className="bg-white border-b ">
-              <th scope="row" className="px-6 py-4 "></th> {/* Number */}
-              <td className="px-6 py-4"></td> {/* ProjectNumber */}
-              <td className="px-6 py-4"></td> {/* ProjectDate */}
-              <td className="px-6 py-4"></td> {/* ProjectPercentage */}
+          <tbody className="overflow-y-auto">{
+            projectProgresses.map(projectProgress => (
+            <tr className="bg-white border-b " key={projectProgress.projectProgressId}>
+              <th scope="row" className="px-6 py-4 ">{projectProgress.numberProgress}</th> 
+              <td className="px-6 py-4">{projectProgress.project.projectName}</td> 
+              <td className="px-6 py-4">{projectProgress.dateForm}</td> 
+              <td className="px-6 py-4">{projectProgress.workProgress}</td> 
             </tr>
+            ))}
           </tbody>
         </table>
         <button
           type="button"
           className="text-white bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 hover:bg-gradient-to-br   shadow-purple-500/50  dark:shadow-purple-800/80 font-medium rounded-[25px] text-sm px-12 py-2.5 text-center mr-2 mb-2"
-          onClick={() => navigate("/Student/CreateProgress")}
+          onClick={() => navigate("/Student/CreateProgress/"+ getProjectId)}
         >
           +Create Progress
         </button>

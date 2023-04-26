@@ -84,7 +84,7 @@ const Login = (props) => {
 
     setErrors(newErrors);
 
-    if (Object.keys(newErrors).length === 0) {
+    // if (Object.keys(newErrors).length === 0) {
       // alert(Object.values(newErrors).join(", "));
       try {
         await login(payload);
@@ -96,14 +96,13 @@ const Login = (props) => {
           navigate("/Advisor");
         } else if (user.role === "PM03") {
           navigate("/Student");
-          // navigate("/Admin");
         } else {
           navigate("");
         }
       } catch (error) {
         console.log(error);
       }
-    }
+    // }
   };
 
   return (
@@ -224,7 +223,7 @@ const Register = (props) => {
     if (validate()) {
       try {
         const response = await axios.post("https://localhost:7120/api/MemberUser", payload);
-        console.log(response.data);
+        // console.log(response.data);
         props.onFromSwitch("login");
       } catch (error) {
         console.error(error);

@@ -1,37 +1,54 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import jwtInterceptor from "../Auth/jwtInterceptor";
 
 const Editing = (props) => {
 
   const { getProjectId } = useParams();
-
+  const navigate = useNavigate();
   const [projectId, setProjectId] = useState("");
   const [projectName, setProjectName] = useState("");
   const [projectDetail, setProjectDetail] = useState("");
   const [projectYear, setProjectYear] = useState("");
   const [projectContact, setProjectContact] = useState("");
+  const [project, setProject] = useState({});
 
   useEffect(() => {
     try {
       jwtInterceptor.get("https://localhost:7120/api/Project/" + getProjectId).then((response) => {
-      setProjectId(response.data.projectId);
-      setProjectName(response.data.projectName);
-      setProjectDetail(response.data.projectDetail);
-      setProjectYear(response.data.projectYear);
-      setProjectContact(response.data.projectContact);
-    });
-      
+        setProject(response?.data);
+        setProjectId(response.data.projectId)
+        setProjectName(response.data.projectName);
+        setProjectDetail(response.data.projectDetail);
+        setProjectYear(response.data.projectYear);
+        setProjectContact(response.data.projectContact);
+      });
     } catch (error) {
       console.log(error);
     }
-    
 }, []);
+  console.log(project);
 
-const handlerSubmitEdit = async (e) => {
-  e.preventDefault();
-  
-};
+  const handlerSubmitEdit = async (e) => {
+    e.preventDefault();
+    const updateProject = {
+      projectId,
+      projectName,
+      projectYear,
+      projectDetail,
+      projectContact,
+    };
+    try {
+      await jwtInterceptor.put(
+        `https://localhost:7120/api/Project/${getProjectId}`,
+        updateProject
+      );
+    } catch (error) {
+      console.log(error);
+    }
+    navigate("/Advisor/MyProject");
+  };
+
   return (
     <>
       <div className="ml-[50px] text-[20px]">
@@ -49,12 +66,22 @@ const handlerSubmitEdit = async (e) => {
           </div>
           <div className="consultant">
             <h4 className="ml-[40px] mt-[20px]">Consultant</h4>
-            <p className="ml-[50px] mt-[10px] pr-[300px] text-[20px]">
-              Bundit Korndee
-            </p>
+            {project.advisers && project.advisers.map((adviser, index) => (
+    <p key={index} className="ml-[50px] mt-[10px] pr-[300px] text-[20px]">
+      {adviser.memberUser.fristname} {adviser.memberUser.lastname}
+    </p>
+  ))}
+          </div>
+          <div className="consultant">
+            <h4 className="ml-[40px] mt-[20px]">Member List</h4>
+            {project.advisees && project.advisees.map((advisees, index) => (
+    <p key={index} className="ml-[50px] mt-[10px] pr-[300px] text-[20px]">
+      {advisees.memberUser.fristname} {advisees.memberUser.lastname}
+    </p>
+  ))}
           </div>
           <div className="people">
-            <h4 className="ml-[40px] mt-[20px]">People</h4>
+            <h4 className="ml-[40px] mt-[20px]">Year</h4>
             <textarea
               className="px-4 pt-[0.35rem] ml-[50px] mt-[10px] text-[20px] w-[70%] h-[45px] block text-gray-900 bg-gray-50 rounded-[18px] border border-gray-300 resize-none scrollbar-hide focus:outline-none"
               value={projectYear}
