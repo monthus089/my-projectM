@@ -71,7 +71,7 @@ const Login = (props) => {
     };
     const emailRegex = (/^\d+\d{11}@dpu.ac.th$/.test(email) || /^\w+@dpu.ac.th$/.test(email));
     const passwordRegex =
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
+      /^(?=.*[0-9]).{8,24}$/;
     let newErrors = {};
 
     if (!emailRegex) {
@@ -181,7 +181,7 @@ const Register = (props) => {
     let newErrors = {};
 
     const emailRegex = (/^\d+\d{11}@dpu.ac.th$/.test(email) || /^\w+@dpu.ac.th$/.test(email));
-    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
+    const passwordRegex = /^(?=.*[0-9]).{8,24}$/;
 
     if (!emailRegex) {
       newErrors.email = "Please enter a valid email";
