@@ -15,18 +15,20 @@ const Editing = (props) => {
 
   useEffect(() => {
     try {
-      jwtInterceptor.get("https://localhost:7120/api/Project/" + getProjectId).then((response) => {
-        setProject(response?.data);
-        setProjectId(response.data.projectId)
-        setProjectName(response.data.projectName);
-        setProjectDetail(response.data.projectDetail);
-        setProjectYear(response.data.projectYear);
-        setProjectContact(response.data.projectContact);
-      });
+      jwtInterceptor
+        .get("https://localhost:7120/api/Project/" + getProjectId)
+        .then((response) => {
+          setProject(response?.data);
+          setProjectId(response.data.projectId);
+          setProjectName(response.data.projectName);
+          setProjectDetail(response.data.projectDetail);
+          setProjectYear(response.data.projectYear);
+          setProjectContact(response.data.projectContact);
+        });
     } catch (error) {
       console.log(error);
     }
-}, []);
+  }, []);
   console.log(project);
 
   const handlerSubmitEdit = async (e) => {
@@ -39,16 +41,18 @@ const Editing = (props) => {
       projectContact,
     };
     try {
-      await jwtInterceptor.put(
-        `https://localhost:7120/api/Project/${getProjectId}`,
-        updateProject
-      );
+      await jwtInterceptor
+        .put(
+          `https://localhost:7120/api/Project/${getProjectId}`,
+          updateProject
+        )
+        .then((res) =>"");
     } catch (error) {
       console.log(error);
     }
     navigate("/Admin/Board");
   };
-  
+
   return (
     <>
       <div className="ml-[50px] text-[20px]">
@@ -66,19 +70,27 @@ const Editing = (props) => {
           </div>
           <div className="consultant">
             <h4 className="ml-[40px] mt-[20px]">Consultant</h4>
-            {project.advisers && project.advisers.map((adviser, index) => (
-    <p key={index} className="ml-[50px] mt-[10px] pr-[300px] text-[20px]">
-      {adviser.memberUser.fristname} {adviser.memberUser.lastname}
-    </p>
-  ))}
+            {project.advisers &&
+              project.advisers.map((adviser, index) => (
+                <p
+                  key={index}
+                  className="ml-[50px] mt-[10px] pr-[300px] text-[20px]"
+                >
+                  {adviser.memberUser.fristname} {adviser.memberUser.lastname}
+                </p>
+              ))}
           </div>
           <div className="consultant">
             <h4 className="ml-[40px] mt-[20px]">Member List</h4>
-            {project.advisees && project.advisees.map((advisees, index) => (
-    <p key={index} className="ml-[50px] mt-[10px] pr-[300px] text-[20px]">
-      {advisees.memberUser.fristname} {advisees.memberUser.lastname}
-    </p>
-  ))}
+            {project.advisees &&
+              project.advisees.map((advisees, index) => (
+                <p
+                  key={index}
+                  className="ml-[50px] mt-[10px] pr-[300px] text-[20px]"
+                >
+                  {advisees.memberUser.fristname} {advisees.memberUser.lastname}
+                </p>
+              ))}
           </div>
           <div className="people">
             <h4 className="ml-[40px] mt-[20px]">Year</h4>

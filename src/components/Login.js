@@ -18,6 +18,7 @@ import mirror from "../img/mirror.svg";
 import { useNavigate } from "react-router-dom";
 import AuthContext from "./Auth/AuthProvider";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 const App = () => {
   const [currentForm, setCurrentForm] = useState("login");
@@ -70,16 +71,13 @@ const Login = (props) => {
     };
     const emailRegex = (/^\d+\d{11}@dpu.ac.th$/.test(email) || /^\w+@dpu.ac.th$/.test(email));
     const passwordRegex =
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
+      /^(?=.*[0-9]).{8,24}$/;
     let newErrors = {};
 
     if (!emailRegex) {
-      newErrors.email = "Please enter a valid email address";
-      alert("Please enter a valid email address");
+      alert('Please enter a valid email address! \n "Uppercase letter or @dpu.ac.th"');
     } else if (!passwordRegex.test(pass)){
-      newErrors.password =
-        "Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, and one number";
-      alert("Password enter a valid");
+      alert('Password enter a valid!')
     }
 
     setErrors(newErrors);
@@ -183,7 +181,7 @@ const Register = (props) => {
     let newErrors = {};
 
     const emailRegex = (/^\d+\d{11}@dpu.ac.th$/.test(email) || /^\w+@dpu.ac.th$/.test(email));
-    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
+    const passwordRegex = /^(?=.*[0-9]).{8,24}$/;
 
     if (!emailRegex) {
       newErrors.email = "Please enter a valid email";
