@@ -1,50 +1,74 @@
-import React from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import jwtInterceptor from "../Auth/jwtInterceptor";
 
 const Create = (props) => {
-  
+  const navigate = useNavigate();
+  const [projectName, setProjectName] = useState("");
+  const [projectDetail, setProjectDetail] = useState("");
+  const [projectContact, setProjectContact] = useState("");
+
+  const handlerSubmitCreate = async (e) => {
+    e.preventDefault();
+    let payload = {
+      "projectName": projectName,
+      "projectDetail": projectDetail,
+      "projectContact": projectContact,
+    };
+      try {
+        await jwtInterceptor.post("https://localhost:7120/api/Project", payload);
+
+      } catch (error) {
+        console.log(error);
+      }
+      navigate("/Advisor/MyProject")
+  };
+
   return (
     <>
       <div className="ml-[50px] text-[20px]">
         <h5>Create</h5>
       </div>
       <div className="relative w-[70%] h-[83%] overflow-y-auto shadow-[1px_1px_6px_-1px_rgba(0,0,0,0.1)] sm:rounded-[20px] left-[80px] mt-12 scrollbar-hide ">
-        <form action="">
+        <form onSubmit={handlerSubmitCreate}>
           <div className="mt-[30px]">
             <h4 className="ml-[40px] mt-[20px]">Project Name</h4>
             <textarea
-              name=""
-              id="" placeholder="Project Name..."
+              placeholder="Project Name..."
               className="px-4 pt-[0.35rem] ml-[50px] mt-[10px] text-[20px] w-[70%] h-[45px] block text-gray-900 bg-gray-50 rounded-[18px] border border-gray-300 resize-none scrollbar-hide focus:outline-none"
+              value={projectName}
+              onChange={(e) => setProjectName(e.target.value)}
             ></textarea>
           </div>
-          <div className="consultant">
+          {/* <div className="consultant">
             <h4 className="ml-[40px] mt-[20px]">Consultant</h4>
             <p className="ml-[50px] mt-[10px] pr-[300px] text-[20px]">
               Bundit Korndee
             </p>
-          </div>
-          <div className="people">
+          </div> */}
+          {/* <div className="people">
             <h4 className="ml-[40px] mt-[20px]">People</h4>
             <textarea
-              name=""
-              id="" placeholder="People..."
+              placeholder="People..."
               className="px-4 pt-[0.35rem] ml-[50px] mt-[10px] text-[20px] w-[70%] h-[45px] block text-gray-900 bg-gray-50 rounded-[18px] border border-gray-300 resize-none scrollbar-hide focus:outline-none"
             ></textarea>
-          </div>
+          </div> */}
           <div className="detailsProject">
             <h4 className="ml-[40px] mt-[20px]">Details</h4>
             <textarea
-              name=""
-              id="" placeholder="Detail..."
+              placeholder="Detail..."
               className="px-4 pt-[0.35rem] ml-[50px] mt-[10px] text-[20px] w-[70%] h-[250px] block text-gray-900 bg-gray-50 rounded-[18px] border border-gray-300 resize-none scrollbar-hide focus:outline-none"
+              value={projectDetail}
+              onChange={(e) => setProjectDetail(e.target.value)}
             ></textarea>
           </div>
           <div className="contact">
             <h4 className="ml-[40px] mt-[20px]">Contact</h4>
             <textarea
-              name=""
-              id="" placeholder="Contat..."
+              placeholder="Contact..."
               className="px-4 pt-[0.35rem] ml-[50px] mt-[10px] text-[20px] w-[70%] h-[85px] block text-gray-900 bg-gray-50 rounded-[18px] border border-gray-300 resize-none scrollbar-hide focus:outline-none"
+              value={projectContact}
+              onChange={(e) => setProjectContact(e.target.value)}
             ></textarea>
           </div>
           <div className="pt-20 pr-2 grid grid-cols-12 ">

@@ -22,11 +22,12 @@ import JoinProgress from "./components/Student/JoinProgress";
 import ProgressList from "./components/Student/ProgressList";
 import CreateProgress from "./components/Student/CreateProgress";
 import JoinAppointment from "./components/Student/JoinAppointment";
+import { useContext } from "react";
+import AuthContext from "./components/Auth/AuthProvider";
 function App() {
-  // const token = localStorage.getItem("accesstoken");
-  // if (!token) {
-  //   return <Login />;
-  // }
+
+  const { user } = useContext(AuthContext);
+ 
   return (
       <Routes>
         <Route path="/" element={<Login/>}></Route>
@@ -56,7 +57,7 @@ function App() {
         <Route path="JoinAppointment" element={<JoinAppointment />} />
       </Route>
     </Routes>
-
+    
   );
 }
 

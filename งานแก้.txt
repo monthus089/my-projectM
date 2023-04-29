@@ -1,0 +1,8 @@
+ก็จะมีแค่
+- แก้หน้า register 
+- เพิ่มหน้า progress ของ advisor
+- เพิ่มหน้า setting account user
+- แก้ไข database table 
+	- project -> projectDetail ->nvarchar(50) -> nvarchar(MAX)
+	- memberUser -> การเก็บขอมูลเพิ่ม สาขาของนศ.
+ 	
