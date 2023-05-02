@@ -1,4 +1,5 @@
 import { Route, Routes } from "react-router-dom";
+//login
 import Login from "./components/Login";
 // Admin Navbar
 import MainAdminNavbar from "./components/MainAdminNavbar";
@@ -12,7 +13,9 @@ import MyProject from "./components/Advisor&Advisee/MyProject";
 import MyDetails from "./components/Advisor&Advisee/MyDetails";
 import MyEditing from "./components/Advisor&Advisee/MyEditing";
 import Create from "./components/Advisor&Advisee/Create";
-import Progress from "./components/Advisor&Advisee/Progress";
+import MyProjectProgress from "./components/Advisor&Advisee/MyProjectProgress";
+import ListProgress from "./components/Advisor&Advisee/ListProgress";
+import ReadProgress from "./components/Advisor&Advisee/ReadProgress";
 import Appointment from "./components/Advisor&Advisee/Appointment";
 // Student Navbar
 import MainStudentNavbar from "./components/MainStudentNavbar";
@@ -22,6 +25,8 @@ import JoinProgress from "./components/Student/JoinProgress";
 import ProgressList from "./components/Student/ProgressList";
 import CreateProgress from "./components/Student/CreateProgress";
 import JoinAppointment from "./components/Student/JoinAppointment";
+
+
 import { useContext } from "react";
 import AuthContext from "./components/Auth/AuthProvider";
 function App() {
@@ -44,7 +49,9 @@ function App() {
         <Route path="MyDetails/:getProjectId" element={<MyDetails />} />
         <Route path="MyEditing/:getProjectId" element={<MyEditing />} />
         <Route path="Create" element={<Create />} />
-        <Route path="Progress" element={<Progress />} />
+        <Route path="Progress" element={<MyProjectProgress />} />
+        <Route path="ListProgress" element={<ListProgress />} />
+        <Route path="ReadProgress" element={<ReadProgress />} />
         <Route path="Appoint" element={<Appointment />} />
       </Route>
       <Route path="/Student" element={<MainStudentNavbar />}>

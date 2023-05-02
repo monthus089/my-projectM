@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import jwtInterceptor from "../Auth/jwtInterceptor";
 
 const Details = (props) => {
   const [showModal, setShowModal] = useState(false);
-  let navigate = useNavigate()
+  let navigate = useNavigate();
   const handleDelete = () => {
     setShowModal(true);
   };
@@ -14,9 +14,10 @@ const Details = (props) => {
   };
 
   const handleDeleteConfirm = async (projectId) => {
-    
     try {
-      await jwtInterceptor.delete(`https://localhost:7120/api/Project/${projectId}`);
+      await jwtInterceptor.delete(
+        `https://localhost:7120/api/Project/${projectId}`
+      );
     } catch (error) {
       console.log(error);
     }
@@ -29,11 +30,14 @@ const Details = (props) => {
 
   useEffect(() => {
     try {
-      jwtInterceptor.get("https://localhost:7120/api/Project/" + getProjectId).then((response) => setProject(response?.data));
+      jwtInterceptor
+        .get("https://localhost:7120/api/Project/" + getProjectId)
+        .then((response) => setProject(response?.data));
     } catch (error) {
       console.log(error);
     }
-}, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <>
@@ -49,30 +53,38 @@ const Details = (props) => {
         </div>
         <div className="mt-[50px]">
           <h4 className="ml-[40px] mt-[20px]">Consultant</h4>
-          {project.advisers && project.advisers.map((adviser, index) => (
-    <p key={index} className="ml-[50px] mt-[10px] pr-[300px] text-[20px]">
-      {adviser.memberUser.fristname} {adviser.memberUser.lastname}
-    </p>
-  ))}
+          {project.advisers &&
+            project.advisers.map((adviser, index) => (
+              <p
+                key={index}
+                className="ml-[50px] mt-[10px] pr-[300px] text-[20px]"
+              >
+                {adviser.memberUser.fristname} {adviser.memberUser.lastname}
+              </p>
+            ))}
         </div>
         <div className="mt-[50px]">
           <h4 className="ml-[40px] mt-[20px]">Member List</h4>
-          {project.advisees && project.advisees.map((advisees, index) => (
-    <p key={index} className="ml-[50px] mt-[10px] pr-[300px] text-[20px]">
-      {advisees.memberUser.fristname} {advisees.memberUser.lastname}
-    </p>
-  ))}
+          {project.advisees &&
+            project.advisees.map((advisees, index) => (
+              <p
+                key={index}
+                className="ml-[50px] mt-[10px] pr-[300px] text-[20px]"
+              >
+                {advisees.memberUser.fristname} {advisees.memberUser.lastname}
+              </p>
+            ))}
         </div>
         <div className="mt-[50px]">
           <h4 className="ml-[40px] mt-[20px]">Year</h4>
           <p className="ml-[50px] mt-[10px] pr-[300px] text-[20px]">
             {project.projectYear}
-            </p>
+          </p>
         </div>
         <div className="mt-[50px]">
           <h4 className="ml-[40px] mt-[20px]">Details</h4>
           <p className="ml-[50px] mt-[10px] pr-[300px] text-[20px]">
-           {project.projectDetail}
+            {project.projectDetail}
           </p>
         </div>
         <div className="mt-[50px]">

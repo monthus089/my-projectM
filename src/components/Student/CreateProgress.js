@@ -38,7 +38,7 @@ const CreateProgress = (props) => {
             </div>
             <div className="relative w-[70%] h-[83%] overflow-y-auto shadow-[1px_1px_6px_-1px_rgba(0,0,0,0.1)] sm:rounded-[20px] left-[80px] mt-12 scrollbar-hide ">
                 <form onSubmit={handlerSubmitCreate}>
-                    <div className="items-center grid grid-cols-3 text-center">
+                    {/* <div className="items-center grid grid-cols-3 text-center">
                         <div className="ml-4 mt-10"><img src={cite_logo} alt="" className="h-20" /></div>
                         <div className="pt-0 text-xl"><span>Project Progress Summary</span></div>
                         <div className="ml-28 mt-12">
@@ -75,7 +75,7 @@ const CreateProgress = (props) => {
                                 <label className="ml-2 text-sm font-medium text-gray-900">Robotics and Automation Engineering</label>
                             </div>
                         </div>
-                    </div>
+                    </div> */}
                     <div className="items-center text-start my-10 whitespace-nowrap">
                         <div className="pl-6 py-5"><span>Progress Summary</span></div>
                         <div>

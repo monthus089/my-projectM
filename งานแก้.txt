@@ -1,8 +1,10 @@
 ก็จะมีแค่
 - แก้หน้า register 
-- เพิ่มหน้า progress ของ advisor
+- เพิ่มหน้า progress ของ advisor [80%]
 - เพิ่มหน้า setting account user
 - แก้ไข database table 
-	- project -> projectDetail ->nvarchar(50) -> nvarchar(MAX)
-	- memberUser -> การเก็บขอมูลเพิ่ม สาขาของนศ.
- 	
+	- project -> projectDetail ->nvarchar(50) -> nvarchar(MAX) [complete]
+	- memberUser -> การเก็บขอมูลเพิ่ม สาขาของนศ. [complete]
+	
+1. กรองข้อมูลของผู้ใช้ จัดการกับข้อมูลที่ไม่จำเป็น ทั้งระบบ
+2. เพิ่มฟังชั้น การแก้ไขข้อมูลของผู้ใช้ ที่กำทำกับตัวเอง หรือ บุคคลที่สาม(Admin)

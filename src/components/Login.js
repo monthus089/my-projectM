@@ -18,7 +18,6 @@ import mirror from "../img/mirror.svg";
 import { useNavigate } from "react-router-dom";
 import AuthContext from "./Auth/AuthProvider";
 import axios from "axios";
-import Swal from "sweetalert2";
 
 const App = () => {
   const [currentForm, setCurrentForm] = useState("login");
@@ -144,10 +143,10 @@ const Login = (props) => {
           </i>
         </div>
         <input type="submit" className="btn" value={"Login"}></input>
-        <div className="signup_link">
+        {/* <div className="signup_link">
           Now Member?{" "}
           <a onClick={() => props.onFromSwitch("register")}> Registers </a>
-        </div>
+        </div> */}
       </form>
     </>
   );
