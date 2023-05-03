@@ -15,7 +15,7 @@ export const AuthProvider = ({ children }) => {
     });
     const login = async (payload) => {
         try {
-            const response = await axios.post("https://localhost:7120/api/Authenticate/Authenticate",
+            const response = await axios.post(`${process.env.REACT_APP_API}/Authenticate/Authenticate`,
             payload);
             console.log(response.data)
             let token = (jwt_decode(response.data.accessToken));

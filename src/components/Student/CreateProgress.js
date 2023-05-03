@@ -1,5 +1,5 @@
 import React from "react";
-import cite_logo from "./logo_cite.png";
+// import cite_logo from "./logo_cite.png";
 import { useState } from "react";
 import jwtInterceptor from "../Auth/jwtInterceptor";
 import { useNavigate, useParams } from "react-router-dom";
@@ -24,7 +24,7 @@ const CreateProgress = (props) => {
           };
 
           try {
-            await jwtInterceptor.post(`https://localhost:7120/api/ProjectProgress?projectId=${getProjectId}`, payload);
+            await jwtInterceptor.post(`${process.env.REACT_APP_API}/ProjectProgress?projectId=${getProjectId}`, payload);
 
           } catch (error) {
             console.log(error);

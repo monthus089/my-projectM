@@ -13,7 +13,7 @@ const JoinProgress = (props) => {
   useEffect(() => {
     try {
       jwtInterceptor
-        .get("https://localhost:7120/api/MemberUser/project/" + user.nameid)
+        .get(`${process.env.REACT_APP_API}/MemberUser/project/` + user.nameid)
         .then((response) => setProjects(response?.data));
     } catch (error) {
       console.log(error);

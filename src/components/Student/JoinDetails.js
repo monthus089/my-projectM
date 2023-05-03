@@ -17,7 +17,7 @@ const JoinDetails = (props) => {
       "projectId": getProjectId
     };
     try {
-      await jwtInterceptor.post("https://localhost:7120/api/Advisee", payload);
+      await jwtInterceptor.post(`${process.env.REACT_APP_API}/Advisee`, payload);
     } catch (error) {
       console.log(error);
       if(error?.response?.status === 400){
@@ -30,7 +30,7 @@ const JoinDetails = (props) => {
 
   useEffect(() => {
     try {
-      jwtInterceptor.get("https://localhost:7120/api/Project/" + getProjectId).then((response) => setProject(response?.data));
+      jwtInterceptor.get(`${process.env.REACT_APP_API}/Project/` + getProjectId).then((response) => setProject(response?.data));
     } catch (error) {
       console.log(error);
     }

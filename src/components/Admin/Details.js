@@ -17,7 +17,7 @@ const Details = (props) => {
   const handleDeleteConfirm = async (projectId) => {
     
     try {
-      await jwtInterceptor.delete(`https://localhost:7120/api/Project/${projectId}`);
+      await jwtInterceptor.delete(`${process.env.REACT_APP_API}/Project/${projectId}`);
     } catch (error) {
       console.log(error);
     }
@@ -29,7 +29,7 @@ const Details = (props) => {
 
   useEffect(() => {
     
-    jwtInterceptor.get("https://localhost:7120/api/Project/" + getProjectId).then((response) => setProject(response?.data));
+    jwtInterceptor.get(`${process.env.REACT_APP_API}/Project/` + getProjectId).then((response) => setProject(response?.data));
 }, []);
   console.log(project)
 

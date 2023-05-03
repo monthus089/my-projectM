@@ -10,7 +10,7 @@ const ProgressList = (props) => {
     try {
       jwtInterceptor
         .get(
-          "https://localhost:7120/api/ProjectProgress/project/" + getProjectId
+          `${process.env.REACT_APP_API}/ProjectProgress/project/` + getProjectId
         )
         .then((response) => setProjectProgresses(response?.data));
     } catch (error) {

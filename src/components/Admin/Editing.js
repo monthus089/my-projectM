@@ -16,7 +16,7 @@ const Editing = (props) => {
   useEffect(() => {
     try {
       jwtInterceptor
-        .get("https://localhost:7120/api/Project/" + getProjectId)
+        .get(`${process.env.REACT_APP_API}/Project/` + getProjectId)
         .then((response) => {
           setProject(response?.data);
           setProjectId(response.data.projectId);
@@ -43,7 +43,7 @@ const Editing = (props) => {
     try {
       await jwtInterceptor
         .put(
-          `https://localhost:7120/api/Project/${getProjectId}`,
+          `${process.env.REACT_APP_API}/Project/${getProjectId}`,
           updateProject
         )
         .then((res) =>"");

@@ -16,7 +16,7 @@ const Create = (props) => {
       "projectContact": projectContact,
     };
       try {
-        await jwtInterceptor.post("https://localhost:7120/api/Project", payload);
+        await jwtInterceptor.post(`${process.env.REACT_APP_API}/Project`, payload);
 
       } catch (error) {
         console.log(error);

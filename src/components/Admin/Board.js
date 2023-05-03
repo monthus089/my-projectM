@@ -7,7 +7,7 @@ const Broad = (props) => {
 
   useEffect(() => {
     
-    jwtInterceptor.get("https://localhost:7120/api/Project").then((response) => setProjects(response?.data));
+    jwtInterceptor.get(`${process.env.REACT_APP_API}/Project`).then((response) => setProjects(response?.data));
 
   }, []);
     console.log(projects);
