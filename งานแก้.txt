@@ -4,7 +4,7 @@
 
 
 งานที่มี
-- แก้หน้า register [0%]
+- แก้หน้า register [100%]
 - เพิ่มหน้า progress ของ advisor [100%]
 - เพิ่มหน้า setting account user [0%]
 - เพิ่มฟังชันในการอ่านไฟล์ CSV [complete]
