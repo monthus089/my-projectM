@@ -1,9 +1,9 @@
 import { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import jwtInterceptor from "../Auth/jwtInterceptor";
-import { BsCloudDownload } from "react-icons/bs";
+import { AiOutlineCloudUpload } from "react-icons/ai";
 import AuthContext from "../Auth/AuthProvider";
-import {csvFileToArray} from "../../js/CSVsplit";
+import { notyf } from "../../js/Notyf";
 
 const RoleBoard = (props) => {
   let navigate = useNavigate();
@@ -11,19 +11,23 @@ const RoleBoard = (props) => {
   const [roles, setRoles] = useState([]);
   const [selectedRole, setSelectedRole] = useState("");
   const { user } = useContext(AuthContext);
-  console.log(user);
+  const [file, setFile] = useState();
+  const [array, setArray] = useState([]);
+  const fileReader = new FileReader();
+
   useEffect(() => {
     jwtInterceptor
       .get(`${process.env.REACT_APP_API}/MemberUser`)
       .then((response) => setMemberUsers(response?.data));
-  }, []);
-  console.log(MemberUsers);
 
-  useEffect(() => {
     jwtInterceptor
       .get(`${process.env.REACT_APP_API}/Role`)
       .then((response) => setRoles(response?.data));
   }, []);
+
+  useEffect(() => {
+    console.table(array);
+  }, [array]);
 
   const handleRoleChange = (event) => {
     setSelectedRole(event.target.value);
@@ -35,24 +39,33 @@ const RoleBoard = (props) => {
       await jwtInterceptor.put(
         `${process.env.REACT_APP_API}/MemberUser/${memberUserId}?roleId=${selectedRole}`
       );
+      notyf.success("Successful role change");
     } catch (error) {
       console.log(error);
       if (error?.response?.status === 400) {
-        alert("This is your current role!");
+        notyf.error("This is your current role!");
       }
     }
   };
 
-  const [file, setFile] = useState();
-  const [array, setArray] = useState([]);
+  const csvFileToArray = (string) => {
+    const csvHeader = string.slice(0, string.indexOf("\n")).split(",");
+    const csvRows = string.slice(string.indexOf("\n") + 1).split("\n");
+    const array = csvRows.map((i) => {
+      const values = i.split(",");
+      const obj = csvHeader.reduce((object, header, index) => {
+        object[header] = values[index];
+        return object;
+      }, {});
+      return obj;
+    });
 
-  const fileReader = new FileReader();
+    setArray(array);
+  };
 
   const handleOnChange = (e) => {
     setFile(e.target.files[0]);
   };
-
-  
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
@@ -60,12 +73,11 @@ const RoleBoard = (props) => {
     if (file) {
       fileReader.onload = function (event) {
         const text = event.target.result;
-        setArray(csvFileToArray(text));
+        csvFileToArray(text);
       };
 
       fileReader.readAsText(file);
     }
-    console.log(array)
   };
 
   return (
@@ -84,12 +96,22 @@ const RoleBoard = (props) => {
               IMPORT .CSV
             </p>
           </div>
-          <input id="dropzone-file" type="file" className="hidden" accept=".csv"/>
+          <input
+            id="dropzone-file"
+            type="file"
+            className="hidden"
+            accept=".csv"
+          />
         </label>
-        <label className="flex flex-col items-center justify-center w-[100px] h-12 border-2 border-gray-300  rounded-r-[25px] cursor-pointer bg-gray-50 " onClick={(e)=>{handleOnSubmit(e)}}>
+        <label
+          className="flex flex-col items-center justify-center w-[100px] h-12 border-2 border-gray-300  rounded-r-[25px] cursor-pointer bg-gray-200 hover:bg-gray-300 "
+          onClick={(e) => {
+            handleOnSubmit(e);
+          }}
+        >
           <div className="flex flex-row items-center justify-center pt-8 pb-6">
             <p className="mb-2 mr-2 text-sm text-black justify-center">
-              <BsCloudDownload className=" w-4 h-4  text-black"></BsCloudDownload>
+              <AiOutlineCloudUpload className=" w-4 h-4  text-black"></AiOutlineCloudUpload>
             </p>
           </div>
         </label>
@@ -99,13 +121,13 @@ const RoleBoard = (props) => {
           <thead className="text-sm font-bold text-black uppercase bg-gray-50 dark:bg-gray-100 ">
             <tr>
               <th scope="col" className="px-6 py-3">
+                Number
+              </th>
+              <th scope="col" className="px-6 py-3">
                 Email
               </th>
               <th scope="col" className="px-6 py-3">
                 Name
-              </th>
-              <th scope="col" className="px-6 py-3">
-                Phone
               </th>
               <th scope="col" className="px-6 py-3">
                 Role
@@ -116,19 +138,22 @@ const RoleBoard = (props) => {
             </tr>
           </thead>
           <tbody className="overflow-y-auto">
-            {MemberUsers.map((MemberUser) =>
+            {MemberUsers.map((MemberUser, index) =>
               MemberUser.memberUserId !== user.nameid ? (
                 <tr
                   className="bg-white border-b "
                   key={MemberUser.memberUserId}
                 >
                   <th scope="row" className="px-6 py-4 ">
+                    {index}
+                  </th>
+                  <th scope="row" className="px-6 py-4 ">
                     {MemberUser.memberUserEmail}
                   </th>
                   <td className="px-6 py-4">
                     {MemberUser.fristname} {MemberUser.lastname}
                   </td>
-                  <td className="px-6 py-4">{MemberUser.phoneNumber}</td>
+
                   <td className="px-6 py-4">
                     <select
                       id="role"

@@ -26,17 +26,15 @@ import ProgressList from "./components/Student/ProgressList";
 import CreateProgress from "./components/Student/CreateProgress";
 import JoinAppointment from "./components/Student/JoinAppointment";
 
-
 import { useContext } from "react";
 import AuthContext from "./components/Auth/AuthProvider";
 function App() {
-
   const { user } = useContext(AuthContext);
- 
+
   return (
-      <Routes>
-        <Route path="/" element={<Login/>}></Route>
-        <Route path="/Admin" element={<MainAdminNavbar />}>
+    <Routes>
+      <Route path="/" element={<Login />}></Route>
+      <Route path="/Admin" element={<MainAdminNavbar />}>
         <Route path="" element={<Board />} />
         <Route path="Board" element={<Board />}></Route>
         <Route path="Details/:getProjectId" element={<Details />} />
@@ -60,11 +58,10 @@ function App() {
         <Route path="JoinDetails/:getProjectId" element={<JoinDetails />} />
         <Route path="JoinProgress" element={<JoinProgress />} />
         <Route path="ProgressList/:getProjectId" element={<ProgressList />} />
-        <Route path="CreateProgress/:getProjectId" element={<CreateProgress />} />
+        <Route path="CreateProgress/:getProjectId" element={<CreateProgress />}/>
         <Route path="JoinAppointment" element={<JoinAppointment />} />
       </Route>
     </Routes>
-    
   );
 }
 

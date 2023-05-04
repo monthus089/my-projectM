@@ -21,6 +21,11 @@ export const notyf = new Notyf({
       background: 'indianred',
       duration: 2000,
       dismissible: true
+    },
+    {
+      type: 'success',
+      duration: 2000,
+      dismissible: true
     }
   ]
 });
