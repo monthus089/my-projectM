@@ -5,13 +5,14 @@
 
 งานที่มี
 - แก้หน้า register [0%]
-- เพิ่มหน้า progress ของ advisor [95%]
+- เพิ่มหน้า progress ของ advisor [100%]
 - เพิ่มหน้า setting account user [0%]
 - เพิ่มฟังชันในการอ่านไฟล์ CSV [complete]
+- เขียนไฟล์ CSV ลง Database ผ่าน API [0%]
 - แก้ไข database table [complete]
 	- project -> projectDetail ->nvarchar(50) -> nvarchar(MAX) [complete]
 	- memberUser -> การเก็บขอมูลเพิ่ม สาขาของนศ. [complete]
-- เก็บ password ในรูปแบบ hash 
+- เก็บ password ในรูปแบบ hash [0%]
 	
 
 
