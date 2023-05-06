@@ -157,7 +157,7 @@ const RoleBoard = (props) => {
                   <td className="px-6 py-4">
                     <select
                       id="role"
-                      className="bg-gray-50 border border-gray-300 text-gray-300 text-sm rounded-[18px] block w-full py-2.5 px-2 dark:bg-white focus:outline-none dark:text-gray-400 "
+                      className="bg-gray-50 border border-gray-300 text-sm rounded-[18px] block w-full py-2.5 px-2 dark:bg-white focus:border-transparent dark:text-gray-400 "
                       defaultValue={MemberUser.role?.roleName} // update defaultValue
                       onChange={handleRoleChange}
                     >

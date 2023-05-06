@@ -15,7 +15,7 @@ const Search = (props) => {
           <input
             type="text"
             id="simple-search"
-            className="block w-full pl-10 p-2.5 border-gray-100 bg-gray-100 border  text-gray-900 text-sm rounded-[18px] focus:outline-none "
+            className="block w-full pl-10 p-2.5 border-gray-100 bg-gray-100 border  text-gray-900 text-sm rounded-[18px] focus:outline-none  focus:ring-transparent"
             placeholder="Search"
             required
           />
