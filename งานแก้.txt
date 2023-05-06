@@ -4,9 +4,9 @@
 
 
 งานที่มี
-- แก้หน้า register [100%]
-- เพิ่มหน้า progress ของ advisor [100%]
-- เพิ่มหน้า setting account user [0%]
+- แก้หน้า register [complete]
+- เพิ่มหน้า progress ของ advisor [complete]
+- เพิ่มหน้า Change password user [complete]
 - เพิ่มฟังชันในการอ่านไฟล์ CSV [complete]
 - เขียนไฟล์ CSV ลง Database ผ่าน API [0%]
 - แก้ไข database table [complete]
