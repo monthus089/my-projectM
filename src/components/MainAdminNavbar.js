@@ -65,7 +65,7 @@ const MainLayoutAdmin = () => {
               return (
                 <li
                   key={index}
-                  className={`flex text-white text-sm item-center gap-x-4 cursor-pointer p-4 mr-14 hover:text-black hover:bg-slate-200 rounded-[25px] last:bg-slate-200 last:text-black ${
+                  className={`flex text-white text-sm item-center gap-x-4 cursor-pointer p-4 mr-14 hover:text-black hover:bg-slate-200 rounded-[25px] active:bg-slate-200 last:bg-slate-200 last:text-black ${
                     menu.spacing ? "mt-[612px]" : "mt-2"
                   } `}
                 >
