@@ -62,6 +62,7 @@ const Editing = (props) => {
               className="px-4 pt-[0.35rem] ml-[50px] mt-[10px] text-[20px] w-[70%] h-[45px] block text-gray-900 bg-gray-50 rounded-[18px] border border-gray-300 resize-none scrollbar-hide focus:outline-none"
               value={projectName}
               onChange={(e) => setProjectName(e.target.value)}
+              required
             ></textarea>
           </div>
           <div className="consultant">
@@ -86,6 +87,7 @@ const Editing = (props) => {
               className="px-4 pt-[0.35rem] ml-[50px] mt-[10px] text-[20px] w-[70%] h-[45px] block text-gray-900 bg-gray-50 rounded-[18px] border border-gray-300 resize-none scrollbar-hide focus:outline-none"
               value={projectYear}
               onChange={(e) => setProjectYear(e.target.value)}
+              required
             ></textarea>
           </div>
           <div className="detailsProject">
@@ -94,6 +96,7 @@ const Editing = (props) => {
               className="px-4 pt-[0.35rem] ml-[50px] mt-[10px] text-[20px] w-[70%] h-[250px] block text-gray-900 bg-gray-50 rounded-[18px] border border-gray-300 resize-none scrollbar-hide focus:outline-none"
               value={projectDetail}
               onChange={(e) => setProjectDetail(e.target.value)}
+              required
             ></textarea>
           </div>
           <div className="contact">
@@ -102,6 +105,7 @@ const Editing = (props) => {
               className="px-4 pt-[0.35rem] ml-[50px] mt-[10px] text-[20px] w-[70%] h-[85px] block text-gray-900 bg-gray-50 rounded-[18px] border border-gray-300 resize-none scrollbar-hide focus:outline-none"
               value={projectContact}
               onChange={(e) => setProjectContact(e.target.value)}
+              required
             ></textarea>
           </div>
           <div className="pt-20 pr-2 grid grid-cols-12 ">

@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import jwtInterceptor from "../Auth/jwtInterceptor";
+import AuthContext from "../Auth/AuthProvider";
 
 const Create = (props) => {
+  const { user } = useContext(AuthContext);
   const navigate = useNavigate();
   const [projectName, setProjectName] = useState("");
   const [projectDetail, setProjectDetail] = useState("");
@@ -16,7 +18,7 @@ const Create = (props) => {
       "projectContact": projectContact,
     };
       try {
-        await jwtInterceptor.post(`${process.env.REACT_APP_API}/Project`, payload);
+        await jwtInterceptor.post(`${process.env.REACT_APP_API}/Project?adviserId=${user.nameid}`, payload);
 
       } catch (error) {
         console.log(error);
@@ -38,21 +40,9 @@ const Create = (props) => {
               className="px-4 pt-[0.35rem] ml-[50px] mt-[10px] text-[20px] w-[70%] h-[45px] block text-gray-900 bg-gray-50 rounded-[18px] border border-gray-300 resize-none scrollbar-hide focus:outline-none"
               value={projectName}
               onChange={(e) => setProjectName(e.target.value)}
+              required
             ></textarea>
           </div>
-          {/* <div className="consultant">
-            <h4 className="ml-[40px] mt-[20px]">Consultant</h4>
-            <p className="ml-[50px] mt-[10px] pr-[300px] text-[20px]">
-              Bundit Korndee
-            </p>
-          </div> */}
-          {/* <div className="people">
-            <h4 className="ml-[40px] mt-[20px]">People</h4>
-            <textarea
-              placeholder="People..."
-              className="px-4 pt-[0.35rem] ml-[50px] mt-[10px] text-[20px] w-[70%] h-[45px] block text-gray-900 bg-gray-50 rounded-[18px] border border-gray-300 resize-none scrollbar-hide focus:outline-none"
-            ></textarea>
-          </div> */}
           <div className="detailsProject">
             <h4 className="ml-[40px] mt-[20px]">Details</h4>
             <textarea
@@ -60,6 +50,7 @@ const Create = (props) => {
               className="px-4 pt-[0.35rem] ml-[50px] mt-[10px] text-[20px] w-[70%] h-[250px] block text-gray-900 bg-gray-50 rounded-[18px] border border-gray-300 resize-none scrollbar-hide focus:outline-none"
               value={projectDetail}
               onChange={(e) => setProjectDetail(e.target.value)}
+              required
             ></textarea>
           </div>
           <div className="contact">
@@ -69,6 +60,7 @@ const Create = (props) => {
               className="px-4 pt-[0.35rem] ml-[50px] mt-[10px] text-[20px] w-[70%] h-[85px] block text-gray-900 bg-gray-50 rounded-[18px] border border-gray-300 resize-none scrollbar-hide focus:outline-none"
               value={projectContact}
               onChange={(e) => setProjectContact(e.target.value)}
+              required
             ></textarea>
           </div>
           <div className="pt-20 pr-2 grid grid-cols-12 ">

@@ -1,8 +1,24 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import jwtInterceptor from "../Auth/jwtInterceptor";
 
 const ListProgress = () => {
-  const navigate = useNavigate();
+  let navigate = useNavigate();
+  const { getProjectId } = useParams();
+  const [projectProgresses, setProjectProgresses] = useState([]);
+  useEffect(() => {
+    try {
+      jwtInterceptor
+        .get(
+          `${process.env.REACT_APP_API}/ProjectProgress/project/` + getProjectId
+        )
+        .then((response) => setProjectProgresses(response?.data));
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
+
+  console.table(projectProgresses)
 
   return (
     <>
@@ -20,7 +36,10 @@ const ListProgress = () => {
                 Project
               </th>
               <th scope="col" className="px-6 py-3">
-                Date
+                Date Sent
+              </th>
+              <th scope="col" className="px-6 py-3">
+                Date Checked
               </th>
               <th scope="col" className="px-6 py-3">
                 Percentage
@@ -31,23 +50,31 @@ const ListProgress = () => {
             </tr>
           </thead>
           <tbody className="overflow-y-auto">
-            <tr className="bg-white border-b ">
-              <th scope="row" className="px-6 py-4">
-                {/* หมายเลขความคืบหน้าโปรเจคนับตาม index */}
-              </th>
-              <td className="px-6 py-4">{/* ชื่อโปรเจค */}</td>
-              <td className="px-6 py-4">{/* วันที่ส่งความคืบหน้าโปรเจค */}</td>
-              <td className="px-6 py-4">{/* วันที่ส่งความคืบหน้าโปรเจค */}</td>
-              <td className="px-6 py-4">
+            {projectProgresses.map((projectProgress) => (
+              <tr
+                className="bg-white border-b "
+                key={projectProgress.projectProgressId}
+              >
+                <th scope="row" className="px-6 py-4 ">
+                  {projectProgress.numberProgress}
+                </th>
+                <td className="px-6 py-4">
+                  {projectProgress.project.projectName}
+                </td>
+                <td className="px-6 py-4">{projectProgress.dateForm}</td>
+                <td className="px-6 py-4">{projectProgress.dateTeacher}</td>
+                <td className="px-6 py-4">{projectProgress.workProgress}</td>
+                <td className="px-6 py-4">
                 <button
                   type="button"
                   className="text-white bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 hover:bg-gradient-to-br   shadow-purple-500/50  dark:shadow-purple-800/80 font-medium rounded-[25px] text-sm px-12 py-2.5 text-center mr-2 mb-2"
-                  onClick={() => navigate("/Advisor/ReadProgress")}
+                  onClick={() => navigate("/Advisor/ReadProgress/" + projectProgress.projectProgressId)}
                 >
                   Progress
                 </button>
               </td>
-            </tr>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>
@@ -56,3 +83,4 @@ const ListProgress = () => {
 };
 
 export default ListProgress;
+

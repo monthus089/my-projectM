@@ -5,7 +5,7 @@ import AuthContext from "../Auth/AuthProvider";
 import jwtInterceptor from "../Auth/jwtInterceptor";
 
 const JoinProgress = (props) => {
-  let navigate = useNavigate();
+  const navigate = useNavigate();
 
   const { user } = useContext(AuthContext);
   const [projects, setProjects] = useState([]);

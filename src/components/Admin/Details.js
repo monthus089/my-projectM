@@ -83,7 +83,7 @@ const Details = (props) => {
           <button
             type="button"
             className="col-start-11 text-white bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-500 hover:bg-gradient-to-br focus:outline-none  dark:focus:ring-yellow-800 font-medium rounded-[18px] text-sm px-6 py-2.5 text-center mr-2 mb-2"
-            onClick={() => navigate("/Admin/Editing/" + project.projectId)}
+            onClick={() => navigate("/Admin/Editing/" + getProjectId)}
           >
             Edit
           </button>
@@ -120,7 +120,7 @@ const Details = (props) => {
               </button>
               <button
                 type="button"
-                onClick={() => handleDeleteConfirm(project.projectId)}
+                onClick={() => handleDeleteConfirm(getProjectId)}
                 className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:outline-none  dark:focus:ring-red-800 font-medium rounded-[18px] text-sm px-6 py-2.5 text-center mr-2 mb-2"
               >
                 Yes, Delete

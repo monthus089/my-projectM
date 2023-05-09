@@ -13,6 +13,9 @@
 	- project -> projectDetail ->nvarchar(50) -> nvarchar(MAX) [complete]
 	- memberUser -> การเก็บขอมูลเพิ่ม สาขาของนศ. [complete]
 - เก็บ password ในรูปแบบ hash [0%]
+-แก้ buuton หน้า progress ของ student [0%]
+-แก้ กดปุ่ม หน้า login and add file.csv 2 ครั้งให้กดแค่ 1 ครั้ง [0%] 
+-Appointment น่าจะต้องทำของ adviser ก่อน
 	
 
 

@@ -1,12 +1,12 @@
 import { useEffect, useState, useContext } from "react";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import jwtInterceptor from "../Auth/jwtInterceptor";
 import { AiOutlineCloudUpload } from "react-icons/ai";
 import AuthContext from "../Auth/AuthProvider";
 import { notyf } from "../../js/Notyf";
 
 const RoleBoard = (props) => {
-  // let navigate = useNavigate();
+  let navigate = useNavigate();
   const [MemberUsers, setMemberUsers] = useState([]);
   const [roles, setRoles] = useState([]);
   const [selectedRole, setSelectedRole] = useState("");
@@ -26,7 +26,7 @@ const RoleBoard = (props) => {
   }, []);
 
   useEffect(() => {
-    console.table(array);
+    console.log("Array after update:", array);
   }, [array]);
 
   const handleRoleChange = (event) => {
@@ -49,21 +49,33 @@ const RoleBoard = (props) => {
   };
 
   const csvFileToArray = (string) => {
-    const csvHeader = string.slice(0, string.indexOf("\n")).split(",");
+    const csvHeader = string
+      .slice(0, string.indexOf("\n"))
+      .split(",")
+      .map((header) => header.trim()); // Trim header names to remove spaces
     const csvRows = string.slice(string.indexOf("\n") + 1).split("\n");
-    const array = csvRows.map((i) => {
-      const values = i.split(",");
-      const obj = csvHeader.reduce((object, header, index) => {
-        object[header] = values[index];
-        return object;
-      }, {});
-      return obj;
-    });
-
+    
+    const array = csvRows.reduce((result, row) => {
+      const values = row.split(",");
+      if (values.some((value) => value.trim() !== "")) {
+        const obj = csvHeader.reduce((object, header, index) => {
+          const value = values[index];
+          if (typeof value === "string") {
+            object[header] = value.replace(/\r/g, "").trim();
+          } else {
+            object[header] = "";
+          }
+          return object;
+        }, {});
+        result.push(obj);
+      }
+      return result;
+    }, []);
+  
     setArray(array);
   };
-
-  const handleOnChange = (e) => {
+  
+  const handleOnChange = async (e) => {
     setFile(e.target.files[0]);
   };
 
@@ -74,48 +86,85 @@ const RoleBoard = (props) => {
       fileReader.onload = function (event) {
         const text = event.target.result;
         csvFileToArray(text);
+
+        try {
+          jwtInterceptor.post(`${process.env.REACT_APP_API}/MemberUser`, array);
+        } catch (err) {
+          console.log(err);
+          if (err?.response?.status === 400) {
+            notyf.error("No information to add");
+          } else if (err?.response?.status === 500) {
+            notyf.error("Incomplete data entry");
+          }
+        }
+        
+        notyf.success("Information added successfully! ");
       };
 
       fileReader.readAsText(file);
     }
   };
 
+  // const handleOnSubmit = (e) => {
+  //   e.preventDefault();
+
+  //   if (file) {
+  //     fileReader.onload = function (event) {
+  //       const text = event.target.result;
+  //       csvFileToArray(text);
+  //       // try {
+  //       //   jwtInterceptor.post(`${process.env.REACT_APP_API}/MemberUser`, array);
+  //       // } catch (err) {
+  //       //   console.log(err);
+  //       //   if (err?.response?.status === 400) {
+  //       //     notyf.error("No information to add");
+  //       //   } else if (err?.response?.status === 500) {
+  //       //     notyf.error("Incomplete data entry");
+  //       //   }
+  //       // }
+  //       console.log('click me', array)
+  //       notyf.success("Information added successfully! ");
+  //     };
+
+  //     fileReader.readAsText(file);
+  //   }
+  // };
+
   return (
     <>
       <div className="ml-[50px] text-[20px]">
         <h5>Users Broad</h5>
       </div>
-      <form className="flex flex-row items-center justify-center ml-[600px]">
-        <label
-          htmlFor="dropzone-file"
-          className="flex flex-col items-center justify-center w-[200px] h-12 border-2 border-r-0 border-gray-300 border-dashed rounded-l-[25px] cursor-pointer bg-gray-50 "
-          onChange={handleOnChange}
-        >
-          <div className="flex flex-row items-center justify-center pt-8 pb-6">
-            <p className="mb-2 text-xs text-gray-500 justify-center">
-              IMPORT .CSV
-            </p>
-          </div>
-          <input
-            id="dropzone-file"
-            type="file"
-            className="hidden"
-            accept=".csv"
-          />
-        </label>
-        <label
-          className="flex flex-col items-center justify-center w-[100px] h-12 border-2 border-gray-300  rounded-r-[25px] cursor-pointer bg-gray-200 hover:bg-gray-300 "
-          onClick={(e) => {
-            handleOnSubmit(e);
-          }}
-        >
-          <div className="flex flex-row items-center justify-center pt-8 pb-6">
-            <p className="mb-2 mr-2 text-sm text-black justify-center">
-              <AiOutlineCloudUpload className=" w-4 h-4  text-black"></AiOutlineCloudUpload>
-            </p>
-          </div>
-        </label>
-      </form>
+      <form className="flex flex-row items-center justify-center ml-[600px]" onSubmit={handleOnSubmit}>
+  <label
+    htmlFor="dropzone-file"
+    className="flex flex-col items-center justify-center w-[200px] h-12 border-2 border-r-0 border-gray-300 border-dashed rounded-l-[25px] cursor-pointer bg-gray-50"
+  >
+    <div className="flex flex-row items-center justify-center pt-8 pb-6">
+      <p className="mb-2 text-xs text-gray-500 justify-center">
+        IMPORT .CSV
+      </p>
+    </div>
+    <input
+      id="dropzone-file"
+      type="file"
+      className="hidden"
+      accept=".csv"
+      onChange={handleOnChange}
+    />
+  </label>
+  <button
+    type="submit"
+    className="flex flex-col items-center justify-center w-[100px] h-12 border-2 border-gray-300  rounded-r-[25px] cursor-pointer bg-gray-200 hover:bg-gray-300"
+  >
+    <div className="flex flex-row items-center justify-center pt-8 pb-6">
+      <p className="mb-2 mr-2 text-sm text-black justify-center">
+        <AiOutlineCloudUpload className="w-4 h-4 text-black" />
+      </p>
+    </div>
+  </button>
+</form>
+
       <div className="relative w-[70%] h-[83%] overflow-y-auto shadow-[1px_1px_6px_-1px_rgba(0,0,0,0.1)] sm:rounded-[20px] left-[80px] mt-1 scrollbar-hide ">
         <table className="w-full text-sm text-center text-gray-500 dark:text-gray-400 ">
           <thead className="text-sm font-bold text-black uppercase bg-gray-50 dark:bg-gray-100 ">
