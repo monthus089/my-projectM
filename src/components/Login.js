@@ -53,7 +53,7 @@ const Login = (props) => {
   const [pass, setPass] = useState("");
   const [passwordShown, setPasswordShown] = useState(false);
   const [icon, setIcon] = useState(true);
-  const [errors, setErrors] = useState(""); 
+  const [errors, setErrors] = useState("");
   const navigate = useNavigate();
   const routes = {
     PM00: "/Admin",
@@ -66,8 +66,6 @@ const Login = (props) => {
     setPasswordShown(!passwordShown);
     setIcon(!icon);
   };
-
- 
 
   const LoginFunc = async (e) => {
     e.preventDefault();
@@ -84,15 +82,17 @@ const Login = (props) => {
       alert(
         'Please enter a valid email address! \n "Uppercase letter or @dpu.ac.th"'
       );
+      return;
     } else if (!passwordRegex.test(pass)) {
       alert("Password enter a valid!");
+      return;
     }
 
     setErrors(newErrors);
 
     try {
       await login(payload);
-      navigate(routes[user.role] || "");
+      await navigate(routes[user?.role] || "");
     } catch (error) {
       console.log(error);
     }
