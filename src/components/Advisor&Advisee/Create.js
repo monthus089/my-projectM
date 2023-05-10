@@ -47,7 +47,7 @@ const Create = (props) => {
             <h4 className="ml-[40px] mt-[20px]">Details</h4>
             <textarea
               placeholder="Detail..."
-              className="px-4 pt-[0.35rem] ml-[50px] mt-[10px] text-[20px] w-[70%] h-[250px] block text-gray-900 bg-gray-50 rounded-[18px] border border-gray-300 resize-none scrollbar-hide focus:outline-none"
+              className="px-4 pt-[0.35rem] ml-[50px] mt-[10px] text-[20px] w-[70%] h-[310px] block text-gray-900 bg-gray-50 rounded-[18px] border border-gray-300 resize-none scrollbar-hide focus:outline-none"
               value={projectDetail}
               onChange={(e) => setProjectDetail(e.target.value)}
               required
@@ -57,7 +57,7 @@ const Create = (props) => {
             <h4 className="ml-[40px] mt-[20px]">Contact</h4>
             <textarea
               placeholder="Contact..."
-              className="px-4 pt-[0.35rem] ml-[50px] mt-[10px] text-[20px] w-[70%] h-[85px] block text-gray-900 bg-gray-50 rounded-[18px] border border-gray-300 resize-none scrollbar-hide focus:outline-none"
+              className="px-4 pt-[0.35rem] ml-[50px] mt-[10px] text-[20px] w-[70%] h-[105px] block text-gray-900 bg-gray-50 rounded-[18px] border border-gray-300 resize-none scrollbar-hide focus:outline-none"
               value={projectContact}
               onChange={(e) => setProjectContact(e.target.value)}
               required
