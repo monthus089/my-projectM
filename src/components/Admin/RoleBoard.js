@@ -13,6 +13,7 @@ const RoleBoard = (props) => {
   const { user } = useContext(AuthContext);
   const [file, setFile] = useState();
   const [array, setArray] = useState([]);
+  const [isLoading, setIsLoading] = useState(false); // Add isLoading state
   const fileReader = new FileReader();
 
   useEffect(() => {
@@ -28,6 +29,7 @@ const RoleBoard = (props) => {
   useEffect(() => {
     console.log("Array after update:", array);
   }, [array]);
+  
 
   const handleRoleChange = (event) => {
     setSelectedRole(event.target.value);
@@ -79,56 +81,43 @@ const RoleBoard = (props) => {
     setFile(e.target.files[0]);
   };
 
-  const handleOnSubmit = (e) => {
+  const handleOnSubmit = async (e) => {
     e.preventDefault();
-
+  
     if (file) {
-      fileReader.onload = function (event) {
+      setIsLoading(true); // Set isLoading to true
+  
+      fileReader.onload = async function (event) {
         const text = event.target.result;
         csvFileToArray(text);
-
+  
+        if (array === null || array.length === 0) {
+          notyf.error("No information to add");
+          setIsLoading(false); // Set isLoading to false
+          return;
+        }
+  
         try {
-          jwtInterceptor.post(`${process.env.REACT_APP_API}/MemberUser`, array);
+          await jwtInterceptor.post(
+            `${process.env.REACT_APP_API}/MemberUser`,
+            array
+          );
+          notyf.success("Information added successfully!");
         } catch (err) {
           console.log(err);
-          if (err?.response?.status === 400) {
+          if (err?.response?.status === 404) {
             notyf.error("No information to add");
           } else if (err?.response?.status === 500) {
             notyf.error("Incomplete data entry");
           }
         }
-        
-        notyf.success("Information added successfully! ");
+  
+        setIsLoading(false); // Set isLoading to false
       };
-
+  
       fileReader.readAsText(file);
     }
   };
-
-  // const handleOnSubmit = (e) => {
-  //   e.preventDefault();
-
-  //   if (file) {
-  //     fileReader.onload = function (event) {
-  //       const text = event.target.result;
-  //       csvFileToArray(text);
-  //       // try {
-  //       //   jwtInterceptor.post(`${process.env.REACT_APP_API}/MemberUser`, array);
-  //       // } catch (err) {
-  //       //   console.log(err);
-  //       //   if (err?.response?.status === 400) {
-  //       //     notyf.error("No information to add");
-  //       //   } else if (err?.response?.status === 500) {
-  //       //     notyf.error("Incomplete data entry");
-  //       //   }
-  //       // }
-  //       console.log('click me', array)
-  //       notyf.success("Information added successfully! ");
-  //     };
-
-  //     fileReader.readAsText(file);
-  //   }
-  // };
 
   return (
     <>

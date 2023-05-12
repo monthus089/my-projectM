@@ -61,9 +61,7 @@ const Broad = (props) => {
                 {/* </Link> */}
               </td>
             </tr>
-            ))
-            
-            }
+            ))}
           </tbody>
         </table>
       </div>

@@ -1,4 +1,34 @@
+import { useContext, useEffect, useState } from "react";
+import AuthContext from "./Auth/AuthProvider";
+import jwtInterceptor from "./Auth/jwtInterceptor";
+import notyf from "../js/Notyf";
+
 const ChangePass = (props) => {
+  const { user } = useContext(AuthContext);
+  const [newPassword, setNewPassword] = useState('');
+  const [confirmNewPassword, setConfirmNewPassword] = useState('');
+  const [currentPassword, setCurrentPassword] = useState('');
+  
+  const handlerSubmitChange = async (e) => {
+    e.preventDefault();
+    
+    if (newPassword !== confirmNewPassword) {
+      notyf.error("newPasswords do not match");
+      return;
+    }
+
+    try {
+      await jwtInterceptor.patch(`${process.env.REACT_APP_API}/MemberUser/${user.nameid}?currentPassword=${currentPassword}&newPassword=${newPassword}`);
+      notyf.success("The password has been changed successfully.");
+      props.onClose(); // Close the UI pop-up
+    } catch (err) {
+      console.log(err);
+      if (err?.response?.status === 401) {
+        notyf.error("The current password is incorrect.");
+      } 
+    }
+  };
+
   return (
     <>
       <div
@@ -34,7 +64,7 @@ const ChangePass = (props) => {
                 className="text-lg leading-6 font-medium text-gray-900 left-0"
                 id="modal-title"
               >
-                New Password
+                Cancel
               </h3>
             </div>
             <div className="px-4 py-5 sm:p-6">
@@ -50,6 +80,9 @@ const ChangePass = (props) => {
                     type="password"
                     className="form-input mt-1 block w-full rounded-[10px] border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                     id="recipient-name"
+                    value={currentPassword}
+                    onChange={(e) => setCurrentPassword(e.target.value)}
+                    required
                   />
                 </div>
                 <div className="mb-4">
@@ -63,6 +96,9 @@ const ChangePass = (props) => {
                     type="password"
                     className="form-input mt-1 block w-full rounded-[10px] border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                     id="recipient-name"
+                    value={newPassword}
+                    onChange={(e) => setNewPassword(e.target.value)}
+                    required
                   />
                 </div>
                 <div className="mb-4">
@@ -76,6 +112,9 @@ const ChangePass = (props) => {
                     type="password"
                     className="form-input mt-1 block w-full rounded-[10px] border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                     id="recipient-name"
+                    value={confirmNewPassword}
+                    onChange={(e) => setConfirmNewPassword(e.target.value)}
+                    required
                   />
                 </div>
               </form>
@@ -84,6 +123,7 @@ const ChangePass = (props) => {
               <button
                 type="button"
                 className="bg-gradient-to-r from-blue-400 via-blue-500  to-blue-600 rounded-md text-white hover:bg-blue-600 focus:outline-none border rounded-[10px] px-2 py-2 sm:ml-3 sm:w-auto sm:text-sm"
+                onClick={handlerSubmitChange}
               >
                 Change Password
               </button>

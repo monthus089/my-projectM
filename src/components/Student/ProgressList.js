@@ -45,7 +45,10 @@ const ProgressList = (props) => {
                 Project
               </th>
               <th scope="col" className="px-6 py-3">
-                Date
+                Date Sent
+              </th>
+              <th scope="col" className="px-6 py-3">
+                Date Checked
               </th>
               <th scope="col" className="px-6 py-3">
                 Percentage
@@ -65,6 +68,7 @@ const ProgressList = (props) => {
                   {projectProgress.project.projectName}
                 </td>
                 <td className="px-6 py-4">{projectProgress.dateForm}</td>
+                <td className="px-6 py-4">{projectProgress.dateTeacher}</td>
                 <td className="px-6 py-4">{projectProgress.workProgress}</td>
               </tr>
             ))}
