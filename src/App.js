@@ -25,6 +25,7 @@ import JoinProgress from "./components/Student/JoinProgress";
 import ProgressList from "./components/Student/ProgressList";
 import CreateProgress from "./components/Student/CreateProgress";
 import JoinAppointment from "./components/Student/JoinAppointment";
+import ReadProgressStudent from "./components/Student/ReadProgressStudent";
 
 import { useContext } from "react";
 import AuthContext from "./components/Auth/AuthProvider";
@@ -60,6 +61,7 @@ function App() {
         <Route path="ProgressList/:getProjectId" element={<ProgressList />} />
         <Route path="CreateProgress/:getProjectId" element={<CreateProgress />}/>
         <Route path="JoinAppointment" element={<JoinAppointment />} />
+        <Route path="ReadProgressStudent" element={<ReadProgressStudent />} />
       </Route>
     </Routes>
   );

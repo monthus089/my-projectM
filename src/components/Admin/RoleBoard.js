@@ -29,7 +29,6 @@ const RoleBoard = (props) => {
   useEffect(() => {
     console.log("Array after update:", array);
   }, [array]);
-  
 
   const handleRoleChange = (event) => {
     setSelectedRole(event.target.value);
@@ -56,7 +55,7 @@ const RoleBoard = (props) => {
       .split(",")
       .map((header) => header.trim()); // Trim header names to remove spaces
     const csvRows = string.slice(string.indexOf("\n") + 1).split("\n");
-    
+
     const array = csvRows.reduce((result, row) => {
       const values = row.split(",");
       if (values.some((value) => value.trim() !== "")) {
@@ -73,30 +72,30 @@ const RoleBoard = (props) => {
       }
       return result;
     }, []);
-  
+
     setArray(array);
   };
-  
+
   const handleOnChange = async (e) => {
     setFile(e.target.files[0]);
   };
 
   const handleOnSubmit = async (e) => {
     e.preventDefault();
-  
+
     if (file) {
       setIsLoading(true); // Set isLoading to true
-  
+
       fileReader.onload = async function (event) {
         const text = event.target.result;
         csvFileToArray(text);
-  
+
         if (array === null || array.length === 0) {
           notyf.error("No information to add");
           setIsLoading(false); // Set isLoading to false
           return;
         }
-  
+
         try {
           await jwtInterceptor.post(
             `${process.env.REACT_APP_API}/MemberUser`,
@@ -111,10 +110,10 @@ const RoleBoard = (props) => {
             notyf.error("Incomplete data entry");
           }
         }
-  
+
         setIsLoading(false); // Set isLoading to false
       };
-  
+
       fileReader.readAsText(file);
     }
   };
@@ -124,35 +123,38 @@ const RoleBoard = (props) => {
       <div className="ml-[50px] text-[20px]">
         <h5>Users Broad</h5>
       </div>
-      <form className="flex flex-row items-center justify-center ml-[600px]" onSubmit={handleOnSubmit}>
-  <label
-    htmlFor="dropzone-file"
-    className="flex flex-col items-center justify-center w-[200px] h-12 border-2 border-r-0 border-gray-300 border-dashed rounded-l-[25px] cursor-pointer bg-gray-50"
-  >
-    <div className="flex flex-row items-center justify-center pt-8 pb-6">
-      <p className="mb-2 text-xs text-gray-500 justify-center">
-        IMPORT .CSV
-      </p>
-    </div>
-    <input
-      id="dropzone-file"
-      type="file"
-      className="hidden"
-      accept=".csv"
-      onChange={handleOnChange}
-    />
-  </label>
-  <button
-    type="submit"
-    className="flex flex-col items-center justify-center w-[100px] h-12 border-2 border-gray-300  rounded-r-[25px] cursor-pointer bg-gray-200 hover:bg-gray-300"
-  >
-    <div className="flex flex-row items-center justify-center pt-8 pb-6">
-      <p className="mb-2 mr-2 text-sm text-black justify-center">
-        <AiOutlineCloudUpload className="w-4 h-4 text-black" />
-      </p>
-    </div>
-  </button>
-</form>
+      <form
+        className="flex flex-row items-center justify-center ml-[600px]"
+        onSubmit={handleOnSubmit}
+      >
+        <label
+          htmlFor="dropzone-file"
+          className="flex flex-col items-center justify-center w-[200px] h-12 border-2 border-r-0 border-gray-300 border-dashed rounded-l-[25px] cursor-pointer bg-gray-50"
+        >
+          <div className="flex flex-row items-center justify-center pt-8 pb-6">
+            <p className="mb-2 text-xs text-gray-500 justify-center">
+              IMPORT .CSV
+            </p>
+          </div>
+          <input
+            id="dropzone-file"
+            type="file"
+            className="hidden"
+            accept=".csv"
+            onChange={handleOnChange}
+          />
+        </label>
+        <button
+          type="submit"
+          className="flex flex-col items-center justify-center w-[100px] h-12 border-2 border-gray-300  rounded-r-[25px] cursor-pointer bg-gray-200 hover:bg-gray-300"
+        >
+          <div className="flex flex-row items-center justify-center pt-8 pb-6">
+            <p className="mb-2 mr-2 text-sm text-black justify-center">
+              <AiOutlineCloudUpload className="w-4 h-4 text-black" />
+            </p>
+          </div>
+        </button>
+      </form>
 
       <div className="relative w-[70%] h-[83%] overflow-y-auto shadow-[1px_1px_6px_-1px_rgba(0,0,0,0.1)] sm:rounded-[20px] left-[80px] mt-1 scrollbar-hide ">
         <table className="w-full text-sm text-center text-gray-500 dark:text-gray-400 ">

@@ -1,19 +1,14 @@
-1. กรองข้อมูลของผู้ใช้ จัดการกับข้อมูลที่ไม่จำเป็น ทั้งระบบ
-2. เพิ่มฟังชั้น การแก้ไขข้อมูลของผู้ใช้ ที่กำทำกับตัวเอง หรือ บุคคลที่สาม(Admin)
-
-
-
 งานที่มี
 - แก้หน้า register [complete]
 - เพิ่มหน้า progress ของ advisor [complete]
 - เพิ่มหน้า Change password user [complete]
 - เพิ่มฟังชันในการอ่านไฟล์ CSV [complete]
-- เขียนไฟล์ CSV ลง Database ผ่าน API [0%]
+- เขียนไฟล์ CSV ลง Database ผ่าน API [complete]
 - แก้ไข database table [complete]
 	- project -> projectDetail ->nvarchar(50) -> nvarchar(MAX) [complete]
 	- memberUser -> การเก็บขอมูลเพิ่ม สาขาของนศ. [complete]
-- เก็บ password ในรูปแบบ hash [0%]
--แก้ buuton หน้า progress ของ student [0%]
+- เก็บ password ในรูปแบบ hash [complete]
+-แก้ button หน้า progress ของ student [complete]
 -แก้ กดปุ่ม หน้า login and add file.csv 2 ครั้งให้กดแค่ 1 ครั้ง [0%] 
 -Appointment น่าจะต้องทำของ adviser ก่อน
 	

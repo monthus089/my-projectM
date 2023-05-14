@@ -55,7 +55,7 @@ const JoinAppointment = (props) => {
         <div className="relative overflow-y-auto sm:rounded-[18px] ">
           <form>
             <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 ">
-              <thead className="text-xs text-gray-900 uppercase bg-gray-300 ">
+              <thead className="text-sm font-bold text-black uppercase bg-gray-50 dark:bg-gray-100">
                 <tr>
                   <th scope="col" className="px-6 py-3">
                     Title
@@ -105,7 +105,7 @@ const JoinAppointment = (props) => {
                           )
                         }
                       >
-                        Join
+                        Reserve
                       </button>
                     </td>
                   </tr>
