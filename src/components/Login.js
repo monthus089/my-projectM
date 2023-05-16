@@ -91,8 +91,8 @@ const Login = (props) => {
     setErrors(newErrors);
 
     try {
-      await login(payload);
-      await navigate(routes[user?.role] || "");
+      await login(payload) 
+      navigate(routes[user?.role] || "");
     } catch (error) {
       console.log(error);
     }

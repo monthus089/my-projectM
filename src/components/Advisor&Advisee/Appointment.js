@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import jwtInterceptor from "../Auth/jwtInterceptor";
 import notyf from "../../js/Notyf";
-
+import AddApppointment from "../AddApppointment";
 const Appointment = () => {
   const navigate = useNavigate();
   const [appointmentTitle, setAppointmentTitle] = useState("");
@@ -11,7 +11,11 @@ const Appointment = () => {
   const [appointmentDateTo, setAppointmentDateTo] = useState("");
 
   const [appointments, setAppointments] = useState([]);
-
+  const [isOpen, setIsOpen] = useState(false);
+  const [isOpenPass, setIsOpenPass] = useState(false);
+  const closeModal = () => {
+    setIsOpenPass(false);
+  };
   useEffect(() => {
     fetchAppointments();
   }, []);
@@ -51,15 +55,10 @@ const Appointment = () => {
       setAppointmentDateTo("");
     } catch (err) {
       console.log(err);
-      if (err?.response?.status === 422) {
+      if (err?.response?.status === 402) {
         notyf.error("Appointment already exists");
       }
     }
-  };
-
-  const handleSubmitEdit = async (e, appointmentId) => {
-    e.preventDefault();
-    notyf.error("You can't book because you're not a student.");
   };
 
   return (
@@ -67,71 +66,36 @@ const Appointment = () => {
       <div className="ml-[50px] text-[20px]">
         <h5>Create Appointment</h5>
       </div>
-      <div className="relative w-[70%] h-[83%] overflow-y-auto shadow-[1px_1px_6px_-1px_rgba(0,0,0,0.1)] sm:rounded-[20px] left-[80px] mt-12  scrollbar-hide">
-        <form
-          className="grid grid-flow-col gap-4 px-6 pt-[55px] m-6 text-center "
-          onSubmit={handlerSubmitCreate}
+      <div className="flex flex-row items-center justify-center ml-[730px]">
+        <button
+          type="button"
+          className="text-gray-500 bg-gray-50 hover:bg-gradient-to-br  font-medium rounded-[25px] text-sm px-12 py-2.5 text-center mr-2 mb-2 border-gray-300 border-dashed border-2"
+          onClick={() => {
+            setIsOpen((prev) => !prev);
+            setIsOpenPass((prev) => !prev);
+          }}
         >
-          <h4 className="mt-2">Title</h4>
-          <input
-            type="text"
-            className="block w-full pl-3 p-2.5 border-gray-100 bg-gray-200 border  text-gray-900 text-sm rounded-[18px] focus:outline-none "
-            value={appointmentTitle}
-            onChange={(e) => setAppointmentTitle(e.target.value)}
-            required
-          />
-          <h4 className="mt-2">Date</h4>
-          <input
-            type="date"
-            className="block w-full pl-3 p-2.5 border-gray-100 bg-gray-200 border  text-gray-900 text-sm rounded-[18px] focus:outline-none "
-            value={appointmentDate}
-            onChange={(e) => setAppointmentDate(e.target.value)}
-            required
-          />
-          <h4 className="mt-2">From</h4>
-          <input
-            type="time"
-            className="block w-full pl-3 p-2.5 border-gray-100 bg-gray-200 border  text-gray-900 text-sm rounded-[18px] focus:outline-none "
-            value={appointmentDateFrom}
-            onChange={(e) => setAppointmentDateFrom(e.target.value)}
-            required
-          />
-          <h4 className="mt-2">To</h4>
-          <input
-            type="time"
-            className="block w-full pl-3 p-2.5 border-gray-100 bg-gray-200 border  text-gray-900 text-sm rounded-[18px] focus:outline-none "
-            value={appointmentDateTo}
-            onChange={(e) => setAppointmentDateTo(e.target.value)}
-            required
-          />
-
-          <button
-            type="submit"
-            className="text-white bg-gradient-to-r from-teal-400 via-teal-500 to-teal-600 hover:bg-gradient-to-br font-medium rounded-[18px] text-sm px-5 py-1.5 text-center    focus:outline-none"
-          >
-            Create
-          </button>
-        </form>
-        <div className="inline-flex items-center justify-center w-full">
-          <hr className="w-full h-px my-5 bg-gray-500 border-0 " />
-          <span className="absolute px-1 text-lg  text-gray-600 -translate-x-1/2 bg-white left-1/2  ">
-            Appointment List
-          </span>
-        </div>
+          + Appointment
+        </button>
+      </div>
+      {isOpenPass ? (
+           <AddApppointment onClose={closeModal}/>
+          ) : null}
+      <div className="relative w-[70%] h-[83%] overflow-y-auto shadow-[1px_1px_6px_-1px_rgba(0,0,0,0.1)] sm:rounded-[20px] left-[80px] scrollbar-hide">
         <div className="relative overflow-y-auto sm:rounded-[18px] ">
-          <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 ">
-            <thead className="text-xs text-gray-900 uppercase bg-gray-300 ">
+          <table className="w-full text-sm text-left text-gray-500">
+            <thead className="text-sm font-bold text-black uppercase bg-gray-50">
               <tr>
-                <th scope="col" className="px-6 py-3">
+                <th scope="col" className="px-6 py-3 text-center">
                   Title
                 </th>
-                <th scope="col" className="px-6 py-3">
+                <th scope="col" className="px-6 py-3 text-center">
                   Date
                 </th>
-                <th scope="col" className="px-6 py-3">
+                <th scope="col" className="px-6 py-3 text-center">
                   From
                 </th>
-                <th scope="col" className="px-6 py-3">
+                <th scope="col" className="px-6 py-3 text-center">
                   To
                 </th>
                 <th scope="col" className="px-6 py-3 text-center">
@@ -147,22 +111,31 @@ const Appointment = () => {
                 >
                   <th
                     scope="row"
-                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
+                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap text-center"
                   >
                     {appointment.appointmentTitle}
                   </th>
-                  <td className="px-6 py-4">{appointment.appointmentDate}</td>
-                  <td className="px-6 py-4">
+                  <td className="px-6 py-4 text-center">
+                    {appointment.appointmentDate}
+                  </td>
+                  <td className="px-6 py-4 text-center">
                     {appointment.appointmentDateFrom}
                   </td>
-                  <td className="px-6 py-4">{appointment.appointmentDateTo}</td>
                   <td className="px-6 py-4 text-center">
+                    {appointment.appointmentDateTo}
+                  </td>
+                  <td className="px-1 py-4 text-center w-1/5">
                     <button
                       type="button"
-                      className="text-white bg-gradient-to-r from-violet-400 via-violet-500 to-violet-600 hover:bg-gradient-to-br font-medium rounded-[18px] text-sm  px-12 py-1.5 text-center focus:outline-none"
-                      onClick={(e) => handleSubmitEdit(e, appointment.appointmentId)}
+                      className="text-white bg-gradient-to-r from-violet-400 via-violet-500 to-violet-600 hover:bg-gradient-to-br font-medium rounded-[18px] text-sm py-1.5 mx-2 text-center w-[85px] focus:outline-none"
                     >
-                      Edit
+                      Booking
+                    </button>
+                    <button
+                      type="button"
+                      className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br font-medium rounded-[18px] text-sm py-1.5 mx-2 text-center w-[85px] focus:outline-none"
+                    >
+                      Delete
                     </button>
                   </td>
                 </tr>

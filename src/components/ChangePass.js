@@ -64,7 +64,7 @@ const ChangePass = (props) => {
                 className="text-lg leading-6 font-medium text-gray-900 left-0"
                 id="modal-title"
               >
-                Cancel
+                Change Password
               </h3>
             </div>
             <div className="px-4 py-5 sm:p-6">
