@@ -9,10 +9,13 @@
 	- memberUser -> การเก็บขอมูลเพิ่ม สาขาของนศ. [complete]
 - เก็บ password ในรูปแบบ hash [complete]
 -แก้ button หน้า progress ของ student [complete]
--แก้ กดปุ่ม หน้า login and add file.csv 2 ครั้งให้กดแค่ 1 ครั้ง [0%] 
--Appointment น่าจะต้องทำของ adviser ก่อน
-	
-
+-Appointment เพิ่มหน้าสร้าง Appointment [complete]
+-Appointment เพิ่มหน้าดูคนจอง BookingTime [complete]
+-แก้ปุ่ม หน้า ProgressList Create Progress [complete]
+-แก้การแสดงผลค่าว่าง หน้า ProgressList [complete]
+-แก้ กดปุ่ม หน้า login and add file.csv 2 ครั้งให้กดแค่ 1 ครั้ง [0%] (ไม่ทราบสาเหตุที่เกิดปัญหา)
+-notyf ทุกหน้าที่มีการ Actions [0%]
+-กำหนดสิทธิในการเข้าถึง URL ของแต่ละโรล โดยโรลใดโรลหนึ่งต้องไม่สามารถเข้าถึง URL ของอีกโรลที่ไม่ใช่โรลของตัวเองได้ [0%]
 
 
 
