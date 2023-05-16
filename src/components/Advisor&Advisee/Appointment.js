@@ -128,6 +128,7 @@ const Appointment = () => {
                     <button
                       type="button"
                       className="text-white bg-gradient-to-r from-violet-400 via-violet-500 to-violet-600 hover:bg-gradient-to-br font-medium rounded-[18px] text-sm py-1.5 mx-2 text-center w-[85px] focus:outline-none"
+                      onClick={()=>navigate("/Advisor/BookingTime")}
                     >
                       Booking
                     </button>

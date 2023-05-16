@@ -50,7 +50,7 @@ const AddApppointment = (props) => {
                   </label>
                   <input
                     type="text"
-                    className="form-input mt-1 pl-4 block w-full h-8 rounded-[10px] border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                    className="form-input mt-1 pl-4 block w-full h-8 rounded-[10px] border-gray-300 shadow-md focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 focus:outline-none"
                     id="recipient-name"
                     value={""}
                     onChange={""}
@@ -66,7 +66,7 @@ const AddApppointment = (props) => {
                   </label>
                   <input
                     type="text"
-                    className="form-input mt-1 pl-4 block w-full h-8 rounded-[10px] border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                    className="form-input mt-1 pl-4 block w-full h-8 rounded-[10px] border-gray-300 shadow-md focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 focus:outline-none"
                     id="recipient-name"
                     value={""}
                     onChange={""}
@@ -82,7 +82,7 @@ const AddApppointment = (props) => {
                   </label>
                   <input
                     type="date"
-                    className="form-input mt-1 pl-4 block w-full h-8 rounded-[10px] border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                    className="form-input mt-1 pl-4 block w-full h-8 rounded-[10px] border-gray-300 shadow-md focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 focus:outline-none"
                     id="recipient-name"
                     value={""}
                     onChange={""}
@@ -99,7 +99,7 @@ const AddApppointment = (props) => {
                     </label>
                     <input
                       type="time"
-                      className="form-input mt-1 pl-4 block w-full h-8 rounded-[10px] border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                      className="form-input mt-1 pl-4 block w-full h-8 rounded-[10px] border-gray-300 shadow-md focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 focus:outline-none"
                       id="recipient-name"
                       value={""}
                       onChange={""}
@@ -115,7 +115,7 @@ const AddApppointment = (props) => {
                     </label>
                     <input
                       type="time"
-                      className="form-input mt-1 pl-4 block w-full h-8 rounded-[10px] border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                      className="form-input mt-1 pl-4 block w-full h-8 rounded-[10px] border-gray-300 shadow-md focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 focus:outline-none"
                       id="recipient-name"
                       value={""}
                       onChange={""}

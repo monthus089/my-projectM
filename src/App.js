@@ -17,6 +17,7 @@ import MyProjectProgress from "./components/Advisor&Advisee/MyProjectProgress";
 import ListProgress from "./components/Advisor&Advisee/ListProgress";
 import ReadProgress from "./components/Advisor&Advisee/ReadProgress";
 import Appointment from "./components/Advisor&Advisee/Appointment";
+import BookingTime from "./components/Advisor&Advisee/BookingTime";
 // Student Navbar
 import MainStudentNavbar from "./components/MainStudentNavbar";
 import JoinBoard from "./components/Student/JoinBoard";
@@ -52,6 +53,7 @@ function App() {
         <Route path="ListProgress" element={<ListProgress />} />
         <Route path="ReadProgress" element={<ReadProgress />} />
         <Route path="Appoint" element={<Appointment />} />
+        <Route path="BookingTime" element={<BookingTime />} />
       </Route>
       <Route path="/Student" element={<MainStudentNavbar />}>
         <Route path="" element={<JoinBoard />} />
