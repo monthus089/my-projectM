@@ -18,8 +18,6 @@ const ProgressList = (props) => {
     }
   }, []);
 
-  console.table(projectProgresses);
-
   return (
     <>
       <div className="ml-[50px] text-[20px]">
@@ -82,7 +80,7 @@ const ProgressList = (props) => {
                   <button
                     type="button"
                     className="text-white bg-gradient-to-r from-violet-400 via-violet-500 to-violet-600 hover:bg-gradient-to-br font-medium rounded-[18px] text-sm  px-12 py-1.5 text-center focus:outline-none"
-                    onClick={() => navigate("/Student/ReadProgressStudent")}
+                    onClick={() => navigate("/Student/ReadProgressStudent/" + projectProgress.projectProgressId)}
                   >
                     Read
                   </button>

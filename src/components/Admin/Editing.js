@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import jwtInterceptor from "../Auth/jwtInterceptor";
+import notyf from "../../js/Notyf";
 
 const Editing = (props) => {
   const navigate = useNavigate();
@@ -29,7 +30,6 @@ const Editing = (props) => {
       console.log(error);
     }
   }, []);
-  console.log(project);
 
   const handlerSubmitEdit = async (e) => {
     e.preventDefault();
@@ -44,11 +44,15 @@ const Editing = (props) => {
       await jwtInterceptor
         .put(
           `${process.env.REACT_APP_API}/Project/${getProjectId}`,
-          updateProject
-        )
-        .then((res) =>"");
+          updateProject);
+
+        notyf.success("The project has been updated.");
     } catch (error) {
       console.log(error);
+      if (error?.response?.status === 409) {
+        notyf.error("Must be current year");
+        return;
+      }
     }
     navigate("/Admin/Board");
   };
@@ -76,7 +80,7 @@ const Editing = (props) => {
                   key={index}
                   className="ml-[50px] mt-[10px] pr-[300px] text-[20px]"
                 >
-                  {adviser.memberUser.fristname} {adviser.memberUser.lastname}
+                  {adviser.memberUser.firstname} {adviser.memberUser.lastname}
                 </p>
               ))}
           </div>
@@ -88,7 +92,7 @@ const Editing = (props) => {
                   key={index}
                   className="ml-[50px] mt-[10px] pr-[300px] text-[20px]"
                 >
-                  {advisees.memberUser.fristname} {advisees.memberUser.lastname}
+                  {advisees.memberUser.firstname} {advisees.memberUser.lastname}
                 </p>
               ))}
           </div>

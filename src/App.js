@@ -50,10 +50,10 @@ function App() {
         <Route path="MyEditing/:getProjectId" element={<MyEditing />} />
         <Route path="Create" element={<Create />} />
         <Route path="Progress" element={<MyProjectProgress />} />
-        <Route path="ListProgress" element={<ListProgress />} />
-        <Route path="ReadProgress" element={<ReadProgress />} />
+        <Route path="ListProgress/:getProjectId" element={<ListProgress />} />
+        <Route path="ReadProgress/:getProjectProgressId" element={<ReadProgress />} />
         <Route path="Appoint" element={<Appointment />} />
-        <Route path="BookingTime" element={<BookingTime />} />
+        <Route path="BookingTime/:appointmentId" element={<BookingTime />} />
       </Route>
       <Route path="/Student" element={<MainStudentNavbar />}>
         <Route path="" element={<JoinBoard />} />
@@ -63,7 +63,7 @@ function App() {
         <Route path="ProgressList/:getProjectId" element={<ProgressList />} />
         <Route path="CreateProgress/:getProjectId" element={<CreateProgress />}/>
         <Route path="JoinAppointment" element={<JoinAppointment />} />
-        <Route path="ReadProgressStudent" element={<ReadProgressStudent />} />
+        <Route path="ReadProgressStudent/:getProjectProgressId" element={<ReadProgressStudent />} />
       </Route>
     </Routes>
   );

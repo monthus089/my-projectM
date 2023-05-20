@@ -6,14 +6,14 @@ import jwtInterceptor from "../Auth/jwtInterceptor.js";
 
 const ReadProgress = () => {
   let navigate = useNavigate();
-  const { getProjectProgress } = useParams();
+  const { getProjectProgressId } = useParams();
   const [projectProgress, setProjectProgress] = useState({});
   const [commentTeacher, setCommentTeacher] = useState("");
   useEffect(() => {
     try {
       jwtInterceptor
         .get(
-          `${process.env.REACT_APP_API}/ProjectProgress/${getProjectProgress}`
+          `${process.env.REACT_APP_API}/ProjectProgress/${getProjectProgressId}`
         )
         .then((response) => {
           setProjectProgress(response?.data);
@@ -24,12 +24,10 @@ const ReadProgress = () => {
     }
   }, []);
 
-  console.table(projectProgress)
-
   const handlerSubmitCheck = async (e) => {
     e.preventDefault();
     let payload = {
-      "projectProgressId": getProjectProgress,
+      "projectProgressId": getProjectProgressId,
       "dateForm": projectProgress.dateForm,
       "numberProgress": projectProgress.numberProgress,
       "summaryProgress": projectProgress.summaryProgress,
@@ -39,7 +37,7 @@ const ReadProgress = () => {
       "commentTeacher": commentTeacher,
     };
     try {
-      await jwtInterceptor.put(`${process.env.REACT_APP_API}/ProjectProgress/${getProjectProgress}?projectId=${projectProgress.project.projectId}`, payload)
+      await jwtInterceptor.put(`${process.env.REACT_APP_API}/ProjectProgress/${getProjectProgressId}?projectId=${projectProgress.project.projectId}`, payload)
       notyf.success("Check");
     } catch (err) {
       console.log(err);

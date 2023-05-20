@@ -1,6 +1,17 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import jwtInterceptor from "../Auth/jwtInterceptor";
 
 const BookingTime = () => {
+  const { appointmentId } = useParams();
+  const [appointment, setAppointment] = useState({});
+
+  useEffect(() => {
+    jwtInterceptor
+      .get(`${process.env.REACT_APP_API}/Appointment/${appointmentId}`)
+      .then((response) => setAppointment(response?.data));
+  }, []);
+
   return (
     <>
       <div className="ml-[50px] text-[20px]">
@@ -25,14 +36,17 @@ const BookingTime = () => {
             </tr>
           </thead>
           <tbody className="overflow-y-auto">
-            <tr className="bg-white border-b " key={""}>
-              <th scope="row" className="px-6 py-4 ">
-                {""}
-              </th>
-              <td className="px-6 py-4">{""}</td>
-              <td className="px-6 py-4">{""}</td>
-              <td className="px-6 py-4">{""}</td>
-            </tr>
+            {appointment.appointmentReserves &&
+              appointment.appointmentReserves.map((reserve, index) => (
+                <tr className="bg-white border-b" key={index}>
+                  <th scope="row" className="px-6 py-4">
+                    {index + 1}
+                  </th>
+                  <td className="px-6 py-4">{reserve.project.projectName}</td>
+                  <td className="px-6 py-4">{appointment.appointmentDate}</td>
+                  <td className="px-6 py-4">{reserve.reserveTime}</td>
+                </tr>
+              ))}
           </tbody>
         </table>
       </div>

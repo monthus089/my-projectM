@@ -1,6 +1,7 @@
 import { createContext, useState } from "react";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
+import notyf from "../../js/Notyf";
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
@@ -17,15 +18,13 @@ export const AuthProvider = ({ children }) => {
         try {
             const response = await axios.post(`${process.env.REACT_APP_API}/Authenticate/Authenticate`,
             payload);
-            console.log(response.data)
             let token = (jwt_decode(response.data.accessToken));
-            console.log(token);
             setUser(token);
             localStorage.setItem("tokens", JSON.stringify(response?.data));
         } catch (error) {
             console.log(error);
             if(error.response?.status === 401){
-                alert("Email or Password enter a valid");
+                notyf.error("Your email or password is incorrect.")
             }
         }
         

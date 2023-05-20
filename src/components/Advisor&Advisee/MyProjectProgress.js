@@ -56,7 +56,7 @@ const MyProjectProgress = (props) => {
                 <td className="px-6 py-4">
                   {project.advisers.map((adviser, j) => (
                     <span key={j}>
-                      {adviser.memberUser.fristname}{" "}
+                      {adviser.memberUser.firstname}{" "}
                       {adviser.memberUser.lastname}
                     </span>
                   ))}

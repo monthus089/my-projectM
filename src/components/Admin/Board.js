@@ -10,7 +10,6 @@ const Broad = (props) => {
     jwtInterceptor.get(`${process.env.REACT_APP_API}/Project`).then((response) => setProjects(response?.data));
 
   }, []);
-    console.log(projects);
 
   return (
     <>
@@ -46,7 +45,7 @@ const Broad = (props) => {
               </th>
               <td className="px-6 py-4">{project.projectName}</td> 
               <td className="px-6 py-4">{project.advisers.map((adviser, j) => (
-                    <span key={j}>{adviser.memberUser.fristname} {adviser.memberUser.lastname}</span>
+                    <span key={j}>{adviser.memberUser.firstname} {adviser.memberUser.lastname}</span>
                   ))}</td>
               <td className="px-6 py-4">{project.projectYear}</td>
               <td className="px-6 py-4">

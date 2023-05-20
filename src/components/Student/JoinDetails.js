@@ -4,6 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import jwtInterceptor from "../Auth/jwtInterceptor";
 import { useContext } from "react";
 import AuthContext from "../Auth/AuthProvider";
+import notyf from "../../js/Notyf";
 
 const JoinDetails = (props) => {
   const { getProjectId } = useParams();
@@ -18,11 +19,14 @@ const JoinDetails = (props) => {
     };
     try {
       await jwtInterceptor.post(`${process.env.REACT_APP_API}/Advisee`, payload);
+      notyf.success('You have successfully joined the project.');
     } catch (error) {
       console.log(error);
-      if(error?.response?.status === 400){
-        alert("You are already in this project!");
-    }     
+      if (error?.response?.status === 400){
+        notyf.error('You are already in this project!');
+      } else if (error?.response?.status === 422) {
+        notyf.error('You cannot join the project in the same year.');
+      }    
     }
     navigate("/Student/JoinBoard");
     
@@ -52,7 +56,7 @@ const JoinDetails = (props) => {
           <h4 className="ml-[40px] mt-[20px]">Consultant</h4>
           {project.advisers && project.advisers.map((adviser, index) => (
     <p key={index} className="ml-[50px] mt-[10px] pr-[300px] text-[20px]">
-      {adviser.memberUser.fristname} {adviser.memberUser.lastname}
+      {adviser.memberUser.firstname} {adviser.memberUser.lastname}
     </p>
   ))}
         </div>
@@ -60,7 +64,7 @@ const JoinDetails = (props) => {
           <h4 className="ml-[40px] mt-[20px]">Member List</h4>
           {project.advisees && project.advisees.map((advisees, index) => (
     <p key={index} className="ml-[50px] mt-[10px] pr-[300px] text-[20px]">
-      {advisees.memberUser.fristname} {advisees.memberUser.lastname}
+      {advisees.memberUser.firstname} {advisees.memberUser.lastname}
     </p>
   ))}
         </div>

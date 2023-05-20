@@ -1,9 +1,18 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-
+import jwtInterceptor from "../Auth/jwtInterceptor";
 
 const ReadProgressStudent = () => {
   let navigate = useNavigate();
+  const { getProjectProgressId } = useParams();
+  const [projectProgress, setProjectProgress] = useState({});
+  useEffect(() => {
+    jwtInterceptor
+      .get(
+        `${process.env.REACT_APP_API}/ProjectProgress/${getProjectProgressId}`
+      )
+      .then((response) => setProjectProgress(response?.data));
+  }, []);
   
   return (
     <>
@@ -18,7 +27,7 @@ const ReadProgressStudent = () => {
             </div>
             <div>
               <p className="px-4 pt-[0.35rem] ml-[50px] mt-[10px] text-[19px] w-[90%] h-[120px] block text-gray-900">
-                {}
+                {projectProgress.summaryProgress}
               </p>
             </div>
           </div>
@@ -29,7 +38,7 @@ const ReadProgressStudent = () => {
             </div>
             <div>
               <p className="px-4 pt-[0.35rem] ml-[50px] mt-[10px] text-[19px] w-[90%] h-[120px] block text-gray-900">
-                {}
+                {projectProgress.solutionToImprove}
               </p>
             </div>
           </div>
@@ -39,22 +48,22 @@ const ReadProgressStudent = () => {
             </div>
             <div>
               <p className="px-4 pt-[0.35rem] ml-[50px] mt-[10px] text-[19px] w-[90%] h-[120px] block text-gray-900">
-                {}
+                {projectProgress.goalOfWork}
               </p>
             </div>
           </div>
           <div className="items-center text-start my-10">
             <div className="pl-6 pb-5 pt-10">
-              <p>The project is now complete and {} Percentage</p>
+              <p>The project is now complete and {projectProgress.workProgress} Percentage</p>
             </div>
           </div>
           <div className="items-center text-start my-10">
             <div className="pl-6 pb-5 pt-10">
-              <span>Next Goal</span>
+              <span>Comment Teacher</span>
             </div>
             <div>
               <p className="px-4 pt-[0.35rem] ml-[50px] mt-[10px] text-[19px] w-[90%] h-[120px] block text-gray-900">
-                {}
+                {projectProgress.commentTeacher}
               </p>
             </div>
           </div>

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import jwtInterceptor from "../Auth/jwtInterceptor";
+import notyf from "../../js/Notyf";
 
 const Details = (props) => {
   const { getProjectId } = useParams();
@@ -15,9 +16,11 @@ const Details = (props) => {
   };
 
   const handleDeleteConfirm = async (projectId) => {
-    
     try {
-      await jwtInterceptor.delete(`${process.env.REACT_APP_API}/Project/${projectId}`);
+      await jwtInterceptor.delete(
+        `${process.env.REACT_APP_API}/Project/${projectId}`
+      );
+      notyf.success("Successfully deleted the project.");
     } catch (error) {
       console.log(error);
     }
@@ -28,11 +31,10 @@ const Details = (props) => {
   const [project, setProject] = useState({});
 
   useEffect(() => {
-    
-    jwtInterceptor.get(`${process.env.REACT_APP_API}/Project/` + getProjectId).then((response) => setProject(response?.data));
-}, []);
-  console.log(project)
-
+    jwtInterceptor
+      .get(`${process.env.REACT_APP_API}/Project/` + getProjectId)
+      .then((response) => setProject(response?.data));
+  }, []);
 
   return (
     <>
@@ -48,23 +50,33 @@ const Details = (props) => {
         </div>
         <div className="mt-[50px]">
           <h4 className="ml-[40px] mt-[20px]">Consultant</h4>
-          {project.advisers && project.advisers.map((adviser, index) => (
-    <p key={index} className="ml-[50px] mt-[10px] pr-[300px] text-[20px]">
-      {adviser.memberUser.fristname} {adviser.memberUser.lastname}
-    </p>
-  ))}
+          {project.advisers &&
+            project.advisers.map((adviser, index) => (
+              <p
+                key={index}
+                className="ml-[50px] mt-[10px] pr-[300px] text-[20px]"
+              >
+                {adviser.memberUser.firstname} {adviser.memberUser.lastname}
+              </p>
+            ))}
         </div>
         <div className="mt-[50px]">
           <h4 className="ml-[40px] mt-[20px]">Member List</h4>
-          {project.advisees && project.advisees.map((advisees, index) => (
-    <p key={index} className="ml-[50px] mt-[10px] pr-[300px] text-[20px]">
-      {advisees.memberUser.fristname} {advisees.memberUser.lastname}
-    </p>
-  ))}
+          {project.advisees &&
+            project.advisees.map((advisees, index) => (
+              <p
+                key={index}
+                className="ml-[50px] mt-[10px] pr-[300px] text-[20px]"
+              >
+                {advisees.memberUser.firstname} {advisees.memberUser.lastname}
+              </p>
+            ))}
         </div>
         <div className="mt-[50px]">
           <h4 className="ml-[40px] mt-[20px]">Year</h4>
-          <p className="ml-[50px] mt-[10px] pr-[300px] text-[20px]">{project.projectYear}</p>
+          <p className="ml-[50px] mt-[10px] pr-[300px] text-[20px]">
+            {project.projectYear}
+          </p>
         </div>
         <div className="mt-[50px]">
           <h4 className="ml-[40px] mt-[20px]">Details</h4>

@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import jwtInterceptor from "../Auth/jwtInterceptor";
 import AuthContext from "../Auth/AuthProvider";
+import notyf from "../../js/Notyf";
 
 const Create = (props) => {
   const { user } = useContext(AuthContext);
@@ -19,7 +20,7 @@ const Create = (props) => {
     };
       try {
         await jwtInterceptor.post(`${process.env.REACT_APP_API}/Project?adviserId=${user.nameid}`, payload);
-
+        notyf.success("The project has been created successfully.");
       } catch (error) {
         console.log(error);
       }

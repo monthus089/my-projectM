@@ -2,17 +2,20 @@ import React, { useContext, useEffect, useState } from "react";
 import jwtInterceptor from "../Auth/jwtInterceptor";
 import AuthContext from "../Auth/AuthProvider";
 import notyf from "../../js/Notyf";
+import moment from "moment/moment";
 
 const JoinAppointment = (props) => {
   const { user } = useContext(AuthContext);
   const [appointments, setAppointments] = useState([]);
   const [projects, setProjects] = useState([]);
+  const [reserveTime, setReserveTime] = useState("");
+  const [selectedAppointment, setSelectedAppointment] = useState(null);
 
   useEffect(() => {
     try {
       fetchAppointments();
       jwtInterceptor
-        .get(`${process.env.REACT_APP_API}/MemberUser/project/` + user.nameid)
+        .get(`${process.env.REACT_APP_API}/MemberUser/project/${user.nameid}`)
         .then((response) => setProjects(response?.data));
     } catch (error) {
       console.log(error);
@@ -35,16 +38,52 @@ const JoinAppointment = (props) => {
     // Use the appointmentId and projectId as needed
     let payload = {
       appointmentId: appointmentId,
-      projectId: projects[0].projectId,
+      projectId: projects[0]?.projectId, // Use optional chaining to handle the case when project is still being fetched
+      reserveTime: reserveTime,
     };
-
+    console.log(payload);
     try {
-      await jwtInterceptor.post(`${process.env.REACT_APP_API}/AppointmentReserve`, payload);
+      await jwtInterceptor.post(
+        `${process.env.REACT_APP_API}/AppointmentReserve`,
+        payload
+      );
       notyf.success("Joined the appointment successfully.");
     } catch (err) {
       console.log(err);
+      if (err?.response?.status === 409) {
+        notyf.error("You already have a reservation.");
+      } else if (err?.response?.status === 422) {
+        notyf.error("This time has been reserved.");
+      }
     }
   };
+
+  // Helper function to generate reserve time options for a specific appointment
+  const generateReserveTimeOptions = (startTime, endTime) => {
+    const options = [];
+    let current = startTime;
+    while (current < endTime) {
+      const endTimeSlot = current.clone().add(40, "minutes").format("HH:mm");
+      const reserveTime = `${current.format("HH:mm")}-${endTimeSlot}`;
+      options.push(
+        <option key={reserveTime} value={reserveTime}>
+          {reserveTime}
+        </option>
+      );
+      current = current.add(40, "minutes");
+    }
+    return options;
+  };
+
+  const handleReserveTimeChange = (e) => {
+    const selectedReserveTime = e.target.value;
+    setReserveTime(selectedReserveTime);
+  
+    // Get the appointmentId from the parent row
+    const appointmentId = e.target.closest("tr").getAttribute("data-appointment-id");
+    setSelectedAppointment(appointmentId);
+  };
+  
 
   return (
     <>
@@ -61,6 +100,9 @@ const JoinAppointment = (props) => {
                     Title
                   </th>
                   <th scope="col" className="px-6 py-3">
+                    Location
+                  </th>
+                  <th scope="col" className="px-6 py-3">
                     Date
                   </th>
                   <th scope="col" className="px-6 py-3">
@@ -69,47 +111,87 @@ const JoinAppointment = (props) => {
                   <th scope="col" className="px-6 py-3">
                     To
                   </th>
+                  <th scope="col" className="px-6 py-3">
+                    Reserve Time
+                  </th>
                   <th scope="col" className="px-6 py-3 text-center">
                     Join
                   </th>
                 </tr>
               </thead>
               <tbody>
-                {appointments.map((appointment) => (
-                  <tr
-                    className="bg-white border-b"
-                    key={appointment.appointmentId}
-                  >
-                    <th
-                      scope="row"
-                      className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
+                {appointments.map((appointment) => {
+                  const startTime = moment(
+                    appointment.appointmentDateFrom,
+                    "HH:mm"
+                  );
+                  const endTime = moment(
+                    appointment.appointmentDateTo,
+                    "HH:mm"
+                  );
+                  const reserveTimeOptions = generateReserveTimeOptions(
+                    startTime,
+                    endTime
+                  );
+
+                  return (
+                    <tr
+                      className="bg-white border-b"
+                      key={appointment.appointmentId}
+                      data-appointment-id={appointment.appointmentId}
                     >
-                      {appointment.appointmentTitle}
-                    </th>
-                    <td className="px-6 py-4">{appointment.appointmentDate}</td>
-                    <td className="px-6 py-4">
-                      {appointment.appointmentDateFrom}
-                    </td>
-                    <td className="px-6 py-4">
-                      {appointment.appointmentDateTo}
-                    </td>
-                    <td className="px-6 py-4 text-center">
-                      <button
-                        type="button"
-                        className="text-white bg-gradient-to-r from-violet-400 via-violet-500 to-violet-600 hover:bg-gradient-to-br font-medium rounded-[18px] text-sm  px-12 py-1.5 text-center focus:outline-none"
-                        onClick={(e) =>
-                          handlerSubmitJoin(
-                            e,
-                            appointment.appointmentId,
-                            projects
-                          )
-                        }
+                      <th
+                        scope="row"
+                        className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
                       >
-                        Reserve
-                      </button>
-                    </td>
-                  </tr>
-                ))}
+                        {appointment.appointmentTitle}
+                      </th>
+                      <td className="px-6 py-4">
+                        {appointment.appointmentLocation}
+                      </td>
+                      <td className="px-6 py-4">
+                        {appointment.appointmentDate}
+                      </td>
+                      <td className="px-6 py-4">
+                        {appointment.appointmentDateFrom}
+                      </td>
+                      <td className="px-6 py-4">
+                        {appointment.appointmentDateTo}
+                      </td>
+                      <td className="px-6 py-4">
+                        <select
+                          value={
+                            selectedAppointment === appointment.appointmentId
+                              ? reserveTime
+                              : ""
+                          }
+                          onChange={handleReserveTimeChange}
+                          className="form-select mt-1 block w-full h-8 rounded-[10px] border-gray-300 shadow-md focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 focus:outline-none"
+                          required
+                        >
+                          <option value="">Select reserve time</option>
+                          {reserveTimeOptions}
+                        </select>
+                      </td>
+
+                      <td className="px-6 py-4 text-center">
+                        <button
+                          type="button"
+                          className="text-white bg-gradient-to-r from-violet-400 via-violet-500 to-violet-600 hover:bg-gradient-to-br font-medium rounded-[18px] text-sm  px-12 py-1.5 text-center focus:outline-none"
+                          onClick={(e) =>
+                            handlerSubmitJoin(
+                              e,
+                              appointment.appointmentId,
+                              projects
+                            )
+                          }
+                        >
+                          Reserve
+                        </button>
+                      </td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
           </form>

@@ -3,6 +3,7 @@ import React from "react";
 import { useState } from "react";
 import jwtInterceptor from "../Auth/jwtInterceptor";
 import { useNavigate, useParams } from "react-router-dom";
+import notyf from "../../js/Notyf";
 
 const CreateProgress = (props) => {
     const navigate = useNavigate();
@@ -23,7 +24,7 @@ const CreateProgress = (props) => {
 
           try {
             await jwtInterceptor.post(`${process.env.REACT_APP_API}/ProjectProgress?projectId=${getProjectId}`, payload);
-
+            notyf.success("The Progress has been created successfully.");
           } catch (error) {
             console.log(error);
           }

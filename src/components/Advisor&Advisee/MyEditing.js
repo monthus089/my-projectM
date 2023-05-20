@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import jwtInterceptor from "../Auth/jwtInterceptor";
+import notyf from "../../js/Notyf";
 
 const Editing = (props) => {
-
   const { getProjectId } = useParams();
   const navigate = useNavigate();
   const [projectId, setProjectId] = useState("");
@@ -12,22 +12,27 @@ const Editing = (props) => {
   const [projectYear, setProjectYear] = useState("");
   const [projectContact, setProjectContact] = useState("");
   const [project, setProject] = useState({});
+  const [advisees, setAdvisees] = useState([]);
+  const [advisers, setAdvisers] = useState([]);
 
   useEffect(() => {
     try {
-      jwtInterceptor.get(`${process.env.REACT_APP_API}/Project/`+ getProjectId).then((response) => {
-        setProject(response?.data);
-        setProjectId(response.data.projectId)
-        setProjectName(response.data.projectName);
-        setProjectDetail(response.data.projectDetail);
-        setProjectYear(response.data.projectYear);
-        setProjectContact(response.data.projectContact);
-      });
+      jwtInterceptor
+        .get(`${process.env.REACT_APP_API}/Project/${getProjectId}`)
+        .then((response) => {
+          //setProject(response?.data);
+          setProjectId(response.data.projectId);
+          setProjectName(response.data.projectName);
+          setProjectDetail(response.data.projectDetail);
+          setProjectYear(response.data.projectYear);
+          setProjectContact(response.data.projectContact);
+          setAdvisees(response.data.advisees);
+          setAdvisers(response.data.advisers);
+        });
     } catch (error) {
       console.log(error);
     }
-}, []);
-  console.log(project);
+  }, []);
 
   const handlerSubmitEdit = async (e) => {
     e.preventDefault();
@@ -43,8 +48,13 @@ const Editing = (props) => {
         `${process.env.REACT_APP_API}/Project/${getProjectId}`,
         updateProject
       );
+      notyf.success("The project has been updated.");
     } catch (error) {
       console.log(error);
+      if (error?.response?.status === 409) {
+        notyf.error("Must be current year");
+        return;
+      }
     }
     navigate("/Advisor/MyProject");
   };
@@ -66,21 +76,29 @@ const Editing = (props) => {
             ></textarea>
           </div>
           <div className="consultant">
-            <h4 className="ml-[40px] mt-[20px]">Consultant</h4>
-            {project.advisers && project.advisers.map((adviser, index) => (
-    <p key={index} className="ml-[50px] mt-[10px] pr-[300px] text-[20px]">
-      {adviser.memberUser.fristname} {adviser.memberUser.lastname}
-    </p>
-  ))}
+            <h4 className="ml-[40px] mt-[20px]">Advisers</h4>
+            {advisers.map((adviser, index) => (
+              <p
+                key={index}
+                className="ml-[50px] mt-[10px] pr-[300px] text-[20px]"
+              >
+                {`${adviser.memberUser.firstname} ${adviser.memberUser.lastname}`}
+              </p>
+            ))}
           </div>
+
           <div className="consultant">
-            <h4 className="ml-[40px] mt-[20px]">Member List</h4>
-            {project.advisees && project.advisees.map((advisees, index) => (
-    <p key={index} className="ml-[50px] mt-[10px] pr-[300px] text-[20px]">
-      {advisees.memberUser.fristname} {advisees.memberUser.lastname}
-    </p>
-  ))}
+            <h4 className="ml-[40px] mt-[20px]">Advisees</h4>
+            {advisees.map((advisee, index) => (
+              <p
+                key={index}
+                className="ml-[50px] mt-[10px] pr-[300px] text-[20px]"
+              >
+                {`${advisee.memberUser.firstname} ${advisee.memberUser.lastname}`}
+              </p>
+            ))}
           </div>
+
           <div className="people">
             <h4 className="ml-[40px] mt-[20px]">Year</h4>
             <textarea

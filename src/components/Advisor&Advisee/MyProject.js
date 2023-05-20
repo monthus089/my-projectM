@@ -14,14 +14,21 @@ const Broad = (props) => {
 
   useEffect(() => {
     try {
-      jwtInterceptor.get(`${process.env.REACT_APP_API}/MemberUser/project/` + user.nameid).then((response) => setProjects(response?.data));
-
+      jwtInterceptor.get(`${process.env.REACT_APP_API}/MemberUser/project/` + user.nameid)
+        .then((response) => {
+          if (Array.isArray(response.data)) {
+            setProjects(response.data);
+          } else {
+            console.log("Fetched data is not an array:", response.data);
+          }
+        })
+        .catch((error) => {
+          console.log("Error fetching projects:", error);
+        });
     } catch (error) {
       console.log(error);
     }
-    
-}, []);
-console.log(projects);
+  }, []);
 
   return (
     
@@ -58,7 +65,7 @@ console.log(projects);
               </th>
               <td className="px-6 py-4">{project.projectName}</td>
               <td className="px-6 py-4">{project.advisers.map((adviser, j) => (
-                    <span key={j}>{adviser.memberUser.fristname} {adviser.memberUser.lastname}</span>
+                    <span key={j}>{adviser.memberUser.firstname} {adviser.memberUser.lastname}</span>
                   ))}</td>
               <td className="px-6 py-4">{project.projectYear}</td>
               <td className="px-6 py-4">

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import jwtInterceptor from "../Auth/jwtInterceptor";
+import notyf from "../../js/Notyf";
 
 const Details = (props) => {
   const [showModal, setShowModal] = useState(false);
@@ -17,6 +18,7 @@ const Details = (props) => {
     
     try {
       await jwtInterceptor.delete(`${process.env.REACT_APP_API}/Project/${projectId}`);
+      notyf.success("Successfully deleted the project.");
     } catch (error) {
       console.log(error);
     }
@@ -58,7 +60,7 @@ const Details = (props) => {
                 key={index}
                 className="ml-[50px] mt-[10px] pr-[300px] text-[20px]"
               >
-                {adviser.memberUser.fristname} {adviser.memberUser.lastname}
+                {adviser.memberUser.firstname} {adviser.memberUser.lastname}
               </p>
             ))}
         </div>
@@ -70,7 +72,7 @@ const Details = (props) => {
                 key={index}
                 className="ml-[50px] mt-[10px] pr-[300px] text-[20px]"
               >
-                {advisees.memberUser.fristname} {advisees.memberUser.lastname}
+                {advisees.memberUser.firstname} {advisees.memberUser.lastname}
               </p>
             ))}
         </div>

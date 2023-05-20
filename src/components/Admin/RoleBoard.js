@@ -27,7 +27,6 @@ const RoleBoard = (props) => {
   }, []);
 
   useEffect(() => {
-    console.log("Array after update:", array);
   }, [array]);
 
   const handleRoleChange = (event) => {
@@ -91,7 +90,7 @@ const RoleBoard = (props) => {
         csvFileToArray(text);
 
         if (array === null || array.length === 0) {
-          notyf.error("No information to add");
+          notyf.error("Please press again");
           setIsLoading(false); // Set isLoading to false
           return;
         }
@@ -108,6 +107,8 @@ const RoleBoard = (props) => {
             notyf.error("No information to add");
           } else if (err?.response?.status === 500) {
             notyf.error("Incomplete data entry");
+          } else if (err?.response?.status === 409) {
+            notyf.error("Email already exists");
           }
         }
 
@@ -191,7 +192,7 @@ const RoleBoard = (props) => {
                     {MemberUser.memberUserEmail}
                   </th>
                   <td className="px-6 py-4">
-                    {MemberUser.fristname} {MemberUser.lastname}
+                    {MemberUser.firstname} {MemberUser.lastname}
                   </td>
 
                   <td className="px-6 py-4">
