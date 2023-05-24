@@ -8,6 +8,12 @@ const AddAppointment = (props) => {
   const [appointmentDateFrom, setAppointmentDateFrom] = useState("");
   const [appointmentDateTo, setAppointmentDateTo] = useState("");
   const [appointmentLocation, setAppointmentLocation] = useState("");
+  const fieldsAreEmpty =
+    !appointmentTitle ||
+    !appointmentDate ||
+    !appointmentDateFrom ||
+    !appointmentDateTo ||
+    !appointmentLocation;
 
   const handlerSubmitCreate = async (e) => {
     e.preventDefault();
@@ -19,18 +25,7 @@ const AddAppointment = (props) => {
       appointmentLocation: appointmentLocation,
     };
 
-    if (
-      appointmentTitle === null ||
-      appointmentTitle === "" ||
-      appointmentDate === null ||
-      appointmentDate === "" ||
-      appointmentDateFrom === null ||
-      appointmentDateFrom === "" ||
-      appointmentDateTo === null ||
-      appointmentDateTo === "" ||
-      appointmentLocation === null ||
-      appointmentLocation === ""
-    ) {
+    if (fieldsAreEmpty) {
       // Handle the case where any of the variables are null or empty
       notyf.error("One or more fields are empty");
       return;
