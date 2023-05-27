@@ -1,7 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import { BiSearch } from "react-icons/bi";
 
 const Search = (props) => {
+  const [searchValue, setSearchValue] = useState("");
+
+  const handleInputChange = (event) => {
+    const value = event.target.value;
+    setSearchValue(value);
+    props.onSearch(value);
+  };
+
   return (
     <>
       <form className="flex ml-[500px]  w-[550px]">
@@ -17,6 +25,8 @@ const Search = (props) => {
             id="simple-search"
             className="block w-full pl-10 p-2.5 border-gray-100 bg-gray-100 border  text-gray-900 text-sm rounded-[18px] focus:outline-none  focus:ring-transparent"
             placeholder="Search"
+            value={searchValue}
+            onChange={handleInputChange}
             required
           />
         </div>

@@ -15,7 +15,6 @@ const RoleBoard = (props) => {
   const [array, setArray] = useState([]);
   const [isLoading, setIsLoading] = useState(false); // Add isLoading state
   const fileReader = new FileReader();
-
   useEffect(() => {
     jwtInterceptor
       .get(`${process.env.REACT_APP_API}/MemberUser`)
@@ -26,8 +25,7 @@ const RoleBoard = (props) => {
       .then((response) => setRoles(response?.data));
   }, []);
 
-  useEffect(() => {
-  }, [array]);
+  useEffect(() => {}, [array]);
 
   const handleRoleChange = (event) => {
     setSelectedRole(event.target.value);
@@ -179,14 +177,15 @@ const RoleBoard = (props) => {
             </tr>
           </thead>
           <tbody className="overflow-y-auto">
-            {MemberUsers.map((MemberUser, index) =>
-              MemberUser.memberUserId !== user.nameid ? (
+            {MemberUsers.filter((MemberUsers)=>{return props.searchValue ==='' ? MemberUsers :MemberUsers.memberUserEmail.includes(props.searchValue)}).map((MemberUser, index) =>
+              MemberUser.memberUserId !== user.nameid 
+              ? (
                 <tr
                   className="bg-white border-b "
                   key={MemberUser.memberUserId}
                 >
                   <th scope="row" className="px-6 py-4 ">
-                    {index}
+                    {index + 1}
                   </th>
                   <th scope="row" className="px-6 py-4 ">
                     {MemberUser.memberUserEmail}

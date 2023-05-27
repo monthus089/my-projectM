@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom";
-import Search from "./Admin/Search";
+import Search from "./Search";
 import React, { useState } from "react";
 import { IoMdClipboard } from "react-icons/io";
 import { MdMoreTime,MdOutlineCreateNewFolder } from "react-icons/md";
@@ -21,8 +21,13 @@ const MainLayoutAdvisor = () => {
   const [open] = useState(true);
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenPass, setIsOpenPass] = useState(false);
+  const [search, setSearch] = useState("");
   const closeModal = () => {
     setIsOpenPass(false); 
+  };
+  const handleSearch = (searchValue) => {
+    console.log("Search value:", searchValue);
+    setSearch(searchValue)
   };
   const Menu = [
     {
@@ -99,7 +104,7 @@ const MainLayoutAdvisor = () => {
         </div>
         <div className="absolute p-0 left-[335px] h-screen w-full border rounded-l-extent bg-white">
         <div className="flex w-full h-[60px]  items-center px-[10px] ">
-            <Search />
+            <Search onSearch={handleSearch}/>
             <div className=" text-[14px] ml-[300px]">
               <button
                 className="text-black bg-none focus:outline-none font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center"
@@ -133,7 +138,7 @@ const MainLayoutAdvisor = () => {
           {isOpenPass ? (
            <ChangePass onClose={closeModal}/>
           ) : null}
-          <Outlet />
+          <Outlet searchValue={search}/>
         </div>
       </div>
     </>
