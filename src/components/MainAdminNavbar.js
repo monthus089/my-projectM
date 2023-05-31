@@ -24,7 +24,6 @@ const MainLayoutAdmin = () => {
     setIsOpenPass(false); 
   };
   const handleSearch = (searchValue) => {
-    console.log("Search value:", searchValue);
     setSearch(searchValue)
   };
   const Menu = [
@@ -46,7 +45,7 @@ const MainLayoutAdmin = () => {
 
   return (
     <>
-      <div className="flex w-max">
+      <div className="flex flex-col md:flex-row">
         <div
           className={`relative bg-[#942bc5] h-screen p-5 pt-8 duration-300 z-0 overflow-hidden ${
             open ? "w-96" : "w-20"

@@ -54,7 +54,7 @@ const ChangePass = (props) => {
             <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
               <button
                 type="button"
-                className="text-white hover:bg-red-600  bg-gradient-to-r from-red-400 via-red-500 to-red-600 focus:outline-none border rounded-[10px] px-1 py-1 sm:ml-3 sm:w-auto sm:text-sm"
+                className="text-white hover:bg-red-600  bg-gradient-to-r from-red-400 via-red-500 to-red-600 focus:outline-none border rounded-[18px] px-4 py-1 sm:ml-3 sm:w-auto sm:text-sm"
                 data-dismiss="modal"
                 onClick={props.onClose}
               >
@@ -78,7 +78,7 @@ const ChangePass = (props) => {
                   </label>
                   <input
                     type="password"
-                    className="form-input mt-1 block w-full rounded-[10px] border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                    className="form-input mt-1 pl-4 block w-full h-8 rounded-[10px] border-gray-300 shadow-md focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 focus:outline-none"
                     id="recipient-name"
                     value={currentPassword}
                     onChange={(e) => setCurrentPassword(e.target.value)}
@@ -94,7 +94,7 @@ const ChangePass = (props) => {
                   </label>
                   <input
                     type="password"
-                    className="form-input mt-1 block w-full rounded-[10px] border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                    className="form-input mt-1 pl-4 block w-full h-8 rounded-[10px] border-gray-300 shadow-md focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 focus:outline-none"
                     id="recipient-name"
                     value={newPassword}
                     onChange={(e) => setNewPassword(e.target.value)}
@@ -110,7 +110,7 @@ const ChangePass = (props) => {
                   </label>
                   <input
                     type="password"
-                    className="form-input mt-1 block w-full rounded-[10px] border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                    className="form-input mt-1 pl-4 block w-full h-8 rounded-[10px] border-gray-300 shadow-md focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 focus:outline-none"
                     id="recipient-name"
                     value={confirmNewPassword}
                     onChange={(e) => setConfirmNewPassword(e.target.value)}
@@ -122,7 +122,7 @@ const ChangePass = (props) => {
             <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
               <button
                 type="button"
-                className="bg-gradient-to-r from-blue-400 via-blue-500  to-blue-600 rounded-md text-white hover:bg-blue-600 focus:outline-none border rounded-[10px] px-2 py-2 sm:ml-3 sm:w-auto sm:text-sm"
+                className="bg-gradient-to-r from-blue-400 via-blue-500  to-blue-600 rounded-md text-white hover:bg-blue-600 focus:outline-none border rounded-[18px] px-5 py-2 sm:ml-3 sm:w-auto sm:text-sm"
                 onClick={handlerSubmitChange}
               >
                 Change Password

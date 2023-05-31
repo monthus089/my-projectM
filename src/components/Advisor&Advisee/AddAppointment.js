@@ -6,8 +6,10 @@ const AddAppointment = (props) => {
   const [appointmentTitle, setAppointmentTitle] = useState("");
   const [appointmentDate, setAppointmentDate] = useState("");
   const [appointmentDateFrom, setAppointmentDateFrom] = useState("");
-  const [appointmentDateTo, setAppointmentDateTo] = useState("");
+  const [appointmentDateTo, setAppointmentDateTo] = useState();
   const [appointmentLocation, setAppointmentLocation] = useState("");
+  const [datedisabled, setDatedisabled] = useState(true);
+  
   const fieldsAreEmpty =
     !appointmentTitle ||
     !appointmentDate ||
@@ -26,8 +28,10 @@ const AddAppointment = (props) => {
     };
 
     if (fieldsAreEmpty) {
-      // Handle the case where any of the variables are null or empty
-      notyf.error("One or more fields are empty");
+      notyf.open({
+        type: "warning",
+        message: "Please enter correct and complete values.",
+      });
       return;
     }
 
@@ -37,9 +41,6 @@ const AddAppointment = (props) => {
         payload
       );
       notyf.success("Information added successfully!");
-      // Fetch the updated list of appointments
-      //await fetchAppointments();
-      // Clear the input fields
       setAppointmentTitle("");
       setAppointmentDate("");
       setAppointmentDateFrom("");
@@ -57,18 +58,40 @@ const AddAppointment = (props) => {
   const handleTimeStartChange = (e) => {
     const selectedStartTime = e.target.value;
     setAppointmentDateFrom(selectedStartTime);
-    // Reset the "Time End" if it is earlier than the selected "Time Start"
     if (appointmentDateTo && selectedStartTime > appointmentDateTo) {
       setAppointmentDateTo("");
+    }
+    if (!appointmentDateTo) {
+      document.getElementById("time-start-select").disabled = true;
+    } else {
+      document.getElementById("time-start-select").disabled = false;
     }
   };
 
   const handleTimeEndChange = (e) => {
     const selectedEndTime = e.target.value;
     setAppointmentDateTo(selectedEndTime);
+    if (selectedEndTime) {
+      document.getElementById("time-start-select").disabled = false;
+    } else {
+      document.getElementById("time-start-select").disabled = true;
+    }
   };
 
-  // Generate the "Time Start" options based on the selected "Time End"
+  const handleDateChange = (e) => {
+    const selectedDate = e.target.value;
+    const currentDate = new Date().toISOString().split("T")[0]; // Current date
+    if (selectedDate <= currentDate) {
+      e.target.value = ""; // Reset the selected date
+      notyf.open({
+        type: "warning",
+        message: "Please enter a valid date (e.g., tomorrow).",
+      });
+    } else {
+      setAppointmentDate(selectedDate);
+    }
+  };
+
   const timeStartOptions = [
     { value: "09:00", label: "09:00" },
     { value: "09:40", label: "09:40" },
@@ -145,17 +168,14 @@ const AddAppointment = (props) => {
                   >
                     Location:
                   </label>
-                  <select
-                    id="location-select"
-                    className="form-select mt-1 block w-full h-8 rounded-[10px] border-gray-300 shadow-md focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 focus:outline-none"
-                    value={appointmentLocation}
+                  <input
+                    type="text"
+                    className="form-input mt-1 pl-4 block w-full h-8 rounded-[10px] border-gray-300 shadow-md focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 focus:outline-none"
+                    id="recipient-name"
+                    value={appointmentTitle}
                     onChange={(e) => setAppointmentLocation(e.target.value)}
                     required
-                  >
-                    <option value="">Select location</option>
-                    <option value="Onsite">Onsite</option>
-                    <option value="Online">Online</option>
-                  </select>
+                  />
                 </div>
 
                 <div className="mb-4">
@@ -169,8 +189,9 @@ const AddAppointment = (props) => {
                     type="date"
                     className="form-input mt-1 pl-4 block w-full h-8 rounded-[10px] border-gray-300 shadow-md focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 focus:outline-none"
                     id="recipient-name"
+                    data-date-format="DD-YYYY-MM"
                     value={appointmentDate}
-                    onChange={(e) => setAppointmentDate(e.target.value)}
+                    onChange={handleDateChange}
                     required
                   />
                 </div>
@@ -180,16 +201,17 @@ const AddAppointment = (props) => {
                       htmlFor="time-start-select"
                       className="block text-gray-700 font-bold mb-2"
                     >
-                      Time Start:
+                      Start time :
                     </label>
                     <select
                       id="time-start-select"
                       className="form-select mt-1 block w-full h-8 rounded-[10px] border-gray-300 shadow-md focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 focus:outline-none"
                       value={appointmentDateFrom}
                       onChange={handleTimeStartChange}
+                      disabled
                       required
                     >
-                      <option value="">Select time start</option>
+                      <option value="">Select Start time</option>
                       {timeStartOptions.map((option) => (
                         <option key={option.value} value={option.value}>
                           {option.label}
@@ -203,7 +225,7 @@ const AddAppointment = (props) => {
                       htmlFor="time-end-select"
                       className="block text-gray-700 font-bold mb-2"
                     >
-                      Time End:
+                      End time :
                     </label>
                     <select
                       id="time-end-select"
@@ -212,7 +234,7 @@ const AddAppointment = (props) => {
                       onChange={handleTimeEndChange}
                       required
                     >
-                      <option value="">Select time end</option>
+                      <option value="">Select End time</option>
                       <option value="09:40">09:40</option>
                       <option value="10:20">10:20</option>
                       <option value="11:00">11:00</option>
