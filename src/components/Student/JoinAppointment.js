@@ -3,6 +3,7 @@ import jwtInterceptor from "../Auth/jwtInterceptor";
 import AuthContext from "../Auth/AuthProvider";
 import notyf from "../../js/Notyf";
 import moment from "moment/moment";
+import { Select, Option } from "@material-tailwind/react";
 
 const JoinAppointment = (props) => {
   const { user } = useContext(AuthContext);
@@ -78,12 +79,13 @@ const JoinAppointment = (props) => {
   const handleReserveTimeChange = (e) => {
     const selectedReserveTime = e.target.value;
     setReserveTime(selectedReserveTime);
-  
+
     // Get the appointmentId from the parent row
-    const appointmentId = e.target.closest("tr").getAttribute("data-appointment-id");
+    const appointmentId = e.target
+      .closest("tr")
+      .getAttribute("data-appointment-id");
     setSelectedAppointment(appointmentId);
   };
-  
 
   return (
     <>
@@ -93,7 +95,7 @@ const JoinAppointment = (props) => {
       <div className="relative w-[70%] h-[83%] overflow-y-auto shadow-[1px_1px_6px_-1px_rgba(0,0,0,0.1)] sm:rounded-[20px] left-[80px] mt-12  scrollbar-hide">
         <div className="relative overflow-y-auto sm:rounded-[18px] ">
           <form>
-            <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 ">
+            <table className="w-full text-sm text-center text-gray-500 dark:text-gray-400 ">
               <thead className="text-sm font-bold text-black uppercase bg-gray-50 dark:bg-gray-100">
                 <tr>
                   <th scope="col" className="px-6 py-3">
@@ -109,7 +111,7 @@ const JoinAppointment = (props) => {
                     From
                   </th>
                   <th scope="col" className="px-6 py-3">
-                    To
+                    Reserved
                   </th>
                   <th scope="col" className="px-6 py-3">
                     Reserve Time
@@ -153,11 +155,10 @@ const JoinAppointment = (props) => {
                         {appointment.appointmentDate}
                       </td>
                       <td className="px-6 py-4">
-                        {appointment.appointmentDateFrom}
-                      </td>
-                      <td className="px-6 py-4">
+                        {appointment.appointmentDateFrom} -{" "}
                         {appointment.appointmentDateTo}
                       </td>
+                      <td className="px-6 py-4">-</td>
                       <td className="px-6 py-4">
                         <select
                           value={
@@ -166,10 +167,12 @@ const JoinAppointment = (props) => {
                               : ""
                           }
                           onChange={handleReserveTimeChange}
-                          className="form-select mt-1 block w-full h-8 rounded-[10px] border-gray-300 shadow-md focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 focus:outline-none"
+                          className="form-select mt-1 block w-full p-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-[24px] outline-none"
                           required
                         >
-                          <option value="">Select reserve time</option>
+                        (
+                            <option value="">Select time</option>
+                          )
                           {reserveTimeOptions}
                         </select>
                       </td>

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import jwtInterceptor from "../Auth/jwtInterceptor";
-
+import { BsCheck2Circle } from "react-icons/bs";
 const ProgressList = (props) => {
   let navigate = useNavigate();
   const { getProjectId } = useParams();
@@ -34,11 +34,8 @@ const ProgressList = (props) => {
       </div>
       <div className="relative w-[70%] h-[83%] overflow-y-auto shadow-[1px_1px_6px_-1px_rgba(0,0,0,0.1)] sm:rounded-[20px] left-[80px] scrollbar-hide">
         <table className="w-full text-sm text-center text-gray-500">
-          <thead className="text-sm font-bold text-black uppercase bg-gray-50">
+          <thead className="text-sm font-bold text-black uppercase bg-gray-50 ">
             <tr>
-              <th scope="col" className="px-6 py-3">
-                Number
-              </th>
               <th scope="col" className="px-6 py-3">
                 Project
               </th>
@@ -47,6 +44,9 @@ const ProgressList = (props) => {
               </th>
               <th scope="col" className="px-6 py-3">
                 Date Checked
+              </th>
+              <th scope="col" className="px-6 py-3">
+                Checked
               </th>
               <th scope="col" className="px-6 py-3">
                 Percentage
@@ -62,9 +62,6 @@ const ProgressList = (props) => {
                 className="bg-white border-b "
                 key={projectProgress.projectProgressId}
               >
-                <th scope="row" className="px-6 py-4 ">
-                  {projectProgress.numberProgress}
-                </th>
                 <td className="px-6 py-4">
                   {projectProgress.project.projectName}
                 </td>
@@ -75,7 +72,39 @@ const ProgressList = (props) => {
                     ? projectProgress.dateTeacher
                     : "-"}
                 </td>
-                <td className="px-6 py-4">{projectProgress.workProgress}</td>
+                <td className="px-6 py-4">
+                  {projectProgress.workProgress ? (
+                    <BsCheck2Circle className="text-green-600 w-4 h-4 inline-block"></BsCheck2Circle>
+                  ) : (
+                    <BsCheck2Circle className="text-stone-400 w-4 h-4 inline-block"></BsCheck2Circle>
+                  )}
+                </td>
+                <td className="px-6 py-4">
+                  <div className="flex w-full h-4 bg-gray-200 rounded-[55px] overflow-hidden dark:bg-gray-700">
+                    <div
+                      className={`flex flex-col justify-center overflow-hidden ${
+                        projectProgress.workProgress <= 20
+                          ? "bg-gradient-to-r from-red-500 via-red-600 to-red-700 pr-5 pl-2"
+                          : projectProgress.workProgress <= 40
+                          ? "bg-gradient-to-r from-orange-500 via-orange-600 to-orange-700"
+                          : projectProgress.workProgress <= 60
+                          ? "bg-gradient-to-r from-yellow-500 via-yellow-600 to-yellow-700"
+                          : projectProgress.workProgress <= 80
+                          ? "bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700"
+                          : projectProgress.workProgress <= 100
+                          ? "bg-gradient-to-r from-green-500 via-green-600 to-green-700"
+                          : ""
+                      } text-xs text-white text-center`}
+                      role="progressbar"
+                      style={{ width: `${projectProgress.workProgress}%` }}
+                      aria-valuemin="0"
+                      aria-valuemax="100"
+                    >
+                      {projectProgress.workProgress}%
+                    </div>
+                  </div>
+                </td>
+                
                 <td className="px-6 py-4">
                   <button
                     type="button"

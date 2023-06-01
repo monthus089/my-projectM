@@ -49,6 +49,8 @@
 
 - แก้ Apppointmen student ที่จองแล้วจะหายไป[0%] ไก่
 
-- แก้ progress ให้เป็น status [0%] ไก่
+- แก้ progress ให้เป็น status และ progressbar [100%] ไก่
 
-- adviser comment ได้ครั้ง [0%] ไก่
+- adviser comment ได้ครั้งแค่ 1 ครั้ง [0%] ไก่
+
+- advisee เมื่อจองเวลาแล้วให้แสดงว่าจองเวลาช่วงใหนไป [0%] ต๊ะ

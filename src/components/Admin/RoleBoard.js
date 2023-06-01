@@ -177,9 +177,12 @@ const RoleBoard = (props) => {
             </tr>
           </thead>
           <tbody className="overflow-y-auto">
-            {MemberUsers.filter((MemberUsers)=>{return props.searchValue ==='' ? MemberUsers :MemberUsers.memberUserEmail.includes(props.searchValue)}).map((MemberUser, index) =>
-              MemberUser.memberUserId !== user.nameid 
-              ? (
+            {MemberUsers.filter((MemberUsers) => {
+              return props.searchValue === ""
+                ? MemberUsers
+                : MemberUsers.memberUserEmail.includes(props.searchValue);
+            }).map((MemberUser, index) =>
+              MemberUser.memberUserId !== user.nameid ? (
                 <tr
                   className="bg-white border-b "
                   key={MemberUser.memberUserId}
