@@ -26,24 +26,33 @@ const ReadProgress = () => {
 
   const handlerSubmitCheck = async (e) => {
     e.preventDefault();
+    if(!commentTeacher){
+      notyf.open({
+        type: "warning",
+        message: "Please Enter Comment.",
+      });
+      return;
+    }
     let payload = {
-      "projectProgressId": getProjectProgressId,
-      "dateForm": projectProgress.dateForm,
-      "numberProgress": projectProgress.numberProgress,
-      "summaryProgress": projectProgress.summaryProgress,
-      "solutionToImprove": projectProgress.solutionToImprove,
-      "goalOfWork": projectProgress.goalOfWork,
-      "workProgress": projectProgress.workProgress,
-      "commentTeacher": commentTeacher,
+      projectProgressId: getProjectProgressId,
+      dateForm: projectProgress.dateForm,
+      numberProgress: projectProgress.numberProgress,
+      summaryProgress: projectProgress.summaryProgress,
+      solutionToImprove: projectProgress.solutionToImprove,
+      goalOfWork: projectProgress.goalOfWork,
+      workProgress: projectProgress.workProgress,
+      commentTeacher: commentTeacher,
     };
     try {
-      await jwtInterceptor.put(`${process.env.REACT_APP_API}/ProjectProgress/${getProjectProgressId}?projectId=${projectProgress.project.projectId}`, payload)
+      await jwtInterceptor.put(
+        `${process.env.REACT_APP_API}/ProjectProgress/${getProjectProgressId}?projectId=${projectProgress.project.projectId}`,
+        payload
+      );
       notyf.success("Check");
     } catch (err) {
       console.log(err);
     }
-    navigate('/Advisor/Progress');
-
+    navigate("/Advisor/Progress");
   };
   return (
     <>
@@ -85,30 +94,45 @@ const ReadProgress = () => {
           </div>
           <div className="items-center text-start my-10">
             <div className="pl-6 pb-5 pt-10">
-              <p>The project is now complete and {projectProgress.workProgress} Percentage</p>
+              <p>
+                The project is now complete and {projectProgress.workProgress}{" "}
+                Percentage
+              </p>
             </div>
           </div>
           <div className="items-center text-start my-10 whitespace-nowrap">
-                        <div className="pl-6 py-5"><span>Comment</span></div>
-                        <div>
-                            <textarea
-                                placeholder="Comment..."
-                                className="px-4 pt-[0.35rem] ml-[50px] mt-[10px] text-[20px] w-[90%] h-[120px] block text-gray-900 bg-gray-50 rounded-[18px] border border-gray-300 resize-none scrollbar-hide focus:outline-none"
-                                value={commentTeacher}
-                                onChange={(e) => setCommentTeacher(e.target.value)}
-                                required
-                            ></textarea>
-                        </div>
-                    </div>
-
-          <div className="pt-20 pr-2 grid grid-cols-12 ">
-            <button
-              type="submit"
-              className="col-start-12 text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:outline-none font-medium rounded-[18px] text-sm px-6 py-2.5 text-center mr-2 mb-2"
-            >
-              Check
-            </button>
+            <div className="pl-6 py-5">
+              <span>Comment</span>
+            </div>
+            {!projectProgress.commentTeacher ? (
+              <div>
+                <textarea
+                  placeholder="Comment..."
+                  className="px-4 pt-[0.35rem] ml-[50px] mt-[10px] text-[20px] w-[90%] h-[120px] block text-gray-900 bg-gray-50 rounded-[18px] border border-gray-300 resize-none scrollbar-hide focus:outline-none"
+                  value={commentTeacher}
+                  onChange={(e) => setCommentTeacher(e.target.value)}
+                ></textarea>
+              </div>
+            ) : (
+              <div>
+                <p className="px-4 pt-[0.35rem] ml-[50px] mt-[10px] text-[19px] w-[90%] h-[120px] block text-gray-900">
+                  {projectProgress.commentTeacher}
+                </p>
+              </div>
+            )}
           </div>
+          {!projectProgress.commentTeacher ? (
+            <div className="pt-20 pr-2 grid grid-cols-12 ">
+              <button
+                type="submit"
+                className="col-start-12 text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:outline-none font-medium rounded-[18px] text-sm px-6 py-2.5 text-center mr-2 mb-2"
+              >
+                Check
+              </button>
+            </div>
+          ) : (
+            <div></div>
+          )}
         </form>
       </div>
     </>

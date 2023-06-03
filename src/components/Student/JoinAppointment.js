@@ -3,7 +3,6 @@ import jwtInterceptor from "../Auth/jwtInterceptor";
 import AuthContext from "../Auth/AuthProvider";
 import notyf from "../../js/Notyf";
 import moment from "moment/moment";
-import { Select, Option } from "@material-tailwind/react";
 
 const JoinAppointment = (props) => {
   const { user } = useContext(AuthContext);
@@ -158,7 +157,10 @@ const JoinAppointment = (props) => {
                         {appointment.appointmentDateFrom} -{" "}
                         {appointment.appointmentDateTo}
                       </td>
-                      <td className="px-6 py-4">-</td>
+                      <td className="px-6 py-4">
+                        {"-"}
+                        {/* {!ค่าที่จองไปแล้ว database ?ค่าที่จองไปแล้ว database:"-"} */}
+                      </td>
                       <td className="px-6 py-4">
                         <select
                           value={
@@ -170,10 +172,11 @@ const JoinAppointment = (props) => {
                           className="form-select mt-1 block w-full p-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-[24px] outline-none"
                           required
                         >
-                        (
-                            <option value="">Select time</option>
-                          )
+                          (<option value="">Select time</option>)
                           {reserveTimeOptions}
+                          {/* {reserveTimeOptions === "ค่าที่จองไปแล้ว database"
+                            ? reserveTimeOptions
+                            : null} */}
                         </select>
                       </td>
 

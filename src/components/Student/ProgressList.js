@@ -73,11 +73,11 @@ const ProgressList = (props) => {
                     : "-"}
                 </td>
                 <td className="px-6 py-4">
-                  {projectProgress.workProgress ? (
+                  {projectProgress.dateTeacher ? 
                     <BsCheck2Circle className="text-green-600 w-4 h-4 inline-block"></BsCheck2Circle>
-                  ) : (
+                   : 
                     <BsCheck2Circle className="text-stone-400 w-4 h-4 inline-block"></BsCheck2Circle>
-                  )}
+                  }
                 </td>
                 <td className="px-6 py-4">
                   <div className="flex w-full h-4 bg-gray-200 rounded-[55px] overflow-hidden dark:bg-gray-700">

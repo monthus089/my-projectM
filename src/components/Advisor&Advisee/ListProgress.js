@@ -65,7 +65,7 @@ const ListProgress = () => {
                     : "-"}
                 </td>
                 <td className="px-6 py-4">
-                  {projectProgress.workProgress ? (
+                  {projectProgress.dateTeacher ? (
                     <BsCheck2Circle className="text-green-600 w-4 h-4 inline-block"></BsCheck2Circle>
                   ) : (
                     <BsCheck2Circle className="text-stone-400 w-4 h-4 inline-block"></BsCheck2Circle>
