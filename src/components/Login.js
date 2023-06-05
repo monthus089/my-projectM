@@ -32,6 +32,8 @@ const Login = () => {
     PM01: "/Advisor",
     PM02: "/Advisor",
     PM03: "/Student",
+    "": "/",
+    null: "/",
   };
 
   const togglePassword = () => {
@@ -58,7 +60,7 @@ const Login = () => {
 
     try {
       await login(payload) 
-      navigate(routes[user?.role] || "");
+      navigate(routes[user?.role] ?? "/");
     } catch (error) {
       console.log(error);
     }
@@ -84,7 +86,7 @@ const Login = () => {
               type="text"
               placeholder="Email"
               className="input"
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e) => setEmail(e.target.value.trim())}
               required
             />
           </div>
@@ -98,7 +100,7 @@ const Login = () => {
               type={passwordShown ? "text" : "password"}
               placeholder="Password"
               className="input"
-              onChange={(e) => setPass(e.target.value)}
+              onChange={(e) => setPass(e.target.value.trim())}
               required
             />
           </div>

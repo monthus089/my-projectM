@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import jwtInterceptor from "../Auth/jwtInterceptor";
 import notyf from "../../js/Notyf";
+import { RxCross1 } from "react-icons/rx";
 
 const AddAppointment = (props) => {
   const [appointmentTitle, setAppointmentTitle] = useState("");
@@ -126,18 +127,14 @@ const AddAppointment = (props) => {
             &#8203;
           </span>
 
-          <div className="inline-block align-bottom bg-white rounded-[10px] text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+          <div className="inline-block align-bottom bg-white rounded-[24px] text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
             <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-              <button
-                type="button"
-                className="text-white hover:bg-red-600  bg-gradient-to-r from-red-400 via-red-500 to-red-600 focus:outline-none border rounded-[18px] px-4 py-1 sm:ml-3 sm:w-auto sm:text-sm"
-                data-dismiss="modal"
+            <RxCross1
+                className="text-black hover:text-gray-500 hover:cursor-pointer w-5 h-5"
                 onClick={props.onClose}
-              >
-                Close
-              </button>
+              />
               <h3
-                className="text-lg leading-6 font-medium text-gray-900 left-0"
+                className="text-lg leading-6 font-medium text-gray-900 left-0 mr-8"
                 id="modal-title"
               >
                 Appointment

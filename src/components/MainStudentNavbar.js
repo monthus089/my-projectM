@@ -10,6 +10,7 @@ import {
   AiOutlineCaretDown,
   AiOutlineCaretUp,
 } from "react-icons/ai";
+import {FaUserGraduate} from "react-icons/fa";
 import logo from "../img/36-icon.png";
 import AuthContext from "./Auth/AuthProvider";
 import ChangePass from "./ChangePass";
@@ -98,7 +99,11 @@ const MainLayoutStudent = () => {
         <div className="absolute p-0 left-[335px] h-screen w-full border rounded-l-extent bg-white">
         <div className="flex w-full h-[60px]  items-center px-[10px] ">
             <Search onSearch={handleSearch}/>
-            <div className=" text-[14px] ml-[300px]">
+            <div className="text-[14px] text-white flex items-center py-1 px-3 border rounded-extent bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br cursor-default outline-none">
+              <FaUserGraduate className="mr-1" />
+              <span>ADVISEE</span>
+            </div>
+            <div className=" text-[14px] w-[200px] block overflow-hidden">
               <button
                 className="text-black bg-none focus:outline-none font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center"
                 type="button"

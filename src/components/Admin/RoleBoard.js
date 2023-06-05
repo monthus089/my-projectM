@@ -2,6 +2,8 @@ import { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import jwtInterceptor from "../Auth/jwtInterceptor";
 import { AiOutlineCloudUpload } from "react-icons/ai";
+import { FiEdit } from "react-icons/fi";
+import { GiCancel } from "react-icons/gi";
 import AuthContext from "../Auth/AuthProvider";
 import { notyf } from "../../js/Notyf";
 
@@ -14,6 +16,18 @@ const RoleBoard = (props) => {
   const [file, setFile] = useState();
   const [array, setArray] = useState([]);
   const [isLoading, setIsLoading] = useState(false); // Add isLoading state
+  const [editIndex, setEditIndex] = useState(-1);
+  const [editedFirstname, setEditedFirstname] = useState("");
+  const [editedLastname, setEditedLastname] = useState("");
+
+  const handleEdit = (index) => {
+    setEditIndex(index);
+    setEditedFirstname(MemberUsers[index].firstname);
+    setEditedLastname(MemberUsers[index].lastname);
+  };
+  const handleCancel = (index) => {
+    setEditIndex(-1);
+  };
   const fileReader = new FileReader();
   useEffect(() => {
     jwtInterceptor
@@ -168,6 +182,7 @@ const RoleBoard = (props) => {
               <th scope="col" className="px-6 py-3">
                 Name
               </th>
+              <th scope="col" className="pr-6 py-3"></th>
               <th scope="col" className="px-6 py-3">
                 Role
               </th>
@@ -177,11 +192,7 @@ const RoleBoard = (props) => {
             </tr>
           </thead>
           <tbody className="overflow-y-auto">
-            {MemberUsers.filter((MemberUsers) => {
-              return props.searchValue === ""
-                ? MemberUsers
-                : MemberUsers.memberUserEmail.includes(props.searchValue);
-            }).map((MemberUser, index) =>
+            {MemberUsers.map((MemberUser, index) =>
               MemberUser.memberUserId !== user.nameid ? (
                 <tr
                   className="bg-white border-b "
@@ -193,14 +204,62 @@ const RoleBoard = (props) => {
                   <th scope="row" className="px-6 py-4 ">
                     {MemberUser.memberUserEmail}
                   </th>
-                  <td className="px-6 py-4">
-                    {MemberUser.firstname} {MemberUser.lastname}
+                  <td className="pl-6 py-4 flex items-center justify-center w-40">
+                    {editIndex === index ? (
+                      <div className="flex items-center">
+                        <input
+                          type="text"
+                          value={editedFirstname}
+                          onChange={(e) => setEditedFirstname(e.target.value)}
+                          className="border border-gray-300 text-sm w-[110px] px-2 py-3 rounded-[18px] focus:border-transparent"
+                          placeholder="First name"
+                        />
+                        <input
+                          type="text"
+                          value={editedLastname}
+                          onChange={(e) => setEditedLastname(e.target.value)}
+                          className="border border-gray-300 text-sm w-[110px] px-2 py-3 rounded-[18px] focus:border-transparent ml-2"
+                          placeholder="Last name"
+                        />
+                      </div>
+                    ) : editIndex === -1 ? (
+                      <div className="flex items-center">
+                        <div className="text-sm pt-3.5 px-2 focus:border-transparent">
+                          {MemberUser.firstname}
+                        </div>
+                        <div className="text-sm pt-3.5 px-2 focus:border-transparent ml-2">
+                          {MemberUser.lastname}
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="flex items-center">
+                        <div className="text-sm pt-3.5 px-2 focus:border-transparent">
+                          {MemberUser.firstname}
+                        </div>
+                        <div className="text-sm pt-3.5 px-2 focus:border-transparent ml-2">
+                          {MemberUser.lastname}
+                        </div>
+                      </div>
+                    )}
                   </td>
 
-                  <td className="px-6 py-4">
+                  <td className="pr-4">
+                    {editIndex === index ? (
+                      <GiCancel
+                        className="hover:text-red-500 cursor-pointer"
+                        onClick={() => handleCancel(index)}
+                      />
+                    ) : (
+                      <FiEdit
+                        className="hover:text-green-400 cursor-pointer"
+                        onClick={() => handleEdit(index)}
+                      />
+                    )}
+                  </td>
+                  <td className="px-2 py-4 w-[190px]">
                     <select
                       id="role"
-                      className="bg-gray-50 border border-gray-300 text-sm rounded-[18px] block w-full py-2.5 px-2 dark:bg-white focus:border-transparent dark:text-gray-400 "
+                      className="bg-gray-50 border border-gray-300 text-sm rounded-[18px] block w-full py-2.5 px-2 dark:bg-white focus:border-transparent"
                       defaultValue={MemberUser.role?.roleName} // update defaultValue
                       onChange={handleRoleChange}
                     >
@@ -221,12 +280,19 @@ const RoleBoard = (props) => {
                   <td className="px-6 py-4">
                     <button
                       type="button"
-                      className="text-white bg-gradient-to-r from-teal-400 via-teal-500 to-teal-600 hover:bg-gradient-to-br font-medium rounded-[18px] text-sm px-5 py-2.5 text-center mr-2 mb-2 focus:outline-none"
+                      className="text-white bg-gradient-to-r from-teal-400 via-teal-500 to-teal-600 hover:bg-gradient-to-br font-medium rounded-[18px] text-sm px-6 py-2.5 text-center mr-2 mb-2 focus:outline-none"
                       onClick={(e) =>
                         handleSubmitRole(e, MemberUser.memberUserId)
                       }
                     >
-                      Change
+                      Save
+                    </button>
+                    <button
+                      type="button"
+                      className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br font-medium rounded-[18px] text-sm px-5 py-2.5 text-center mr-2 mb-2 focus:outline-none"
+                      onClick={""}
+                    >
+                      Delete
                     </button>
                   </td>
                 </tr>

@@ -40,7 +40,7 @@ const JoinBroad = (props) => {
             </tr>
           </thead>
           <tbody className="overflow-y-auto">
-            {/* {
+            {
             projects.map((project, i) => (
             <tr className="bg-white border-b " key={project.projectId}>
               <th scope="row" className="px-6 py-4 ">
@@ -61,7 +61,7 @@ const JoinBroad = (props) => {
                 </button>
               </td>
             </tr>
-            ))} */}
+            ))}
           </tbody>
         </table>
       </div>

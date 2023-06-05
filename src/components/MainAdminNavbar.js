@@ -8,6 +8,7 @@ import {
 } from "react-icons/ai";
 import { IoMdClipboard } from "react-icons/io";
 import { BiLogOut } from "react-icons/bi";
+import { FaUserCog } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
 
 import logo from "../img/36-icon.png";
@@ -21,10 +22,10 @@ const MainLayoutAdmin = () => {
   const [isOpenPass, setIsOpenPass] = useState(false);
   const [search, setSearch] = useState("");
   const closeModal = () => {
-    setIsOpenPass(false); 
+    setIsOpenPass(false);
   };
   const handleSearch = (searchValue) => {
-    setSearch(searchValue)
+    setSearch(searchValue);
   };
   const Menu = [
     {
@@ -41,7 +42,6 @@ const MainLayoutAdmin = () => {
       logout(); // call logout function if spacing is truthy
     }
   };
-
 
   return (
     <>
@@ -95,16 +95,21 @@ const MainLayoutAdmin = () => {
             })}
           </ul>
         </div>
-        <div className="absolute p-0 left-[335px] h-screen w-full border rounded-l-extent bg-white">
-          <div className="flex w-full h-[60px]  items-center px-[10px] ">
-            <Search  onSearch={handleSearch}/>
-            <div className=" text-[14px] ml-[300px]">
+        <div className="absolute p-0 left-[335px] h-screen w-screen border rounded-l-extent bg-white">
+          <div className="flex w-full h-[60px] items-center px-[10px] ">
+            <Search onSearch={handleSearch} />
+            <div className="text-[14px] text-white flex items-center py-1 px-3 border rounded-extent bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br cursor-default outline-none">
+              <FaUserCog className="mr-1" />
+              <span>ADMIN</span>
+            </div>
+            <div className=" text-[14px] w-[200px] block overflow-hidden">
               <button
                 className="text-black bg-none focus:outline-none font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center"
                 type="button"
                 onClick={() => setIsOpen((prev) => !prev)}
               >
-                {user.email} {user.given_name}{" "}
+                {user.email} {user.given_name}
+                {""}
                 {!isOpen ? (
                   <AiOutlineCaretDown className="pl-1" />
                 ) : (
@@ -128,11 +133,9 @@ const MainLayoutAdmin = () => {
               )}
             </div>
           </div>
-          {isOpenPass ? (
-           <ChangePass onClose={closeModal}/>
-          ) : null}
+          {isOpenPass ? <ChangePass onClose={closeModal} /> : null}
 
-          <Outlet searchValue={search}/>
+          <Outlet searchValue={search} />
         </div>
       </div>
     </>

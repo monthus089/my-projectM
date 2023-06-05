@@ -11,6 +11,7 @@ import {
   AiOutlineUser,
   AiOutlineCaretUp,
 } from "react-icons/ai";
+import {FaUserTie} from "react-icons/fa";
 import logo from "../img/36-icon.png";
 import { useContext } from "react";
 import AuthContext from "./Auth/AuthProvider";
@@ -78,6 +79,7 @@ const MainLayoutAdvisor = () => {
           </div>
           <ul className="pt-2">
             {Menu.map((menu, index) => {
+              
               return (
                 <li
                   key={index}
@@ -105,13 +107,17 @@ const MainLayoutAdvisor = () => {
         <div className="absolute p-0 left-[335px] h-screen w-full border rounded-l-extent bg-white">
         <div className="flex w-full h-[60px]  items-center px-[10px] ">
             <Search onSearch={handleSearch}/>
-            <div className=" text-[14px] ml-[300px]">
+            <div className="text-[14px] text-white flex items-center py-1 px-3 border rounded-extent bg-gradient-to-r from-blue-400 via-blue-500 to-blue-600 hover:bg-gradient-to-br cursor-default outline-none">
+              <FaUserTie className="mr-1" />
+              <span>ADVISER</span>
+            </div>
+            <div className=" text-[14px] w-[200px] block overflow-hidden">
               <button
                 className="text-black bg-none focus:outline-none font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center"
                 type="button"
                 onClick={() => setIsOpen((prev) => !prev)}
               >
-                {user.email} {user.given_name}{" "}
+               {user.email} {user.given_name}{" "}
                 {!isOpen ? (
                   <AiOutlineCaretDown className="pl-1" />
                 ) : (
