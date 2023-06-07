@@ -2,16 +2,16 @@ import { Outlet } from "react-router-dom";
 import Search from "./Search";
 import React, { useState } from "react";
 import { IoMdClipboard } from "react-icons/io";
-import { MdMoreTime,MdOutlineCreateNewFolder } from "react-icons/md";
+import { MdMoreTime, MdOutlineCreateNewFolder } from "react-icons/md";
 import { BiLogOut } from "react-icons/bi";
-import{GiProgression} from "react-icons/gi"
+import { GiProgression } from "react-icons/gi";
 import { NavLink } from "react-router-dom";
 import {
   AiOutlineCaretDown,
   AiOutlineUser,
   AiOutlineCaretUp,
 } from "react-icons/ai";
-import {FaUserTie} from "react-icons/fa";
+import { FaUserTie } from "react-icons/fa";
 import logo from "../img/36-icon.png";
 import { useContext } from "react";
 import AuthContext from "./Auth/AuthProvider";
@@ -24,30 +24,30 @@ const MainLayoutAdvisor = () => {
   const [isOpenPass, setIsOpenPass] = useState(false);
   const [search, setSearch] = useState("");
   const closeModal = () => {
-    setIsOpenPass(false); 
+    setIsOpenPass(false);
   };
   const handleSearch = (searchValue) => {
     console.log("Search value:", searchValue);
-    setSearch(searchValue)
+    setSearch(searchValue);
   };
   const Menu = [
     {
       title: "My Project",
-      icon: <IoMdClipboard/>,
+      icon: <IoMdClipboard />,
       url: "MyProject",
     },
     {
       title: "Create",
-      icon: <MdOutlineCreateNewFolder/>,
+      icon: <MdOutlineCreateNewFolder />,
       url: "Create",
     },
     {
-        title: "Project Progress",
-        icon: <GiProgression/>,
-        url: "Progress",
-      },
-    { title: "Appointment", icon: <MdMoreTime/>, url: "Appoint" },
-    { title: "Logout", icon: <BiLogOut/>, url: "/", spacing: true },
+      title: "Project Progress",
+      icon: <GiProgression />,
+      url: "Progress",
+    },
+    // { title: "Appointment", icon: <MdMoreTime/>, url: "Appoint" },
+    { title: "Logout", icon: <BiLogOut />, url: "/", spacing: true },
   ];
 
   const handleNavLinkClick = (menu) => {
@@ -79,15 +79,18 @@ const MainLayoutAdvisor = () => {
           </div>
           <ul className="pt-2">
             {Menu.map((menu, index) => {
-              
               return (
                 <li
                   key={index}
                   className={`flex text-white text-sm item-center gap-x-4 cursor-pointer p-4 mr-14 hover:text-black hover:bg-slate-200 rounded-[25px] last:bg-slate-200 last:text-black ${
-                    menu.spacing ? "mt-[500px]" : "mt-2"
+                    menu.spacing ? "mt-[550px]" : "mt-2"
                   } `}
                 >
-                  <NavLink to={menu.url} className={``} onClick={() => handleNavLinkClick(menu)}>
+                  <NavLink
+                    to={menu.url}
+                    className={``}
+                    onClick={() => handleNavLinkClick(menu)}
+                  >
                     <span className="text-xl block float-left ">
                       {menu.icon}
                     </span>
@@ -105,11 +108,11 @@ const MainLayoutAdvisor = () => {
           </ul>
         </div>
         <div className="absolute p-0 left-[335px] h-screen w-full border rounded-l-extent bg-white">
-        <div className="flex w-full h-[60px]  items-center px-[10px] ">
-            <Search onSearch={handleSearch}/>
+          <div className="flex w-full h-[60px]  items-center px-[10px] ">
+            <Search onSearch={handleSearch} />
             <div className="text-[14px] text-white flex items-center py-1 px-3 border rounded-extent bg-gradient-to-r from-blue-400 via-blue-500 to-blue-600 hover:bg-gradient-to-br cursor-default outline-none">
               <FaUserTie className="mr-1" />
-              <span>ADVISER</span>
+              <span>ADVISOR</span>
             </div>
             <div className=" text-[14px] w-[200px] block overflow-hidden">
               <button
@@ -117,7 +120,7 @@ const MainLayoutAdvisor = () => {
                 type="button"
                 onClick={() => setIsOpen((prev) => !prev)}
               >
-               {user.email} {user.given_name}{" "}
+                {user.email} {user.given_name}{" "}
                 {!isOpen ? (
                   <AiOutlineCaretDown className="pl-1" />
                 ) : (
@@ -141,10 +144,8 @@ const MainLayoutAdvisor = () => {
               )}
             </div>
           </div>
-          {isOpenPass ? (
-           <ChangePass onClose={closeModal}/>
-          ) : null}
-          <Outlet searchValue={search}/>
+          {isOpenPass ? <ChangePass onClose={closeModal} /> : null}
+          <Outlet searchValue={search} />
         </div>
       </div>
     </>

@@ -29,6 +29,11 @@ const MainLayoutAdmin = () => {
   };
   const Menu = [
     {
+      title: "All Project Board",
+      icon: <IoMdClipboard></IoMdClipboard>,
+      url: "AllProject",
+    },
+    {
       title: "Project Board",
       icon: <IoMdClipboard></IoMdClipboard>,
       url: "Board",
@@ -71,7 +76,7 @@ const MainLayoutAdmin = () => {
                 <li
                   key={index}
                   className={`flex text-white text-sm item-center gap-x-4 cursor-pointer p-4 mr-14 hover:text-black hover:bg-slate-200 rounded-[25px] active:bg-slate-200 last:bg-slate-200 last:text-black ${
-                    menu.spacing ? "mt-[612px]" : "mt-2"
+                    menu.spacing ? "mt-[550px]" : "mt-2"
                   } `}
                 >
                   <NavLink

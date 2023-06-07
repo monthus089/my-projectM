@@ -3,11 +3,14 @@ import { Route, Routes } from "react-router-dom";
 import Login from "./components/Login";
 // Admin Navbar
 import MainAdminNavbar from "./components/MainAdminNavbar";
+import AllProject from "./components/Admin/AllProject"
+import AllProgress from "./components/Admin/AllProgress"
+import AllReadProgress from "./components/Admin/AllReadProgress"
 import Board from "./components/Admin/Board";
 import Details from "./components/Admin/Details";
 import Editing from "./components/Admin/Editing";
 import RoleBoard from "./components/Admin/RoleBoard";
-// Advisor Navbar
+// Advisor Navbar && CA
 import MainAdvisorNavbar from "./components/MainAdvisorNavbar";
 import MyProject from "./components/Advisor&Advisee/MyProject";
 import MyDetails from "./components/Advisor&Advisee/MyDetails";
@@ -37,13 +40,28 @@ function App() {
     <Routes>
       <Route path="/" element={<Login />}></Route>
       <Route path="/Admin" element={<MainAdminNavbar />}>
-        <Route path="" element={<Board />} />
+        <Route path="" element={<AllProject />} />
+        <Route path="AllProject" element={<AllProject />}></Route>
+        <Route path="AllProgress" element={<AllProgress />}></Route>
+        <Route path="AllReadProgress" element={<AllReadProgress />}></Route>
         <Route path="Board" element={<Board />}></Route>
         <Route path="Details/:getProjectId" element={<Details />} />
         <Route path="Editing/:getProjectId" element={<Editing />} />
         <Route path="Role" element={<RoleBoard />} />
       </Route>
       <Route path="/Advisor" element={<MainAdvisorNavbar />}>
+        <Route path="" element={<MyProject />} />
+        <Route path="MyProject" element={<MyProject />} />
+        <Route path="MyDetails/:getProjectId" element={<MyDetails />} />
+        <Route path="MyEditing/:getProjectId" element={<MyEditing />} />
+        <Route path="Create" element={<Create />} />
+        <Route path="Progress" element={<MyProjectProgress />} />
+        <Route path="ListProgress/:getProjectId" element={<ListProgress />} />
+        <Route path="ReadProgress/:getProjectProgressId" element={<ReadProgress />} />
+        {/* <Route path="Appoint" element={<Appointment />} />
+        <Route path="BookingTime/:appointmentId" element={<BookingTime />} /> */}
+      </Route>
+      <Route path="/CAdvisor" element={<MainAdvisorNavbar />}>
         <Route path="" element={<MyProject />} />
         <Route path="MyProject" element={<MyProject />} />
         <Route path="MyDetails/:getProjectId" element={<MyDetails />} />
