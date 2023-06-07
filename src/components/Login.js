@@ -29,7 +29,7 @@ const Login = () => {
   const navigate = useNavigate();
   const routes = {
     PM00: "/Admin",
-    PM01: "/Advisor",
+    PM01: "/CAdvisor",
     PM02: "/Advisor",
     PM03: "/Student",
     "": "/",

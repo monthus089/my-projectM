@@ -12,6 +12,7 @@ import Editing from "./components/Admin/Editing";
 import RoleBoard from "./components/Admin/RoleBoard";
 // Advisor Navbar && CA
 import MainAdvisorNavbar from "./components/MainAdvisorNavbar";
+import MainCaNavbar from "./components/MainCaNavbar";
 import MyProject from "./components/Advisor&Advisee/MyProject";
 import MyDetails from "./components/Advisor&Advisee/MyDetails";
 import MyEditing from "./components/Advisor&Advisee/MyEditing";
@@ -61,7 +62,7 @@ function App() {
         {/* <Route path="Appoint" element={<Appointment />} />
         <Route path="BookingTime/:appointmentId" element={<BookingTime />} /> */}
       </Route>
-      <Route path="/CAdvisor" element={<MainAdvisorNavbar />}>
+      <Route path="/CAdvisor" element={<MainCaNavbar />}>
         <Route path="" element={<MyProject />} />
         <Route path="MyProject" element={<MyProject />} />
         <Route path="MyDetails/:getProjectId" element={<MyDetails />} />
