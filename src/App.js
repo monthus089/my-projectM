@@ -43,8 +43,8 @@ function App() {
       <Route path="/Admin" element={<MainAdminNavbar />}>
         <Route path="" element={<AllProject />} />
         <Route path="AllProject" element={<AllProject />}></Route>
-        <Route path="AllProgress" element={<AllProgress />}></Route>
-        <Route path="AllReadProgress" element={<AllReadProgress />}></Route>
+        <Route path="AllProgress/:getProjectId" element={<AllProgress />}></Route>
+        <Route path="AllReadProgress/:getProjectProgressId" element={<AllReadProgress />}></Route>
         <Route path="Board" element={<Board />}></Route>
         <Route path="Details/:getProjectId" element={<Details />} />
         <Route path="Editing/:getProjectId" element={<Editing />} />

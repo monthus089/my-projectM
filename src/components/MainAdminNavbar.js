@@ -29,7 +29,7 @@ const MainLayoutAdmin = () => {
   };
   const Menu = [
     {
-      title: "All Project Board",
+      title: "Project Progress Board",
       icon: <IoMdClipboard></IoMdClipboard>,
       url: "AllProject",
     },

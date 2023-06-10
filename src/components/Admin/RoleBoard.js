@@ -19,6 +19,30 @@ const RoleBoard = (props) => {
   const [editIndex, setEditIndex] = useState(-1);
   const [editedFirstname, setEditedFirstname] = useState("");
   const [editedLastname, setEditedLastname] = useState("");
+  const [showModal, setShowModal] = useState(false);
+  const [selectedMemberUserId, setSelectedMemberUserId] = useState("");
+
+  const closeModal = () => {
+    setShowModal(false);
+  };
+
+  const handleDelete = (memberUserId) => {
+    setSelectedMemberUserId(memberUserId);
+    setShowModal(true);
+  };  
+
+  const handleDeleteConfirm = async () => {
+
+    try {
+      await jwtInterceptor.delete(
+        `${process.env.REACT_APP_API}/MemberUser/${selectedMemberUserId}`
+      );
+      notyf.success("MemberUser deleted successfully");
+    } catch (err) {
+      console.log(err);
+    }
+    setShowModal(false);
+  };  
 
   const handleEdit = (index) => {
     setEditIndex(index);
@@ -45,13 +69,13 @@ const RoleBoard = (props) => {
     setSelectedRole(event.target.value);
   };
 
-  const handleSubmitRole = async (e, memberUserId) => {
+  const handleSubmit = async (e, memberUserId) => { //เหลือแก้ไขข้อมูล memberUser
     e.preventDefault();
     try {
       await jwtInterceptor.put(
         `${process.env.REACT_APP_API}/MemberUser/${memberUserId}?roleId=${selectedRole}`
       );
-      notyf.success("Successful role change");
+      notyf.success("Information has been updated.");
     } catch (error) {
       console.log(error);
       if (error?.response?.status === 400) {
@@ -282,7 +306,7 @@ const RoleBoard = (props) => {
                       type="button"
                       className="text-white bg-gradient-to-r from-teal-400 via-teal-500 to-teal-600 hover:bg-gradient-to-br font-medium rounded-[18px] text-sm px-6 py-2.5 text-center mr-2 mb-2 focus:outline-none"
                       onClick={(e) =>
-                        handleSubmitRole(e, MemberUser.memberUserId)
+                        handleSubmit(e, MemberUser.memberUserId)
                       }
                     >
                       Save
@@ -290,10 +314,43 @@ const RoleBoard = (props) => {
                     <button
                       type="button"
                       className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br font-medium rounded-[18px] text-sm px-5 py-2.5 text-center mr-2 mb-2 focus:outline-none"
-                      onClick={""}
+                      onClick={() => handleDelete(MemberUser.memberUserId)}
                     >
                       Delete
                     </button>
+                    <div
+                      id="id01"
+                      className={`fixed left-0 top-[280px] w-full h-full overflow-auto pt-200  ${
+                        showModal ? "block" : "hidden"
+                      }`}
+                    >
+                      <form className="bg-white mx-auto mt-5 mb-15 border border-gray-300 shadow-lg w-[422px] h-[250px] rounded-[18px]">
+                        <div className="py-8 text-center">
+                          <h1>Delete MemberUser</h1>
+                          <p className="text-center p-4 mt-4">
+                            Are you sure you want to delete a MemberUser?
+                          </p>
+                          <div className="mt-[30px] mx-[40px] grid grid-cols-2 gap-x-8">
+                            <button
+                              type="button"
+                              onClick={closeModal}
+                              className="text-white bg-purple-700 hover:bg-purple-800 focus:outline-none  font-medium rounded-[18px] text-sm px-5 py-2.5 text-center mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 "
+                            >
+                              No, Cancel
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() =>
+                                handleDeleteConfirm(selectedMemberUserId)
+                              }
+                              className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:outline-none  dark:focus:ring-red-800 font-medium rounded-[18px] text-sm px-6 py-2.5 text-center mr-2 mb-2"
+                            >
+                              Yes, Delete
+                            </button>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
                   </td>
                 </tr>
               ) : null

@@ -1,11 +1,17 @@
 import { useNavigate } from "react-router-dom";
 import React, { useContext, useEffect, useState } from "react";
+import jwtInterceptor from "../Auth/jwtInterceptor";
 
 const AllProject = (props) => {
   
   const navigate = useNavigate();
   const [projects, setProjects] = useState([]);
 
+  useEffect(() => {
+    
+    jwtInterceptor.get(`${process.env.REACT_APP_API}/Project`).then((response) => setProjects(response?.data));
+
+  }, []);
 
   return (
     <>
@@ -53,7 +59,7 @@ const AllProject = (props) => {
                   <button
                     type="button"
                     className="text-white bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 hover:bg-gradient-to-br   shadow-purple-500/50  dark:shadow-purple-800/80 font-medium rounded-[25px] text-sm px-12 py-2.5 text-center mr-2 mb-2"
-                    onClick={() => navigate("/Admin/AllProgress")}
+                    onClick={() => navigate("/Admin/AllProgress/" + project.projectId)}
                   >
                     Progress
                   </button>

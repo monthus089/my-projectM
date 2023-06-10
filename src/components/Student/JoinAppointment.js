@@ -32,6 +32,7 @@ const JoinAppointment = (props) => {
       console.log(error);
     }
   };
+  console.log(appointments);
 
   const handlerSubmitJoin = async (e, appointmentId, projects) => {
     e.preventDefault();
@@ -59,17 +60,22 @@ const JoinAppointment = (props) => {
   };
 
   // Helper function to generate reserve time options for a specific appointment
-  const generateReserveTimeOptions = (startTime, endTime) => {
+  const generateReserveTimeOptions = (startTime, endTime, reservedTimes) => {
     const options = [];
     let current = startTime;
     while (current < endTime) {
       const endTimeSlot = current.clone().add(40, "minutes").format("HH:mm");
       const reserveTime = `${current.format("HH:mm")}-${endTimeSlot}`;
-      options.push(
-        <option key={reserveTime} value={reserveTime}>
-          {reserveTime}
-        </option>
-      );
+
+      // Check if the reserveTime is already reserved
+      if (!reservedTimes.includes(reserveTime)) {
+        options.push(
+          <option key={reserveTime} value={reserveTime}>
+            {reserveTime}
+          </option>
+        );
+      }
+
       current = current.add(40, "minutes");
     }
     return options;
@@ -130,9 +136,13 @@ const JoinAppointment = (props) => {
                     appointment.appointmentDateTo,
                     "HH:mm"
                   );
+                  const reservedTimes = appointment.appointmentReserves.map(
+                    (reserve) => reserve.reserveTime
+                  );
                   const reserveTimeOptions = generateReserveTimeOptions(
                     startTime,
-                    endTime
+                    endTime,
+                    reservedTimes
                   );
 
                   return (
@@ -158,9 +168,15 @@ const JoinAppointment = (props) => {
                         {appointment.appointmentDateTo}
                       </td>
                       <td className="px-6 py-4">
-                        {"-"}
-                        {/* {!ค่าที่จองไปแล้ว database ?ค่าที่จองไปแล้ว database:"-"} */}
+                        {appointment.appointmentReserves.length > 0
+                          ? appointment.appointmentReserves.map(
+                              (reserve, index) => (
+                                <span key={index}>{reserve.reserveTime}</span>
+                              )
+                            )
+                          : "-"}
                       </td>
+
                       <td className="px-6 py-4">
                         <select
                           value={
@@ -172,11 +188,8 @@ const JoinAppointment = (props) => {
                           className="form-select mt-1 block w-full p-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-[24px] outline-none"
                           required
                         >
-                          (<option value="">Select time</option>)
+                          <option value="">Select time</option>
                           {reserveTimeOptions}
-                          {/* {reserveTimeOptions === "ค่าที่จองไปแล้ว database"
-                            ? reserveTimeOptions
-                            : null} */}
                         </select>
                       </td>
 
