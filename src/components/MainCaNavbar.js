@@ -34,7 +34,7 @@ const MainLayoutAdvisor = () => {
     {
       title: "All Project",
       icon: <IoMdClipboard/>,
-      url: "AllProject",
+      url: "CAllProject",
     },
     {
       title: "My Project",
