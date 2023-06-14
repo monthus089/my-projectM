@@ -42,13 +42,28 @@ const JoinAppointment = (props) => {
       projectId: projects[0]?.projectId, // Use optional chaining to handle the case when project is still being fetched
       reserveTime: reserveTime,
     };
-    console.log(payload);
+
     try {
       await jwtInterceptor.post(
         `${process.env.REACT_APP_API}/AppointmentReserve`,
         payload
       );
       notyf.success("Joined the appointment successfully.");
+      // Update the local state to reflect the changes
+      setAppointments((prevAppointments) =>
+        prevAppointments.map((appointment) => {
+          if (appointment.appointmentId === appointmentId) {
+            return {
+              ...appointment,
+              appointmentReserves: [
+                ...appointment.appointmentReserves,
+                { reserveTime: reserveTime },
+              ],
+            };
+          }
+          return appointment;
+        })
+      );
     } catch (err) {
       console.log(err);
       if (err?.response?.status === 409) {

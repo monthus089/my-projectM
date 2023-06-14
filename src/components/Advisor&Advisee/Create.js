@@ -14,17 +14,22 @@ const Create = (props) => {
   const handlerSubmitCreate = async (e) => {
     e.preventDefault();
     let payload = {
-      "projectName": projectName,
-      "projectDetail": projectDetail,
-      "projectContact": projectContact,
+      projectName: projectName,
+      projectDetail: projectDetail,
+      projectContact: projectContact,
     };
-      try {
-        await jwtInterceptor.post(`${process.env.REACT_APP_API}/Project?adviserId=${user.nameid}`, payload);
-        notyf.success("The project has been created successfully.");
-      } catch (error) {
-        console.log(error);
-      }
-      navigate("/Advisor/MyProject")
+    try {
+      await jwtInterceptor.post(
+        `${process.env.REACT_APP_API}/Project?adviserId=${user.nameid}`,
+        payload
+      );
+      notyf.success("The project has been created successfully.");
+      setProjectName("");
+      setProjectDetail("");
+      setProjectContact("");
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (

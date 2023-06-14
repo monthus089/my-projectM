@@ -20,6 +20,14 @@ const MyProjectProgress = (props) => {
     }
   }, []);
 
+  const handleButtonClick = (project) => {
+    if (user.role === "PM01") {
+      navigate("/CAdvisor/ListProgress/" + project.projectId);
+    } else if (user.role === "PM02") {
+      navigate("/Advisor/ListProgress/" + project.projectId);
+    }
+  };
+
   return (
     <>
       <div className="ml-[50px] text-[20px]">
@@ -66,7 +74,7 @@ const MyProjectProgress = (props) => {
                   <button
                     type="button"
                     className="text-white bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 hover:bg-gradient-to-br   shadow-purple-500/50  dark:shadow-purple-800/80 font-medium rounded-[25px] text-sm px-12 py-2.5 text-center mr-2 mb-2"
-                    onClick={() => navigate("/Advisor/ListProgress/" + project.projectId)}
+                    onClick={() => handleButtonClick(project)}
                   >
                     Progress
                   </button>

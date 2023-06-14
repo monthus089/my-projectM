@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import jwtInterceptor from "../Auth/jwtInterceptor";
 import notyf from "../../js/Notyf";
+import AuthContext from "../Auth/AuthProvider";
 
 const Details = (props) => {
+  const { user } = useContext(AuthContext);
   const [showModal, setShowModal] = useState(false);
   let navigate = useNavigate();
   const handleDelete = () => {
@@ -15,14 +17,19 @@ const Details = (props) => {
   };
 
   const handleDeleteConfirm = async (projectId) => {
-    
     try {
-      await jwtInterceptor.delete(`${process.env.REACT_APP_API}/Project/${projectId}`);
+      await jwtInterceptor.delete(
+        `${process.env.REACT_APP_API}/Project/${projectId}`
+      );
       notyf.success("Successfully deleted the project.");
     } catch (error) {
       console.log(error);
     }
-    navigate("/Advisor/MyProject");
+    if (user.role === "PM01") {
+      navigate("/CAdvisor/MyProject");
+    } else if (user.role === "PM02") {
+      navigate("/Advisor/MyProject");
+    }
     setShowModal(false);
   };
 
@@ -39,6 +46,14 @@ const Details = (props) => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const handleButtonClick = () => {
+    if (user.role === "PM01") {
+      navigate("/CAdvisor/MyEditing/" + getProjectId);
+    } else if (user.role === "PM02") {
+      navigate("/Advisor/MyEditing/" + getProjectId);
+    }
+  };
 
   return (
     <>
@@ -67,14 +82,17 @@ const Details = (props) => {
         <div className="mt-[50px]">
           <h4 className="ml-[40px] mt-[20px]">Member List</h4>
           {project.advisees &&
-            project.advisees.map((advisees, index) => (
-              <p
-                key={index}
-                className="ml-[50px] mt-[10px] pr-[300px] text-[20px]"
-              >
-                {advisees.memberUser.firstname} {advisees.memberUser.lastname}
-              </p>
-            ))}
+            project.advisees.map((advisee, index) =>
+              // Check if the advisee's status is 1
+              advisee.status === 1 ? (
+                <p
+                  key={index}
+                  className="ml-[50px] mt-[10px] pr-[300px] text-[20px]"
+                >
+                  {advisee.memberUser.firstname} {advisee.memberUser.lastname}
+                </p>
+              ) : null
+            )}
         </div>
         <div className="mt-[50px]">
           <h4 className="ml-[40px] mt-[20px]">Year</h4>
@@ -99,7 +117,7 @@ const Details = (props) => {
           <button
             type="button"
             className="col-start-11 text-white bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-500 hover:bg-gradient-to-br focus:outline-none  dark:focus:ring-yellow-800 font-medium rounded-[18px] text-sm px-6 py-2.5 text-center mr-2 mb-2"
-            onClick={() => navigate("/Advisor/MyEditing/" + getProjectId)}
+            onClick={() => handleButtonClick()}
           >
             Edit
           </button>

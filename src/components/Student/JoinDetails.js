@@ -14,32 +14,36 @@ const JoinDetails = (props) => {
   const handlerSubmitJoin = async (e) => {
     e.preventDefault();
     let payload = {
-      "memberUserId": user.nameid,
-      "projectId": getProjectId
+      memberUserId: user.nameid,
+      projectId: getProjectId,
     };
     try {
-      await jwtInterceptor.post(`${process.env.REACT_APP_API}/Advisee`, payload);
-      notyf.success('You have successfully joined the project.');
+      await jwtInterceptor.post(
+        `${process.env.REACT_APP_API}/Advisee`,
+        payload
+      );
+      notyf.success("Ask to join and wait for a response.");
     } catch (error) {
       console.log(error);
-      if (error?.response?.status === 400){
-        notyf.error('You are already in this project!');
+      if (error?.response?.status === 400) {
+        notyf.error("You are already in this project or wait for reply");
       } else if (error?.response?.status === 422) {
-        notyf.error('You cannot join the project in the same year.');
-      }    
+        notyf.error("You cannot join the project in the same year.");
+      }
     }
     navigate("/Student/JoinBoard");
-    
   };
 
   useEffect(() => {
     try {
-      jwtInterceptor.get(`${process.env.REACT_APP_API}/Project/` + getProjectId).then((response) => setProject(response?.data));
+      jwtInterceptor
+        .get(`${process.env.REACT_APP_API}/Project/` + getProjectId)
+        .then((response) => setProject(response?.data));
     } catch (error) {
       console.log(error);
     }
-    
-}, []);
+  }, []);
+  console.log(project);
   return (
     <>
       <div className="ml-[50px] text-[20px]">
@@ -54,23 +58,36 @@ const JoinDetails = (props) => {
         </div>
         <div className="mt-[50px]">
           <h4 className="ml-[40px] mt-[20px]">Consultant</h4>
-          {project.advisers && project.advisers.map((adviser, index) => (
-    <p key={index} className="ml-[50px] mt-[10px] pr-[300px] text-[20px]">
-      {adviser.memberUser.firstname} {adviser.memberUser.lastname}
-    </p>
-  ))}
+          {project.advisers &&
+            project.advisers.map((adviser, index) => (
+              <p
+                key={index}
+                className="ml-[50px] mt-[10px] pr-[300px] text-[20px]"
+              >
+                {adviser.memberUser.firstname} {adviser.memberUser.lastname}
+              </p>
+            ))}
         </div>
         <div className="mt-[50px]">
           <h4 className="ml-[40px] mt-[20px]">Member List</h4>
-          {project.advisees && project.advisees.map((advisees, index) => (
-    <p key={index} className="ml-[50px] mt-[10px] pr-[300px] text-[20px]">
-      {advisees.memberUser.firstname} {advisees.memberUser.lastname}
-    </p>
-  ))}
+          {project.advisees &&
+            project.advisees.map((advisee, index) =>
+              // Check if the advisee's status is 1
+              advisee.status === 1 ? (
+                <p
+                  key={index}
+                  className="ml-[50px] mt-[10px] pr-[300px] text-[20px]"
+                >
+                  {advisee.memberUser.firstname} {advisee.memberUser.lastname}
+                </p>
+              ) : null
+            )}
         </div>
         <div className="mt-[50px]">
           <h4 className="ml-[40px] mt-[20px]">Year</h4>
-          <p className="ml-[50px] mt-[10px] pr-[300px] text-[20px]">{project.projectYear}</p>
+          <p className="ml-[50px] mt-[10px] pr-[300px] text-[20px]">
+            {project.projectYear}
+          </p>
         </div>
         <div className="mt-[50px]">
           <h4 className="ml-[40px] mt-[20px]">Details</h4>

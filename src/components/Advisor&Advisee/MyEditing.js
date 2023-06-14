@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import jwtInterceptor from "../Auth/jwtInterceptor";
 import notyf from "../../js/Notyf";
+import AuthContext from "../Auth/AuthProvider";
 
 const Editing = (props) => {
+  const { user } = useContext(AuthContext);
   const { getProjectId } = useParams();
   const navigate = useNavigate();
   const [projectId, setProjectId] = useState("");
@@ -56,7 +58,11 @@ const Editing = (props) => {
         return;
       }
     }
-    navigate("/Advisor/MyProject");
+    if (user.role === "PM01") {
+      navigate("/CAdvisor/MyProject");
+    } else if (user.role === "PM02") {
+      navigate("/Advisor/MyProject");
+    }
   };
 
   return (
@@ -89,14 +95,17 @@ const Editing = (props) => {
 
           <div className="consultant">
             <h4 className="ml-[40px] mt-[20px]">Advisees</h4>
-            {advisees.map((advisee, index) => (
-              <p
-                key={index}
-                className="ml-[50px] mt-[10px] pr-[300px] text-[20px]"
-              >
-                {`${advisee.memberUser.firstname} ${advisee.memberUser.lastname}`}
-              </p>
-            ))}
+            {advisees.map((advisee, index) =>
+              // Check if the advisee's status is 0
+              advisee.status === 0 ? null : (
+                <p
+                  key={index}
+                  className="ml-[50px] mt-[10px] pr-[300px] text-[20px]"
+                >
+                  {`${advisee.memberUser.firstname} ${advisee.memberUser.lastname}`}
+                </p>
+              )
+            )}
           </div>
 
           <div className="people">

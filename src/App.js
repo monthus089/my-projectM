@@ -38,7 +38,7 @@ import ReadProgressStudent from "./components/Student/ReadProgressStudent";
 import { useContext } from "react";
 import AuthContext from "./components/Auth/AuthProvider";
 function App() {
-  const { user } = useContext(AuthContext);
+  //const { user } = useContext(AuthContext);
 
   return (
     <Routes>

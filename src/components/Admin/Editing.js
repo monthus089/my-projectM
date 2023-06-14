@@ -41,12 +41,12 @@ const Editing = (props) => {
       projectContact,
     };
     try {
-      await jwtInterceptor
-        .put(
-          `${process.env.REACT_APP_API}/Project/${getProjectId}`,
-          updateProject);
+      await jwtInterceptor.put(
+        `${process.env.REACT_APP_API}/Project/${getProjectId}`,
+        updateProject
+      );
 
-        notyf.success("The project has been updated.");
+      notyf.success("The project has been updated.");
     } catch (error) {
       console.log(error);
       if (error?.response?.status === 409) {
@@ -84,18 +84,21 @@ const Editing = (props) => {
                 </p>
               ))}
           </div>
-          <div className="consultant">
-            <h4 className="ml-[40px] mt-[20px]">Member List</h4>
-            {project.advisees &&
-              project.advisees.map((advisees, index) => (
+          <div className="mt-[50px]">
+          <h4 className="ml-[40px] mt-[20px]">Member List</h4>
+          {project.advisees &&
+            project.advisees.map((advisee, index) =>
+              // Check if the advisee's status is 1
+              advisee.status === 1 ? (
                 <p
                   key={index}
                   className="ml-[50px] mt-[10px] pr-[300px] text-[20px]"
                 >
-                  {advisees.memberUser.firstname} {advisees.memberUser.lastname}
+                  {advisee.memberUser.firstname} {advisee.memberUser.lastname}
                 </p>
-              ))}
-          </div>
+              ) : null
+            )}
+        </div>
           <div className="people">
             <h4 className="ml-[40px] mt-[20px]">Year</h4>
             <textarea
