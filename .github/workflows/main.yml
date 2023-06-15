@@ -1,0 +1,27 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - To_date
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Set CI Environment Variable
+      run: |
+        if [ "$CI" = "true" ]; then
+          echo "CI is already set to true";
+        else
+          echo "Setting CI to false";
+          echo "CI=false" >> $GITHUB_ENV;
+        fi
+
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    # ระบุขั้นตอนอื่นๆ ที่คุณต้องการในการสร้างหรือทดสอบโค้ดของคุณต่อจากนี้
+    # ...
+
