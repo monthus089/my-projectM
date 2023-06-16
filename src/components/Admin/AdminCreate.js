@@ -1,16 +1,25 @@
-import React, { useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+// import  { useContext } from "react";
+// import { useNavigate } from "react-router-dom";
 import jwtInterceptor from "../Auth/jwtInterceptor";
-import AuthContext from "../Auth/AuthProvider";
+// import AuthContext from "../Auth/AuthProvider";
 import notyf from "../../js/Notyf";
 
 const AdminCreate = (props) => {
-  const { user } = useContext(AuthContext);
-  const navigate = useNavigate();
+  // const { user } = useContext(AuthContext);
+  // const navigate = useNavigate();
   const [projectName, setProjectName] = useState("");
   const [projectAdvisorID, setProjectAdvisorID] = useState("");
   const [projectDetail, setProjectDetail] = useState("");
   const [projectContact, setProjectContact] = useState("");
+
+  useEffect(() => {
+    try {
+      //API ดึงค่าของadvisor ทั้งหมด
+    } catch (error) {
+      console.log(error);
+    }
+  });
 
   const handlerSubmitCreate = async (e) => {
     e.preventDefault();
@@ -25,8 +34,8 @@ const AdminCreate = (props) => {
         payload
       );
       notyf.success("The project has been created successfully.");
-      setProjectName(""); 
-      setProjectAdvisorID("")
+      setProjectName("");
+      setProjectAdvisorID("");
       setProjectDetail("");
       setProjectContact("");
     } catch (error) {
@@ -53,7 +62,17 @@ const AdminCreate = (props) => {
           </div>
           <div className="mt-[30px]">
             <h4 className="ml-[40px] mt-[20px]">Advisor</h4>
-           
+            <div className="w-[250px] px-4 pt-[0.35rem] ml-[33px] mt-[10px]">
+              <select
+                value={""}
+                onChange={""}
+                className="form-select block w-full p-2 bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-[18px] outline-none"
+                required
+              >
+                <option  value="">Select Advisor</option>
+                {""}
+              </select>
+            </div>
           </div>
           <div className="detailsProject">
             <h4 className="ml-[40px] mt-[20px]">Details</h4>

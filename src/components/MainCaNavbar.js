@@ -8,7 +8,6 @@ import{GiProgression} from "react-icons/gi"
 import { NavLink } from "react-router-dom";
 import {
   AiOutlineCaretDown,
-  AiOutlineUser,
   AiOutlineCaretUp,
 } from "react-icons/ai";
 import {FaUserTie} from "react-icons/fa";

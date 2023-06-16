@@ -10,6 +10,7 @@ import Board from "./components/Admin/Board";
 import Details from "./components/Admin/Details";
 import Editing from "./components/Admin/Editing";
 import RoleBoard from "./components/Admin/RoleBoard";
+import AdminCreate from "./components/Admin/AdminCreate";
 // Advisor Navbar && CA
 import MainAdvisorNavbar from "./components/MainAdvisorNavbar";
 import MainCaNavbar from "./components/MainCaNavbar";
@@ -55,6 +56,7 @@ function App() {
           element={<AllReadProgress />}
         ></Route>
         <Route path="Board" element={<Board />}></Route>
+        <Route path="AdminCreate" element={<AdminCreate />}></Route>
         <Route path="Details/:getProjectId" element={<Details />} />
         <Route path="Editing/:getProjectId" element={<Editing />} />
         <Route path="Role" element={<RoleBoard />} />
