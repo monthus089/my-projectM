@@ -9,6 +9,7 @@ import {
 import { IoMdClipboard } from "react-icons/io";
 import { BiLogOut } from "react-icons/bi";
 import { FaUserCog } from "react-icons/fa";
+import {MdOutlineCreateNewFolder} from "react-icons/md"; 
 import { NavLink } from "react-router-dom";
 
 import logo from "../img/36-icon.png";
@@ -38,10 +39,14 @@ const MainLayoutAdmin = () => {
       icon: <IoMdClipboard></IoMdClipboard>,
       url: "Board",
     },
+    {
+      title: "Create",
+      icon: <MdOutlineCreateNewFolder />,
+      url: "AdminCreate",
+    },
     { title: "User", icon: <AiOutlineUser></AiOutlineUser>, url: "Role" },
     { title: "Logout", icon: <BiLogOut></BiLogOut>, url: "/", spacing: true },
   ];
-
   const handleNavLinkClick = (menu) => {
     if (menu.spacing) {
       logout(); // call logout function if spacing is truthy
@@ -76,7 +81,7 @@ const MainLayoutAdmin = () => {
                 <li
                   key={index}
                   className={`flex text-white text-sm item-center gap-x-4 cursor-pointer p-4 mr-14 hover:text-black hover:bg-slate-200 rounded-[25px] active:bg-slate-200 last:bg-slate-200 last:text-black ${
-                    menu.spacing ? "mt-[550px]" : "mt-2"
+                    menu.spacing ? "mt-[500px]" : "mt-2"
                   } `}
                 >
                   <NavLink

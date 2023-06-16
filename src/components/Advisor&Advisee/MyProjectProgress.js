@@ -4,7 +4,6 @@ import AuthContext from "../Auth/AuthProvider";
 import jwtInterceptor from "../Auth/jwtInterceptor";
 
 const MyProjectProgress = (props) => {
-  
   const navigate = useNavigate();
 
   const { user } = useContext(AuthContext);
@@ -44,7 +43,7 @@ const MyProjectProgress = (props) => {
                 Project
               </th>
               <th scope="col" className="px-6 py-3">
-                Consultant
+                Advisor
               </th>
               <th scope="col" className="px-6 py-3">
                 Year
@@ -88,4 +87,4 @@ const MyProjectProgress = (props) => {
   );
 };
 
-export default MyProjectProgress; 
+export default MyProjectProgress;

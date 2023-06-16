@@ -57,7 +57,7 @@ const JoinDetails = (props) => {
           </p>
         </div>
         <div className="mt-[50px]">
-          <h4 className="ml-[40px] mt-[20px]">Consultant</h4>
+          <h4 className="ml-[40px] mt-[20px]">Advisor</h4>
           {project.advisers &&
             project.advisers.map((adviser, index) => (
               <p

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import jwtInterceptor from "../Auth/jwtInterceptor";
 
 const JoinBroad = (props) => {
@@ -9,8 +9,9 @@ const JoinBroad = (props) => {
   // const [advisers, setAdvisers] = useState([]);
 
   useEffect(() => {
-    
-    jwtInterceptor.get(`${process.env.REACT_APP_API}/Project`).then((response) => setProjects(response?.data));
+    jwtInterceptor
+      .get(`${process.env.REACT_APP_API}/Project`)
+      .then((response) => setProjects(response?.data));
   }, []);
 
   return (
@@ -29,7 +30,7 @@ const JoinBroad = (props) => {
                 Project
               </th>
               <th scope="col" className="px-6 py-3">
-                Consultant
+                Advisor
               </th>
               <th scope="col" className="px-6 py-3">
                 Year
@@ -40,27 +41,33 @@ const JoinBroad = (props) => {
             </tr>
           </thead>
           <tbody className="overflow-y-auto">
-            {
-            projects.map((project, i) => (
-            <tr className="bg-white border-b " key={project.projectId}>
-              <th scope="row" className="px-6 py-4 ">
-              {i + 1}
-              </th>
-              <td className="px-6 py-4">{project.projectName}</td>
-              <td className="px-6 py-4">{project.advisers.map((adviser, j) => (
-                    <span key={j}>{adviser.memberUser.firstname} {adviser.memberUser.lastname}</span>
-                  ))}</td>
-              <td className="px-6 py-4">{project.projectYear}</td>
-              <td className="px-6 py-4">
-                <button
-                  type="button"
-                  className="text-white bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 hover:bg-gradient-to-br   shadow-purple-500/50  dark:shadow-purple-800/80 font-medium rounded-[25px] text-sm px-12 py-2.5 text-center mr-2 mb-2"
-                  onClick={()=>navigate("/Student/JoinDetails/" + project.projectId)}
-                >
-                  Detail
-                </button>
-              </td>
-            </tr>
+            {projects.map((project, i) => (
+              <tr className="bg-white border-b " key={project.projectId}>
+                <th scope="row" className="px-6 py-4 ">
+                  {i + 1}
+                </th>
+                <td className="px-6 py-4">{project.projectName}</td>
+                <td className="px-6 py-4">
+                  {project.advisers.map((adviser, j) => (
+                    <span key={j}>
+                      {adviser.memberUser.firstname}{" "}
+                      {adviser.memberUser.lastname}
+                    </span>
+                  ))}
+                </td>
+                <td className="px-6 py-4">{project.projectYear}</td>
+                <td className="px-6 py-4">
+                  <button
+                    type="button"
+                    className="text-white bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 hover:bg-gradient-to-br   shadow-purple-500/50  dark:shadow-purple-800/80 font-medium rounded-[25px] text-sm px-12 py-2.5 text-center mr-2 mb-2"
+                    onClick={() =>
+                      navigate("/Student/JoinDetails/" + project.projectId)
+                    }
+                  >
+                    Detail
+                  </button>
+                </td>
+              </tr>
             ))}
           </tbody>
         </table>

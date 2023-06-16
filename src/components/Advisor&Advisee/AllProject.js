@@ -3,14 +3,13 @@ import React, { useContext, useEffect, useState } from "react";
 import jwtInterceptor from "../Auth/jwtInterceptor";
 
 const AllProject = (props) => {
-  
   const navigate = useNavigate();
   const [projects, setProjects] = useState([]);
 
   useEffect(() => {
-    
-    jwtInterceptor.get(`${process.env.REACT_APP_API}/Project`).then((response) => setProjects(response?.data));
-
+    jwtInterceptor
+      .get(`${process.env.REACT_APP_API}/Project`)
+      .then((response) => setProjects(response?.data));
   }, []);
 
   return (
@@ -29,7 +28,7 @@ const AllProject = (props) => {
                 Project
               </th>
               <th scope="col" className="px-6 py-3">
-                Consultant
+                Advisor
               </th>
               <th scope="col" className="px-6 py-3">
                 Year
@@ -59,7 +58,9 @@ const AllProject = (props) => {
                   <button
                     type="button"
                     className="text-white bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 hover:bg-gradient-to-br   shadow-purple-500/50  dark:shadow-purple-800/80 font-medium rounded-[25px] text-sm px-12 py-2.5 text-center mr-2 mb-2"
-                    onClick={() => navigate("/CAdvisor/CAllProgress/" + project.projectId)}
+                    onClick={() =>
+                      navigate("/CAdvisor/CAllProgress/" + project.projectId)
+                    }
                   >
                     Progress
                   </button>
@@ -73,4 +74,4 @@ const AllProject = (props) => {
   );
 };
 
-export default AllProject; 
+export default AllProject;

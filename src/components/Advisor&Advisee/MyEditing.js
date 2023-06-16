@@ -82,7 +82,7 @@ const Editing = (props) => {
             ></textarea>
           </div>
           <div className="consultant">
-            <h4 className="ml-[40px] mt-[20px]">Advisers</h4>
+            <h4 className="ml-[40px] mt-[20px]">Advisor</h4>
             {advisers.map((adviser, index) => (
               <p
                 key={index}
