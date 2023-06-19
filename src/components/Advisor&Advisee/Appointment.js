@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import jwtInterceptor from "../Auth/jwtInterceptor";
 import AddAppointment from "./AddAppointment";
 import notyf from "../../js/Notyf";
+
 const Appointment = () => {
   const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
@@ -13,6 +14,7 @@ const Appointment = () => {
   };
 
   const [appointments, setAppointments] = useState([]);
+  // eslint-disable-next-line no-unused-vars
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenPass, setIsOpenPass] = useState(false);
   const [selectedAppointmentId, setSelectedAppointmentId] = useState("");
@@ -131,7 +133,7 @@ const Appointment = () => {
                       className="text-white bg-gradient-to-r from-violet-400 via-violet-500 to-violet-600 hover:bg-gradient-to-br font-medium rounded-[18px] text-sm py-1.5 mx-2 text-center w-[85px] focus:outline-none"
                       onClick={() =>
                         navigate(
-                          "/CAdvisor/BookingTime/" + appointment.appointmentId
+                          "/Advisor/BookingTime/" + appointment.appointmentId
                         )
                       }
                     >

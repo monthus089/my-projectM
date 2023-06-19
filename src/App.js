@@ -36,8 +36,8 @@ import CreateProgress from "./components/Student/CreateProgress";
 import JoinAppointment from "./components/Student/JoinAppointment";
 import ReadProgressStudent from "./components/Student/ReadProgressStudent";
 
-import { useContext } from "react";
-import AuthContext from "./components/Auth/AuthProvider";
+// import { useContext } from "react";
+// import AuthContext from "./components/Auth/AuthProvider";
 function App() {
   //const { user } = useContext(AuthContext);
 

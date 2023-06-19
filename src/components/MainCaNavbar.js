@@ -110,8 +110,7 @@ const MainLayoutAdvisor = () => {
         </div>
         <div className="absolute p-0 left-[335px] h-screen w-full border rounded-l-extent bg-white">
         <div className="flex w-full h-[60px]  items-center px-[10px] ">
-            <Search onSearch={handleSearch}/>
-            <div className="text-[14px] text-white flex items-center py-1 px-3 border rounded-extent bg-gradient-to-r from-blue-400 via-blue-500 to-blue-600 hover:bg-gradient-to-br cursor-default outline-none">
+            <div className="text-[14px] ml-[1280px] text-white flex items-center py-1 px-3 border rounded-extent bg-gradient-to-r from-blue-400 via-blue-500 to-blue-600 hover:bg-gradient-to-br cursor-default outline-none">
               <FaUserTie className="mr-1" />
               <span>COURSE</span>
             </div>

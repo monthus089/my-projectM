@@ -17,7 +17,7 @@ const AllProgress = () => {
     } catch (error) {
       console.log(error);
     }
-  }, []);
+  },[]);
   const sortedProjectProgresses = projectProgresses.sort(
     (a, b) => new Date(b.dateForm) - new Date(a.dateForm)
   );

@@ -1,5 +1,4 @@
 import { useEffect, useState, useContext } from "react";
-// import { useNavigate } from "react-router-dom";
 import jwtInterceptor from "../Auth/jwtInterceptor";
 import { AiOutlineCloudUpload } from "react-icons/ai";
 import { FiEdit } from "react-icons/fi";
@@ -8,13 +7,13 @@ import AuthContext from "../Auth/AuthProvider";
 import { notyf } from "../../js/Notyf";
 
 const RoleBoard = (props) => {
-  // let navigate = useNavigate();
   const [MemberUsers, setMemberUsers] = useState([]);
   const [roles, setRoles] = useState([]);
   const [selectedRole, setSelectedRole] = useState("");
   const { user } = useContext(AuthContext);
   const [file, setFile] = useState();
   const [array, setArray] = useState([]);
+  // eslint-disable-next-line no-unused-vars
   const [isLoading, setIsLoading] = useState(false); // Add isLoading state
   const [editIndex, setEditIndex] = useState(-1);
   const [editedFirstname, setEditedFirstname] = useState("");
@@ -198,8 +197,8 @@ const RoleBoard = (props) => {
       </form>
 
       <div className="relative w-[70%] h-[83%] overflow-y-auto shadow-[1px_1px_6px_-1px_rgba(0,0,0,0.1)] sm:rounded-[20px] left-[80px] mt-1 scrollbar-hide ">
-        <table className="w-full text-sm text-center text-gray-500 dark:text-gray-400 ">
-          <thead className="text-sm font-bold text-black uppercase bg-gray-50 dark:bg-gray-100 ">
+        <table className="w-full text-sm text-center text-gray-500 ">
+          <thead className="text-sm font-bold text-black uppercase bg-gray-50 ">
             <tr>
               <th scope="col" className="px-6 py-3">
                 Number
@@ -287,7 +286,7 @@ const RoleBoard = (props) => {
                   <td className="px-2 py-4 w-[190px]">
                     <select
                       id="role"
-                      className="bg-gray-50 border border-gray-300 text-sm rounded-[18px] block w-full py-2.5 px-2 dark:bg-white focus:border-transparent"
+                      className="bg-gray-50 border border-gray-300 text-sm rounded-[18px] block w-full py-2.5 px-2 focus:border-transparent"
                       defaultValue={MemberUser.role?.roleName} // update defaultValue
                       onChange={handleRoleChange}
                     >
@@ -336,7 +335,7 @@ const RoleBoard = (props) => {
                             <button
                               type="button"
                               onClick={closeModal}
-                              className="text-white bg-purple-700 hover:bg-purple-800 focus:outline-none  font-medium rounded-[18px] text-sm px-5 py-2.5 text-center mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 "
+                              className="text-white bg-purple-700 hover:bg-purple-800 focus:outline-none  font-medium rounded-[18px] text-sm px-5 py-2.5 text-center mb-2 "
                             >
                               No, Cancel
                             </button>
@@ -345,7 +344,7 @@ const RoleBoard = (props) => {
                               onClick={() =>
                                 handleDeleteConfirm(selectedMemberUserId)
                               }
-                              className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:outline-none  dark:focus:ring-red-800 font-medium rounded-[18px] text-sm px-6 py-2.5 text-center mr-2 mb-2"
+                              className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:outline-none font-medium rounded-[18px] text-sm px-6 py-2.5 text-center mr-2 mb-2"
                             >
                               Yes, Delete
                             </button>

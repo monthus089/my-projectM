@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import {  useParams } from "react-router-dom";
 import jwtInterceptor from "../Auth/jwtInterceptor";
 
 const ReadProgressStudent = () => {
-  let navigate = useNavigate();
   const { getProjectProgressId } = useParams();
   const [projectProgress, setProjectProgress] = useState({});
   useEffect(() => {

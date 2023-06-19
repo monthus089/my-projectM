@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import React, { useContext, useEffect, useState } from "react";
+import React, {useEffect, useState } from "react";
 import jwtInterceptor from "../Auth/jwtInterceptor";
 
 const AllProject = (props) => {

@@ -22,7 +22,7 @@ const ReadProgress = () => {
     } catch (error) {
       console.log(error);
     }
-  }, []);
+  },[] );
 
   const handlerSubmitCheck = async (e) => {
     e.preventDefault();

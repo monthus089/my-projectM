@@ -20,7 +20,7 @@ const JoinAppointment = (props) => {
     } catch (error) {
       console.log(error);
     }
-  }, []);
+  },[]);
 
   const fetchAppointments = async () => {
     try {
@@ -99,8 +99,7 @@ const JoinAppointment = (props) => {
   const handleReserveTimeChange = (e) => {
     const selectedReserveTime = e.target.value;
     setReserveTime(selectedReserveTime);
-
-    // Get the appointmentId from the parent row
+    
     const appointmentId = e.target
       .closest("tr")
       .getAttribute("data-appointment-id");

@@ -1,25 +1,27 @@
 import React, { useEffect, useState } from "react";
-// import  { useContext } from "react";
-// import { useNavigate } from "react-router-dom";
 import jwtInterceptor from "../Auth/jwtInterceptor";
-// import AuthContext from "../Auth/AuthProvider";
 import notyf from "../../js/Notyf";
 
-const AdminCreate = (props) => {
-  // const { user } = useContext(AuthContext);
-  // const navigate = useNavigate();
+const AdminCreate = () => {
   const [projectName, setProjectName] = useState("");
   const [projectAdvisorID, setProjectAdvisorID] = useState("");
   const [projectDetail, setProjectDetail] = useState("");
   const [projectContact, setProjectContact] = useState("");
+  const [receiveAdvisorID, setReceiveAdvisorID] = useState([]);
 
   useEffect(() => {
+    AdvisoridData();
+  }, []);
+  console.log(receiveAdvisorID);
+  const AdvisoridData = async () => {
     try {
-      //API ดึงค่าของadvisor ทั้งหมด
+      await jwtInterceptor
+        .get(`${process.env.REACT_APP_API}/MemberUser/advisors`)
+        .then((response) => setReceiveAdvisorID(response?.data));
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
-  });
+  };
 
   const handlerSubmitCreate = async (e) => {
     e.preventDefault();
@@ -62,15 +64,30 @@ const AdminCreate = (props) => {
           </div>
           <div className="mt-[30px]">
             <h4 className="ml-[40px] mt-[20px]">Advisor</h4>
-            <div className="w-[250px] px-4 pt-[0.35rem] ml-[33px] mt-[10px]">
+            <div className="w-[310px] px-4 pt-[0.35rem] ml-[33px] mt-[10px]">
               <select
-                value={""}
-                onChange={""}
+                key={""}
+                value={projectAdvisorID}
+                onChange={(e) => setProjectAdvisorID(e.target.value)}
                 className="form-select block w-full p-2 bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-[18px] outline-none"
                 required
               >
-                <option  value="">Select Advisor</option>
-                {""}
+                <option
+                    key={""}
+                    value={""}
+                  >
+                    Select Advisor 
+                  </option>
+                {receiveAdvisorID.map((advisor) => (
+                  <option
+                    key={advisor.memberUserId}
+                    value={advisor.memberUserId}
+                  >
+                    {advisor.firstname}
+                    {""}
+                    {advisor.lastname}
+                  </option>
+                ))}
               </select>
             </div>
           </div>

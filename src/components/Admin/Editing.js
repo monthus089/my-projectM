@@ -29,7 +29,7 @@ const Editing = (props) => {
     } catch (error) {
       console.log(error);
     }
-  }, []);
+  },[]);
 
   const handlerSubmitEdit = async (e) => {
     e.preventDefault();
@@ -73,7 +73,7 @@ const Editing = (props) => {
             ></textarea>
           </div>
           <div className="consultant">
-            <h4 className="ml-[40px] mt-[20px]">Consultant</h4>
+            <h4 className="ml-[40px] mt-[20px]">Advisor</h4>
             {project.advisers &&
               project.advisers.map((adviser, index) => (
                 <p

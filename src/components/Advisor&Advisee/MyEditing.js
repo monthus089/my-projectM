@@ -13,7 +13,6 @@ const Editing = (props) => {
   const [projectDetail, setProjectDetail] = useState("");
   const [projectYear, setProjectYear] = useState("");
   const [projectContact, setProjectContact] = useState("");
-  const [project, setProject] = useState({});
   const [advisees, setAdvisees] = useState([]);
   const [advisers, setAdvisers] = useState([]);
 
@@ -34,7 +33,7 @@ const Editing = (props) => {
     } catch (error) {
       console.log(error);
     }
-  }, []);
+  },[]);
 
   const handlerSubmitEdit = async (e) => {
     e.preventDefault();

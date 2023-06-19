@@ -106,9 +106,8 @@ const MainLayoutAdmin = () => {
           </ul>
         </div>
         <div className="absolute p-0 left-[335px] h-screen w-screen border rounded-l-extent bg-white">
-          <div className="flex w-full h-[60px] items-center px-[10px] ">
-            <Search onSearch={handleSearch} />
-            <div className="text-[14px] text-white flex items-center py-1 px-3 border rounded-extent bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br cursor-default outline-none">
+          <div className="flex w-full h-[60px] items-center px-[10px]">
+            <div className="text-[14px] ml-[1280px] text-white flex items-center py-1 px-3 border rounded-extent bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br cursor-default outline-none">
               <FaUserCog className="mr-1" />
               <span>ADMIN</span>
             </div>
