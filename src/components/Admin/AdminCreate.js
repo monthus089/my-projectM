@@ -12,7 +12,7 @@ const AdminCreate = () => {
   useEffect(() => {
     AdvisoridData();
   }, []);
-  console.log(receiveAdvisorID);
+  
   const AdvisoridData = async () => {
     try {
       await jwtInterceptor
@@ -72,12 +72,9 @@ const AdminCreate = () => {
                 className="form-select block w-full p-2 bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-[18px] outline-none"
                 required
               >
-                <option
-                    key={""}
-                    value={""}
-                  >
-                    Select Advisor 
-                  </option>
+                <option key={""} value={""}>
+                  Select Advisor
+                </option>
                 {receiveAdvisorID.map((advisor) => (
                   <option
                     key={advisor.memberUserId}
