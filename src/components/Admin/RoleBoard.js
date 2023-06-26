@@ -5,6 +5,7 @@ import { FiEdit } from "react-icons/fi";
 import { GiCancel } from "react-icons/gi";
 import AuthContext from "../Auth/AuthProvider";
 import { notyf } from "../../js/Notyf";
+import { BiSearch } from "react-icons/bi";
 
 const RoleBoard = (props) => {
   const [MemberUsers, setMemberUsers] = useState([]);
@@ -61,8 +62,6 @@ const RoleBoard = (props) => {
       .then((response) => setRoles(response?.data));
   }, []);
 
-  useEffect(() => {}, [array]);
-
   const handleRoleChange = (event) => {
     setSelectedRole(event.target.value);
   };
@@ -72,11 +71,12 @@ const RoleBoard = (props) => {
     const payload = {
       memberUserId: memberUserId,
       firstname: editedFirstname,
-      lastname: editedLastname
+      lastname: editedLastname,
     };
     try {
       await jwtInterceptor.put(
-        `${process.env.REACT_APP_API}/MemberUser/${memberUserId}?roleId=${selectedRole}`, payload
+        `${process.env.REACT_APP_API}/MemberUser/${memberUserId}?roleId=${selectedRole}`,
+        payload
       );
       notyf.success("Information has been updated.");
     } catch (error) {
@@ -163,40 +163,69 @@ const RoleBoard = (props) => {
       <div className="ml-[50px] text-[20px]">
         <h5>Users Broad</h5>
       </div>
-      <form
-        className="flex flex-row items-center justify-center ml-[600px]"
-        onSubmit={handleOnSubmit}
-      >
-        <label
-          htmlFor="dropzone-file"
-          className="flex flex-col items-center justify-center w-[200px] h-12 border-2 border-r-0 border-gray-300 border-dashed rounded-l-[25px] cursor-pointer bg-gray-50"
+      <div className="flex flex-row">
+        <form
+          id="search-form"
+          className="flex ml-[100px] mt-1 duration-300 w-[330px]"
+          onSubmit={"handleSearchClick"}
         >
-          <div className="flex flex-row items-center justify-center pt-8 pb-6">
-            <p className="mb-2 text-xs text-gray-500 justify-center">
-              IMPORT .CSV
-            </p>
+          <label htmlFor="simple-search" className="sr-only">
+            Search
+          </label>
+          <div className="relative w-full">
+            <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+              <BiSearch className="w-5 h-5 text-gray-500" />
+            </div>
+            <input
+              type="text"
+              id="simple-search"
+              className="block w-full pl-10 p-2.5 border-gray-100 bg-gray-100 border text-gray-900 text-sm rounded-[18px] focus:outline-none focus:ring-transparent"
+              placeholder="Search"
+              value={"searchValue"}
+              onChange={(e) => "setSearchValue(e.currentTarget.value)"}
+            />
           </div>
-          <input
-            id="dropzone-file"
-            type="file"
-            className="hidden"
-            accept=".csv"
-            onChange={handleOnChange}
-          />
-        </label>
-        <button
-          type="submit"
-          className="flex flex-col items-center justify-center w-[100px] h-12 border-2 border-gray-300  rounded-r-[25px] cursor-pointer bg-gray-200 hover:bg-gray-300"
+          <button
+            type="submit"
+            className="bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br text-white text-sm font-bold py-1 px-4 ml-2 rounded-[18px]"
+          >
+            Search
+          </button>
+        </form>
+        <form
+          className="flex flex-row items-start justify-start ml-[690px]"
+          onSubmit={handleOnSubmit}
         >
-          <div className="flex flex-row items-center justify-center pt-8 pb-6">
-            <p className="mb-2 mr-2 text-sm text-black justify-center">
-              <AiOutlineCloudUpload className="w-4 h-4 text-black" />
-            </p>
-          </div>
-        </button>
-      </form>
-
-      <div className="relative w-[70%] h-[83%] overflow-y-auto shadow-[1px_1px_6px_-1px_rgba(0,0,0,0.1)] sm:rounded-[20px] left-[80px] mt-1 scrollbar-hide ">
+          <label
+            htmlFor="dropzone-file"
+            className="flex flex-col items-center justify-center w-[200px] h-12 border-2 border-r-0 border-gray-300 border-dashed rounded-l-[25px] cursor-pointer bg-gray-50"
+          >
+            <div className="flex flex-row items-center justify-center pt-8 pb-6">
+              <p className="mb-2 text-xs text-gray-500 justify-center">
+                IMPORT .CSV
+              </p>
+            </div>
+            <input
+              id="dropzone-file"
+              type="file"
+              className="hidden"
+              accept=".csv"
+              onChange={handleOnChange}
+            />
+          </label>
+          <button
+            type="submit"
+            className="flex flex-col items-center justify-center w-[100px] h-12 border-2 border-gray-300  rounded-r-[25px] cursor-pointer bg-gray-200 hover:bg-gray-300"
+          >
+            <div className="flex flex-row items-center justify-center pt-8 pb-6">
+              <p className="mb-2 mr-2 text-sm text-black justify-center">
+                <AiOutlineCloudUpload className="w-4 h-4 text-black" />
+              </p>
+            </div>
+          </button>
+        </form>
+      </div>
+      <div className="relative w-[70%] h-[83%] overflow-y-auto shadow-[1px_1px_6px_-1px_rgba(0,0,0,0.1)] sm:rounded-[20px] left-[80px] mt-2 scrollbar-hide ">
         <table className="w-full text-sm text-center text-gray-500 ">
           <thead className="text-sm font-bold text-black uppercase bg-gray-50 ">
             <tr>
