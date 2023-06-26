@@ -33,7 +33,7 @@ const Editing = (props) => {
     } catch (error) {
       console.log(error);
     }
-  },[]);
+  }, []);
 
   const handlerSubmitEdit = async (e) => {
     e.preventDefault();
@@ -96,7 +96,11 @@ const Editing = (props) => {
             <h4 className="ml-[40px] mt-[20px]">Advisees</h4>
             {advisees.map((advisee, index) =>
               // Check if the advisee's status is 0
-              advisee.status === 0 ? null : (
+              advisee.status === 0 ? (
+                <p className="ml-[50px] mt-[10px] pr-[300px] text-[20px]">
+                  "-"
+                </p>
+              ) : (
                 <p
                   key={index}
                   className="ml-[50px] mt-[10px] pr-[300px] text-[20px]"

@@ -21,6 +21,7 @@ const RoleBoard = (props) => {
   const [editedLastname, setEditedLastname] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [selectedMemberUserId, setSelectedMemberUserId] = useState("");
+  const [searchValue, setSearchValue] = useState("");
 
   const closeModal = () => {
     setShowModal(false);
@@ -64,6 +65,21 @@ const RoleBoard = (props) => {
 
   const handleRoleChange = (event) => {
     setSelectedRole(event.target.value);
+  };
+
+  const handleSearchClick = async (e) => {
+    e.preventDefault();
+    if (searchValue) {
+      const encodedSearchValue = encodeURIComponent(searchValue);
+      const response = await jwtInterceptor.get(
+        `${process.env.REACT_APP_API}/MemberUser?searchMemberUser=${encodedSearchValue}`
+      );
+      setMemberUsers(response?.data);
+    } else if (!searchValue) {
+      jwtInterceptor
+        .get(`${process.env.REACT_APP_API}/MemberUser`)
+        .then((response) => setMemberUsers(response?.data));
+    }
   };
 
   const handleSubmit = async (e, memberUserId) => {
@@ -167,7 +183,7 @@ const RoleBoard = (props) => {
         <form
           id="search-form"
           className="flex ml-[100px] mt-1 duration-300 w-[330px]"
-          onSubmit={"handleSearchClick"}
+          onSubmit={handleSearchClick}
         >
           <label htmlFor="simple-search" className="sr-only">
             Search
@@ -181,8 +197,8 @@ const RoleBoard = (props) => {
               id="simple-search"
               className="block w-full pl-10 p-2.5 border-gray-100 bg-gray-100 border text-gray-900 text-sm rounded-[18px] focus:outline-none focus:ring-transparent"
               placeholder="Search"
-              value={"searchValue"}
-              onChange={(e) => "setSearchValue(e.currentTarget.value)"}
+              value={searchValue}
+              onChange={(e) => setSearchValue(e.currentTarget.value)}
             />
           </div>
           <button
@@ -356,9 +372,9 @@ const RoleBoard = (props) => {
                     >
                       <form className="bg-white mx-auto mt-5 mb-15 border border-gray-300 shadow-lg w-[422px] h-[250px] rounded-[18px]">
                         <div className="py-8 text-center">
-                          <h1>Delete MemberUser</h1>
+                          <h1>Delete User</h1>
                           <p className="text-center p-4 mt-4">
-                            Are you sure you want to delete a MemberUser?
+                            Are you sure you want to delete a User?
                           </p>
                           <div className="mt-[30px] mx-[40px] grid grid-cols-2 gap-x-8">
                             <button

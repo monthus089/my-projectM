@@ -78,10 +78,10 @@ const Appointment = () => {
         </button>
       </div>
       {isOpenPass ? <AddAppointment onClose={closeModal} /> : null}
-      <div className="relative w-[70%] h-[83%] overflow-y-auto shadow-[1px_1px_6px_-1px_rgba(0,0,0,0.1)] sm:rounded-[20px] left-[80px] scrollbar-hide">
-        <div className="relative overflow-y-auto sm:rounded-[18px] ">
-          <table className="w-full text-sm text-left text-gray-500">
-            <thead className="text-sm font-bold text-black uppercase bg-gray-50">
+      <div className="relative w-[70%] h-[83%] overflow-y-auto shadow-[1px_1px_6px_-1px_rgba(0,0,0,0.1)] rounded-[20px] left-[80px] scrollbar-hide">
+        <div className="relative overflow-y-auto ">
+          <table className="w-full text-sm text-center text-gray-500">
+            <thead className="text-sm font-bold text-black uppercase bg-gray-100">
               <tr>
                 <th scope="col" className="px-6 py-3 text-center">
                   Title

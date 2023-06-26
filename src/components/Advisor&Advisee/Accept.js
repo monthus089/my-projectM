@@ -15,7 +15,7 @@ const Accept = (props) => {
       .catch((err) => {
         console.log(err);
       });
-  },[]);
+  }, []);
 
   const handleAccept = (projectId, memberUserId) => {
     const status = 1;
