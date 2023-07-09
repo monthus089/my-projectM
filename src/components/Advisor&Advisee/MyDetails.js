@@ -16,12 +16,12 @@ const Details = (props) => {
     setShowModal(false);
   };
 
-  const handleDeleteConfirm = async (projectId) => {
+  const handleChageStatus = async (projectId,statusNum) => {
     try {
-      await jwtInterceptor.delete(
-        `${process.env.REACT_APP_API}/Project/${projectId}`
+      await jwtInterceptor.put(
+        `${process.env.REACT_APP_API}/Project?projectId=${projectId}&projectStatus=${statusNum}`
       );
-      notyf.success("Successfully deleted the project.");
+      notyf.success("The Status has been changed.");
     } catch (error) {
       console.log(error);
     }
@@ -116,10 +116,10 @@ const Details = (props) => {
         <div className="pt-20 pr-2 grid grid-cols-12 ">
         <button
             type="button"
-            className="col-start-10 text-white bg-gradient-to-r from-green-400 via-green-500 to-green-500 hover:bg-gradient-to-br focus:outline-none font-medium rounded-[18px] text-sm px-6 py-2.5 text-center mr-2 mb-2"
-            onClick={''}
+            className="col-start-10 text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:outline-none font-medium rounded-[18px] text-sm px-6 py-2.5 text-center mr-2 mb-2"
+            onClick={handleChageStatus(getProjectId,1)}
           >
-            Start
+            Close
           </button>
           <button
             type="button"
@@ -134,7 +134,7 @@ const Details = (props) => {
             className="col-start-12 text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:outline-none font-medium rounded-[18px] text-sm px-6 py-2.5 text-center mr-2 mb-2"
             onClick={handleDelete}
           >
-            Delete
+            Stop
           </button>
         </div>
       </div>
@@ -147,9 +147,9 @@ const Details = (props) => {
       >
         <form className="bg-white mx-auto mt-5 mb-15 border border-gray-300 shadow-lg w-[422px] h-[250px] rounded-[18px]">
           <div className="py-8 text-center">
-            <h1>Delete Project</h1>
+            <h1>Stop Project</h1>
             <p className="text-center p-4 mt-4">
-              Are you sure you want to delete a Project?
+              Are you sure you want to stop a Project?
             </p>
             <div className="mt-[30px] mx-[40px] grid grid-cols-2 gap-x-8">
               <button
@@ -161,7 +161,7 @@ const Details = (props) => {
               </button>
               <button
                 type="button"
-                onClick={() => handleDeleteConfirm(getProjectId)}
+                onClick={() => handleChageStatus(getProjectId,2)}
                 className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:outline-none  dark:focus:ring-red-800 font-medium rounded-[18px] text-sm px-6 py-2.5 text-center mr-2 mb-2"
               >
                 Yes, Delete
