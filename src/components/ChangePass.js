@@ -21,7 +21,7 @@ const ChangePass = (props) => {
     try {
       await jwtInterceptor.patch(`${process.env.REACT_APP_API}/MemberUser/${user.nameid}?currentPassword=${currentPassword}&newPassword=${newPassword}`);
       notyf.success("The password has been changed successfully.");
-      props.onClose(); // Close the UI pop-up
+      props.onClose();
     } catch (err) {
       console.log(err);
       if (err?.response?.status === 401) {

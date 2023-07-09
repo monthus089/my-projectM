@@ -14,6 +14,7 @@ export const AuthProvider = ({ children }) => {
         }
         return null;
     });
+    
     const login = async (payload) => {
         try {
             const response = await axios.post(`${process.env.REACT_APP_API}/Authenticate/Authenticate`,

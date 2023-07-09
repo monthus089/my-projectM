@@ -62,7 +62,7 @@ const AllProject = (props) => {
         </button>
       </form>
       <div className="relative w-[70%] h-[82%] overflow-y-auto shadow-[1px_1px_6px_-1px_rgba(0,0,0,0.1)] sm:rounded-[20px] left-[80px] mt-2 scrollbar-hide ">
-        <table className="w-full text-sm text-center text-gray-500 ">
+        <table className="w-full text-sm text-center text-gray-500">
           <thead className="text-sm font-bold text-black uppercase bg-gray-50 ">
             <tr>
               <th scope="col" className="px-6 py-3">

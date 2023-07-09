@@ -145,8 +145,8 @@ const RoleBoard = (props) => {
         csvFileToArray(text);
 
         if (array === null || array.length === 0) {
-          notyf.error("Please press again");
-          setIsLoading(false); // Set isLoading to false
+          notyf.error("Unable to read value");
+          setIsLoading(false);
           return;
         }
 
@@ -231,7 +231,7 @@ const RoleBoard = (props) => {
           </label>
           <button
             type="submit"
-            className="flex flex-col items-center justify-center w-[100px] h-12 border-2 border-gray-300  rounded-r-[25px] cursor-pointer bg-gray-200 hover:bg-gray-300"
+            className={`flex flex-col items-center justify-center w-[100px] h-12 border-2 border-gray-300  rounded-r-[25px] cursor-pointer ${isLoading? "bg-blue-500" : "bg-gray-200"} hover:bg-gray-300`}
           >
             <div className="flex flex-row items-center justify-center pt-8 pb-6">
               <p className="mb-2 mr-2 text-sm text-black justify-center">
