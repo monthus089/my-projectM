@@ -4,6 +4,7 @@ import { AiOutlineCloudUpload } from "react-icons/ai";
 import { FiEdit } from "react-icons/fi";
 import { GiCancel } from "react-icons/gi";
 import AuthContext from "../Auth/AuthProvider";
+import ChangePassByAdmin from "./ChangePassByAdmin";
 import { notyf } from "../../js/Notyf";
 import { BiSearch } from "react-icons/bi";
 
@@ -19,9 +20,11 @@ const RoleBoard = (props) => {
   const [editIndex, setEditIndex] = useState(-1);
   const [editedFirstname, setEditedFirstname] = useState("");
   const [editedLastname, setEditedLastname] = useState("");
+  const [userreceive, setUserreceive] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [selectedMemberUserId, setSelectedMemberUserId] = useState("");
   const [searchValue, setSearchValue] = useState("");
+  const [changePassByAdmin, setChangePassByAdmin] = useState(false);
 
   const closeModal = () => {
     setShowModal(false);
@@ -43,11 +46,15 @@ const RoleBoard = (props) => {
     }
     setShowModal(false);
   };
-
-  const handleEdit = (index) => {
-    setEditIndex(index);
-    setEditedFirstname(MemberUsers[index].firstname);
-    setEditedLastname(MemberUsers[index].lastname);
+  const closeModalsetChangePassByAdmin = () => {
+    setChangePassByAdmin(false);
+  };
+  const handleEdit = (e) => {
+    // setEditIndex(index);
+    // setEditedFirstname(MemberUsers[index].firstname);
+    // setEditedLastname(MemberUsers[index].lastname);
+    setChangePassByAdmin(true);
+    setUserreceive(e);
   };
   const handleCancel = (index) => {
     setEditIndex(-1);
@@ -83,7 +90,6 @@ const RoleBoard = (props) => {
   };
 
   const handleSubmit = async (e, memberUserId) => {
-    e.preventDefault();
     const payload = {
       memberUserId: memberUserId,
       firstname: editedFirstname,
@@ -324,7 +330,7 @@ const RoleBoard = (props) => {
                     ) : (
                       <FiEdit
                         className="hover:text-green-400 cursor-pointer"
-                        onClick={() => handleEdit(index)}
+                        onClick={() => handleEdit(MemberUser.memberUserId)}
                       />
                     )}
                   </td>
@@ -404,6 +410,12 @@ const RoleBoard = (props) => {
           </tbody>
         </table>
       </div>
+
+      {changePassByAdmin ? (
+        <ChangePassByAdmin onClose={closeModalsetChangePassByAdmin} userID={userreceive}/>
+      ) : (
+        ""
+      )}
     </>
   );
 };
