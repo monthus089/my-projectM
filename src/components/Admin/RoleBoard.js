@@ -23,6 +23,8 @@ const RoleBoard = (props) => {
   const [userreceive, setUserreceive] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [selectedMemberUserId, setSelectedMemberUserId] = useState("");
+  const [selectedMemberFirstname, setSelectedMemberFirstname] = useState("");
+  const [selectedMemberLastname, setSelectedMemberLastname] = useState("");
   const [searchValue, setSearchValue] = useState("");
   const [changePassByAdmin, setChangePassByAdmin] = useState(false);
 
@@ -30,8 +32,10 @@ const RoleBoard = (props) => {
     setShowModal(false);
   };
 
-  const handleDelete = (memberUserId) => {
+  const handleDelete = (memberUserId, memberfirstname, memberlastname) => {
     setSelectedMemberUserId(memberUserId);
+    setSelectedMemberFirstname(memberfirstname);
+    setSelectedMemberLastname(memberlastname);
     setShowModal(true);
   };
 
@@ -90,17 +94,12 @@ const RoleBoard = (props) => {
   };
 
   const handleSubmit = async (e, memberUserId) => {
-    const payload = {
-      memberUserId: memberUserId,
-      firstname: editedFirstname,
-      lastname: editedLastname,
-    };
     try {
       await jwtInterceptor.put(
-        `${process.env.REACT_APP_API}/MemberUser/${memberUserId}?roleId=${selectedRole}`,
-        payload
+        `${process.env.REACT_APP_API}/MemberUser/${memberUserId}?roleId=${selectedRole}`
       );
       notyf.success("Information has been updated.");
+      window.location.reload();
     } catch (error) {
       console.log(error);
       if (error?.response?.status === 400) {
@@ -282,45 +281,9 @@ const RoleBoard = (props) => {
                   <th scope="row" className="px-6 py-4 ">
                     {MemberUser.memberUserEmail}
                   </th>
-                  <td className="pl-6 py-4 flex items-center justify-center w-40">
-                    {editIndex === index ? (
-                      <div className="flex items-center">
-                        <input
-                          type="text"
-                          value={editedFirstname}
-                          onChange={(e) => setEditedFirstname(e.target.value)}
-                          className="border border-gray-300 text-sm w-[110px] px-2 py-3 rounded-[18px] focus:border-transparent"
-                          placeholder="First name"
-                        />
-                        <input
-                          type="text"
-                          value={editedLastname}
-                          onChange={(e) => setEditedLastname(e.target.value)}
-                          className="border border-gray-300 text-sm w-[110px] px-2 py-3 rounded-[18px] focus:border-transparent ml-2"
-                          placeholder="Last name"
-                        />
-                      </div>
-                    ) : editIndex === -1 ? (
-                      <div className="flex items-center">
-                        <div className="text-sm pt-3.5 px-2 focus:border-transparent">
-                          {MemberUser.firstname}
-                        </div>
-                        <div className="text-sm pt-3.5 px-2 focus:border-transparent ml-2">
-                          {MemberUser.lastname}
-                        </div>
-                      </div>
-                    ) : (
-                      <div className="flex items-center">
-                        <div className="text-sm pt-3.5 px-2 focus:border-transparent">
-                          {MemberUser.firstname}
-                        </div>
-                        <div className="text-sm pt-3.5 px-2 focus:border-transparent ml-2">
-                          {MemberUser.lastname}
-                        </div>
-                      </div>
-                    )}
+                  <td className="pl-6 py-4 ">
+                    {MemberUser.firstname} {MemberUser.lastname}
                   </td>
-
                   <td className="pr-4">
                     {editIndex === index ? (
                       <GiCancel
@@ -366,7 +329,13 @@ const RoleBoard = (props) => {
                     <button
                       type="button"
                       className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br font-medium rounded-[18px] text-sm px-5 py-2.5 text-center mr-2 mb-2 focus:outline-none"
-                      onClick={() => handleDelete(MemberUser.memberUserId)}
+                      onClick={() =>
+                        handleDelete(
+                          MemberUser.memberUserId,
+                          MemberUser.firstname,
+                          MemberUser.lastname
+                        )
+                      }
                     >
                       Delete
                     </button>
@@ -378,9 +347,12 @@ const RoleBoard = (props) => {
                     >
                       <form className="bg-white mx-auto mt-5 mb-15 border border-gray-300 shadow-lg w-[422px] h-[250px] rounded-[18px]">
                         <div className="py-8 text-center">
-                          <h1>Delete User</h1>
-                          <p className="text-center p-4 mt-4">
-                            Are you sure you want to delete a User?
+                          <h1>Delete User</h1>{" "}
+                          <p className="text-center p-2 mt-4">
+                            Are you sure you want to delete a User ?
+                          </p>{" "}
+                          <p className="text-center text-red-500 mt-4">
+                            {selectedMemberFirstname} {selectedMemberLastname}
                           </p>
                           <div className="mt-[30px] mx-[40px] grid grid-cols-2 gap-x-8">
                             <button
@@ -412,7 +384,10 @@ const RoleBoard = (props) => {
       </div>
 
       {changePassByAdmin ? (
-        <ChangePassByAdmin onClose={closeModalsetChangePassByAdmin} userID={userreceive}/>
+        <ChangePassByAdmin
+          onClose={closeModalsetChangePassByAdmin}
+          userID={userreceive}
+        />
       ) : (
         ""
       )}

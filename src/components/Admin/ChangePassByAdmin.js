@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 // import AuthContext from "./Auth/AuthProvider";
-// import jwtInterceptor from "./Auth/jwtInterceptor";
-// import notyf from "../js/Notyf";
+import jwtInterceptor from "../Auth/jwtInterceptor";
+import notyf from "../../js/Notyf";
 import { RxCross1 } from "react-icons/rx";
 import { TbArrowsExchange } from "react-icons/tb";
 
@@ -9,9 +9,49 @@ const ChangePassByAdmin = (props) => {
   const [pagestatus, setPagestatus] = useState(true);
   const [newPassword, setNewPassword] = useState("");
   const [confirmNewPassword, setConfirmNewPassword] = useState("");
+  const [newfname, setNewfname] = useState("");
+  const [newlname, setNewlname] = useState("");
+  const [memberUsers, setMemberUsers] = useState([]);
 
-  console.log("UserID" + props.userID);
-  console.log("pagestatus" + pagestatus);
+  useEffect(() => {
+    jwtInterceptor
+      .get(`${process.env.REACT_APP_API}/MemberUser/${props.userID}`)
+      .then((res) => {
+        setNewfname(res?.data.firstname);
+        setNewlname(res?.data.lastname);
+      });
+  }, []);
+
+  const changename = async () => {
+    if (newfname && newlname) {
+      try {
+        await jwtInterceptor.put(
+          `${process.env.REACT_APP_API}/MemberUser/fullName/${props.userID}?firstname=${newfname}&lastname=${newlname}`
+        );
+        notyf.success("Change Name successfully");
+      } catch (err) {
+        console.log(err);
+      }
+    } else {
+      notyf.error("Invalid input or name");
+    }
+  };
+
+  const changepass = async () => {
+    if (newPassword && newPassword === confirmNewPassword) {
+      try {
+        await jwtInterceptor.patch(
+          `${process.env.REACT_APP_API}/MemberUser/updatePasswordByAdmin/${props.userID}?newPassword=${newPassword}`
+        );
+        notyf.success("Change password successfully");
+      } catch (err) {
+        console.log(err);
+      }
+    } else {
+      notyf.error("Invalid input or passwords do not match");
+    }
+  };
+
   return (
     <>
       {pagestatus ? (
@@ -96,6 +136,7 @@ const ChangePassByAdmin = (props) => {
                 <button
                   type="button"
                   className="bg-gradient-to-r from-blue-400 via-blue-500  to-blue-600 rounded-md text-white hover:bg-blue-600 focus:outline-none border rounded-[18px] px-5 py-2 sm:ml-3 sm:w-auto sm:text-sm"
+                  onClick={changepass}
                 >
                   Change Password
                 </button>
@@ -155,11 +196,11 @@ const ChangePassByAdmin = (props) => {
                       First Name:
                     </label>
                     <input
-                      type="password"
+                      type="text"
                       className="form-input mt-1 pl-4 block w-full h-8 rounded-[10px] border-gray-300 shadow-md focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 focus:outline-none"
                       id="recipient-name"
-                      value={newPassword}
-                      onChange={(e) => setNewPassword(e.target.value)}
+                      value={newfname}
+                      onChange={(e) => setNewfname(e.target.value)}
                       required
                     />
                   </div>
@@ -171,11 +212,11 @@ const ChangePassByAdmin = (props) => {
                       Last Name:
                     </label>
                     <input
-                      type="password"
+                      type="text"
                       className="form-input mt-1 pl-4 block w-full h-8 rounded-[10px] border-gray-300 shadow-md focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 focus:outline-none"
                       id="recipient-name"
-                      value={confirmNewPassword}
-                      onChange={(e) => setConfirmNewPassword(e.target.value)}
+                      value={newlname}
+                      onChange={(e) => setNewlname(e.target.value)}
                       required
                     />
                   </div>
@@ -185,6 +226,7 @@ const ChangePassByAdmin = (props) => {
                 <button
                   type="button"
                   className="bg-gradient-to-r from-emerald-400 via-emerald-500  to-emerald-600 rounded-md text-white hover:bg-blue-600 focus:outline-none border rounded-[18px] px-5 py-2 sm:ml-3 sm:w-auto sm:text-sm"
+                  onClick={changename}
                 >
                   Change Name
                 </button>
