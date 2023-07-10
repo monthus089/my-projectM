@@ -107,7 +107,7 @@ const RoleBoard = (props) => {
     const csvHeader = string
       .slice(0, string.indexOf("\n"))
       .split(",")
-      .map((header) => header.trim()); // Trim header names to remove spaces
+      .map((header) => header.trim());
     const csvRows = string.slice(string.indexOf("\n") + 1).split("\n");
 
     const array = csvRows.reduce((result, row) => {
@@ -135,8 +135,6 @@ const RoleBoard = (props) => {
   };
 
   const handleOnSubmit = async (e) => {
-    e.preventDefault();
-
     if (file) {
       setIsLoading(true); // Set isLoading to true
 
@@ -231,7 +229,9 @@ const RoleBoard = (props) => {
           </label>
           <button
             type="submit"
-            className={`flex flex-col items-center justify-center w-[100px] h-12 border-2 border-gray-300  rounded-r-[25px] cursor-pointer ${isLoading? "bg-blue-500" : "bg-gray-200"} hover:bg-gray-300`}
+            className={`flex flex-col items-center justify-center w-[100px] h-12 border-2 border-gray-300  rounded-r-[25px] cursor-pointer ${
+              isLoading ? "bg-blue-500" : "bg-gray-200"
+            } hover:bg-gray-300`}
           >
             <div className="flex flex-row items-center justify-center pt-8 pb-6">
               <p className="mb-2 mr-2 text-sm text-black justify-center">
