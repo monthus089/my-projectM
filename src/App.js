@@ -1,161 +1,123 @@
-import React, { useState } from 'react';
-import bg from "./img/bg.svg";
-import mirror from "./img/mirror.svg";
-import "./css/App.css";
-import "./css/Login.css";
-import "./js/Login.js"
-// import { Login } from "./component/Login.js"
-// import { Register } from "./component/Register"
-import app_icon from "./img/app_icon.png"
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUser, faLock, faEnvelope, faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'
+import { Route, Routes } from "react-router-dom";
+//login
+import Login from "./components/Login";
+// Admin Navbar
+import MainAdminNavbar from "./components/MainAdminNavbar";
+import AllProject from "./components/Admin/AllProject";
+import AllProgress from "./components/Admin/AllProgress";
+import AllReadProgress from "./components/Admin/AllReadProgress";
+import Board from "./components/Admin/Board";
+import Details from "./components/Admin/Details";
+import Editing from "./components/Admin/Editing";
+import RoleBoard from "./components/Admin/RoleBoard";
+import AdminCreate from "./components/Admin/AdminCreate";
+// Advisor Navbar && CA
+import MainAdvisorNavbar from "./components/MainAdvisorNavbar";
+import MainCaNavbar from "./components/MainCaNavbar";
+import CAllProject from "./components/Advisor&Advisee/AllProject";
+import CAllProgress from "./components/Advisor&Advisee/AllProgress";
+import CAllReadProgress from "./components/Advisor&Advisee/AllReadProgress";
+import MyProject from "./components/Advisor&Advisee/MyProject";
+import MyDetails from "./components/Advisor&Advisee/MyDetails";
+import MyEditing from "./components/Advisor&Advisee/MyEditing";
+import Create from "./components/Advisor&Advisee/Create";
+import MyProjectProgress from "./components/Advisor&Advisee/MyProjectProgress";
+import ListProgress from "./components/Advisor&Advisee/ListProgress";
+import ReadProgress from "./components/Advisor&Advisee/ReadProgress";
+import Appointment from "./components/Advisor&Advisee/Appointment";
+import BookingTime from "./components/Advisor&Advisee/BookingTime";
+// Student Navbar
+import MainStudentNavbar from "./components/MainStudentNavbar";
+import JoinBoard from "./components/Student/JoinBoard";
+import JoinDetails from "./components/Student/JoinDetails";
+import JoinProgress from "./components/Student/JoinProgress";
+import ProgressList from "./components/Student/ProgressList";
+import CreateProgress from "./components/Student/CreateProgress";
+import JoinAppointment from "./components/Student/JoinAppointment";
+import ReadProgressStudent from "./components/Student/ReadProgressStudent";
 
-
-
+// import { useContext } from "react";
+// import AuthContext from "./components/Auth/AuthProvider";
 function App() {
-  const [currentForm, setCurrentForm] = useState('login');
-
-  const toggleForm = (formName) => {
-    setCurrentForm(formName);
-  }
+  //const { user } = useContext(AuthContext);
 
   return (
-    <div>
-      <img src={mirror} className="wave" alt="" />
-      <div className="container">
-        <div className="img">
-          <img src={bg} alt="" />
-        </div>
-        <div className="login-content">
-          {
-            currentForm === "login" ? <Login onFromSwitch={toggleForm} /> : <Register onFromSwitch={toggleForm} />
-          }
-        </div>
-      </div>
-    </div>
+    <Routes>
+      <Route path="/" element={<Login />}></Route>
+      <Route path="/Admin" element={<MainAdminNavbar />}>
+        <Route path="" element={<AllProject />} />
+        <Route path="AllProject" element={<AllProject />}></Route>
+        <Route
+          path="AllProgress/:getProjectId"
+          element={<AllProgress />}
+        ></Route>
+        <Route
+          path="AllReadProgress/:getProjectProgressId"
+          element={<AllReadProgress />}
+        ></Route>
+        <Route path="Board" element={<Board />}></Route>
+        <Route path="AdminCreate" element={<AdminCreate />}></Route>
+        <Route path="Details/:getProjectId" element={<Details />} />
+        <Route path="Editing/:getProjectId" element={<Editing />} />
+        <Route path="Role" element={<RoleBoard />} />
+      </Route>
+      <Route path="/Advisor" element={<MainAdvisorNavbar />}>
+        <Route path="" element={<MyProject />} />
+        <Route path="MyProject" element={<MyProject />} />
+        <Route path="MyDetails/:getProjectId" element={<MyDetails />} />
+        <Route path="MyEditing/:getProjectId" element={<MyEditing />} />
+        <Route path="Create" element={<Create />} />
+        <Route path="Progress" element={<MyProjectProgress />} />
+        <Route path="ListProgress/:getProjectId" element={<ListProgress />} />
+        <Route
+          path="ReadProgress/:getProjectProgressId"
+          element={<ReadProgress />}
+        />
+        {/* <Route path="Appoint" element={<Appointment />} />
+        <Route path="BookingTime/:appointmentId" element={<BookingTime />} /> */}
+      </Route>
+      <Route path="/CAdvisor" element={<MainCaNavbar />}>
+        <Route path="" element={<MyProject />} />
+        <Route path="MyProject" element={<MyProject />} />
+        <Route path="CAllProject" element={<CAllProject />}></Route>
+        <Route
+          path="CAllProgress/:getProjectId"
+          element={<CAllProgress />}
+        ></Route>
+        <Route
+          path="CAllReadProgress/:getProjectProgressId"
+          element={<CAllReadProgress />}
+        ></Route>
+        <Route path="MyDetails/:getProjectId" element={<MyDetails />} />
+        <Route path="MyEditing/:getProjectId" element={<MyEditing />} />
+        <Route path="Create" element={<Create />} />
+        <Route path="Progress" element={<MyProjectProgress />} />
+        <Route path="ListProgress/:getProjectId" element={<ListProgress />} />
+        <Route
+          path="ReadProgress/:getProjectProgressId"
+          element={<ReadProgress />}
+        />
+        <Route path="Appoint" element={<Appointment />} />
+        <Route path="BookingTime/:appointmentId" element={<BookingTime />} />
+      </Route>
+      <Route path="/Student" element={<MainStudentNavbar />}>
+        <Route path="" element={<JoinBoard />} />
+        <Route path="JoinBoard" element={<JoinBoard />} />
+        <Route path="JoinDetails/:getProjectId" element={<JoinDetails />} />
+        <Route path="JoinProgress" element={<JoinProgress />} />
+        <Route path="ProgressList/:getProjectId" element={<ProgressList />} />
+        <Route
+          path="CreateProgress/:getProjectId"
+          element={<CreateProgress />}
+        />
+        <Route path="JoinAppointment" element={<JoinAppointment />} />
+        <Route
+          path="ReadProgressStudent/:getProjectProgressId"
+          element={<ReadProgressStudent />}
+        />
+      </Route>
+    </Routes>
   );
-}
-
-const Login = (props) => {
-  const [email, setEmail] = useState('');
-  const [pass, setPass] = useState('');
-  const [passwordShown, setPasswordShown] = useState(false);
-
-  const togglePassword = () => {
-      setPasswordShown(!passwordShown);
-  };
-
-  const handlerSubmit = (e) => {
-      e.preventDefault();
-      console.log(email)
-  }
-  return (
-      <div>
-          <form className="login-form" onSubmit={handlerSubmit}>
-              <img src={app_icon} alt="" />
-              <h2 className="title">Welcome</h2>
-              <div className="input-div one">
-                  <i className="i">
-                      <FontAwesomeIcon icon={faEnvelope}></FontAwesomeIcon>
-                  </i>
-                  <div className="div">
-                      <input type="text" placeholder="Email" className="input" />
-                  </div>
-              </div>
-              <div className="input-div pass">
-                  <i className="i">
-                      <FontAwesomeIcon icon={faLock}></FontAwesomeIcon>
-                  </i>
-                  <div className="div">
-                      <input type={passwordShown ? "text" : "password"} placeholder="Password" className="input" />
-
-                  </div>
-                  <i className="i">
-                      <FontAwesomeIcon icon={faEye} onClick={togglePassword}></FontAwesomeIcon>
-                  </i>
-              </div>
-              <input type="submit" class="btn" value={"Login"}></input>
-              <div class="signup_link">
-                  Now Member? <a onClick={() => props.onFromSwitch("register")}> Registers </a>
-              </div>
-          </form>
-      </div>
-  );
-}
-
-const Register = (props) => {
-  const [email, setEmail] = useState('');
-  const [pass, setPass] = useState('');
-  const [fname, setFirstName] = useState('');
-  const [lname, setLastName] = useState('');
-  const [passwordShown, setPasswordShown] = useState(false);
-  const [confirmPasswordShown, setConfirmPasswordShown] = useState(false);
-
-  const togglePassword = () => {
-      setPasswordShown(!passwordShown);
-  };
-  const toggleConfirmPassword = () => {
-      setConfirmPasswordShown(!confirmPasswordShown);
-  };
-
-  const handlerSubmit = (e) => {
-      e.preventDefault();
-      console.log(email)
-  }
-  return (
-      <div>
-          <form className="login-form" onSubmit={handlerSubmit}>
-              <img src={app_icon} alt="" />
-              <h2 className="title">Register</h2>
-              <div className="input-div one">
-                  <i className="i">
-                      <FontAwesomeIcon icon={faEnvelope}></FontAwesomeIcon>
-                  </i>
-                  <div className="div">
-                      <input type="text" placeholder="Email" className="input" />
-                  </div>
-              </div>
-              <div className="input-div-name one">
-                  <i className="i">
-                      <FontAwesomeIcon icon={faUser}></FontAwesomeIcon>
-                  </i>
-                  <div className="fdiv">
-                      <input type="text" placeholder="First Name" className="input" />
-                  </div>
-                  <div className="ldiv">
-                      <input type="text" placeholder="Last Name" className="input" />
-                  </div>
-              </div>
-              <div className="input-div pass">
-                  <i className="i">
-                      <FontAwesomeIcon icon={faLock}></FontAwesomeIcon>
-                  </i>
-                  <div className="div">
-                      <input type={passwordShown ? "text" : "password"} placeholder="Password" className="input" />
-                  </div>
-                  <i className="i">
-                      <FontAwesomeIcon icon={faEye} onClick={togglePassword}></FontAwesomeIcon>
-                  </i>
-              </div>
-              <div className="input-div pass">
-                  <i className="i">
-                      <FontAwesomeIcon icon={faLock}></FontAwesomeIcon>
-                  </i>
-                  <div className="div">
-                      <input type={confirmPasswordShown ? "text" : "password"} placeholder="Confirm Password" className="input" />
-
-                  </div>
-                  <i className="i">
-                      <FontAwesomeIcon icon={faEye} onClick={toggleConfirmPassword}></FontAwesomeIcon>
-                  </i>
-              </div>
-              <input type="submit" class="btn" value={"REGISTER"}></input>
-              <div class="signup_link">
-                  Already have an account? <a onClick={() => props.onFromSwitch("login")}>Login </a>
-              </div>
-          </form>
-      </div>
-  )
 }
 
 export default App;

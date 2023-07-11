@@ -20,6 +20,8 @@
       {
         "label": "off"
       }
-    ]
+    ],
+    "compat-api/css": "off",
+    "button-type": "off"
   }
 }
