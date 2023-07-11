@@ -70,9 +70,9 @@ const JoinDetails = (props) => {
         </div>
         <div className="mt-[50px]">
           <h4 className="ml-[40px] mt-[20px]">Member List</h4>
-          {project.advisees &&
+          {!project.advisees ? (
+            project.advisees &&
             project.advisees.map((advisee, index) =>
-              // Check if the advisee's status is 1
               advisee.status === 1 ? (
                 <p
                   key={index}
@@ -81,7 +81,12 @@ const JoinDetails = (props) => {
                   {advisee.memberUser.firstname} {advisee.memberUser.lastname}
                 </p>
               ) : null
-            )}
+            )
+          ) : (
+            <p className="ml-[50px] mt-[10px] pr-[300px] text-[20px]">
+              No Member
+            </p>
+          )}
         </div>
         <div className="mt-[50px]">
           <h4 className="ml-[40px] mt-[20px]">Year</h4>

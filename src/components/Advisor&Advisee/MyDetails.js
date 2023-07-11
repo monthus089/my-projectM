@@ -16,7 +16,7 @@ const Details = (props) => {
     setShowModal(false);
   };
 
-  const handleChageStatus = async (projectId,statusNum) => {
+  const handleChageStatus = async (projectId, statusNum) => {
     try {
       await jwtInterceptor.put(
         `${process.env.REACT_APP_API}/Project?projectId=${projectId}&projectStatus=${statusNum}`
@@ -81,9 +81,9 @@ const Details = (props) => {
         </div>
         <div className="mt-[50px]">
           <h4 className="ml-[40px] mt-[20px]">Member List</h4>
-          {project.advisees &&
+          {!project.advisees ? (
+            project.advisees &&
             project.advisees.map((advisee, index) =>
-              // Check if the advisee's status is 1
               advisee.status === 1 ? (
                 <p
                   key={index}
@@ -92,7 +92,12 @@ const Details = (props) => {
                   {advisee.memberUser.firstname} {advisee.memberUser.lastname}
                 </p>
               ) : null
-            )}
+            )
+          ) : (
+            <p className="ml-[50px] mt-[10px] pr-[300px] text-[20px]">
+              No Member
+            </p>
+          )}
         </div>
         <div className="mt-[50px]">
           <h4 className="ml-[40px] mt-[20px]">Year</h4>
@@ -114,10 +119,10 @@ const Details = (props) => {
         </div>
 
         <div className="pt-20 pr-2 grid grid-cols-12 ">
-        <button
+          <button
             type="button"
             className="col-start-10 text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:outline-none font-medium rounded-[18px] text-sm px-6 py-2.5 text-center mr-2 mb-2"
-            onClick={handleChageStatus(getProjectId,1)}
+            onClick={handleChageStatus(getProjectId, 1)}
           >
             Close
           </button>
@@ -161,7 +166,7 @@ const Details = (props) => {
               </button>
               <button
                 type="button"
-                onClick={() => handleChageStatus(getProjectId,2)}
+                onClick={() => handleChageStatus(getProjectId, 2)}
                 className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:outline-none  dark:focus:ring-red-800 font-medium rounded-[18px] text-sm px-6 py-2.5 text-center mr-2 mb-2"
               >
                 Yes, Delete

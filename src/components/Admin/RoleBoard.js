@@ -140,6 +140,7 @@ const RoleBoard = (props) => {
   };
 
   const handleOnSubmit = async (e) => {
+    e.preventDefault();
     if (file) {
       setIsLoading(true); // Set isLoading to true
 
@@ -159,6 +160,7 @@ const RoleBoard = (props) => {
             array
           );
           notyf.success("Information added successfully!");
+          window.location.reload()
         } catch (err) {
           console.log(err);
           if (err?.response?.status === 404) {
