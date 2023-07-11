@@ -95,10 +95,9 @@ const Editing = (props) => {
           <div className="consultant">
             <h4 className="ml-[40px] mt-[20px]">Advisees</h4>
             {advisees.map((advisee, index) =>
-              // Check if the advisee's status is 0
               advisee.status === 0 ? (
                 <p className="ml-[50px] mt-[10px] pr-[300px] text-[20px]">
-                  "-"
+                  No Member
                 </p>
               ) : (
                 <p
@@ -113,12 +112,9 @@ const Editing = (props) => {
 
           <div className="people">
             <h4 className="ml-[40px] mt-[20px]">Year</h4>
-            <textarea
-              className="px-4 pt-[0.35rem] ml-[50px] mt-[10px] text-[20px] w-[70%] h-[45px] block text-gray-900 bg-gray-50 rounded-[18px] border border-gray-300 resize-none scrollbar-hide focus:outline-none"
-              value={projectYear}
-              onChange={(e) => setProjectYear(e.target.value)}
-              required
-            ></textarea>
+            <p className="ml-[50px] mt-[10px] pr-[300px] text-[20px]">
+              {projectYear}
+            </p>
           </div>
           <div className="detailsProject">
             <h4 className="ml-[40px] mt-[20px]">Details</h4>

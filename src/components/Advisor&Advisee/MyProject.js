@@ -46,7 +46,8 @@ const Broad = (props) => {
     } else if (user.role === "PM02") {
       navigate("/Advisor/MyDetails/" + projectId);
     }
-  };
+   
+  }
 
   return (
     <>
