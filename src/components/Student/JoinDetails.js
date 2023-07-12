@@ -11,6 +11,8 @@ const JoinDetails = (props) => {
   const [project, setProject] = useState({});
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
+const [checkStatus,setCheckStatus]=useState({});
+
   const handlerSubmitJoin = async (e) => {
     e.preventDefault();
     let payload = {
@@ -43,7 +45,19 @@ const JoinDetails = (props) => {
       console.log(error);
     }
   }, []);
+
+  // useEffect(() => {
+  //   try {
+  //     jwtInterceptor
+  //       .get(`${process.env.REACT_APP_API}/Advisee/` + getProjectId)
+  //       .then((response) => setCheckStatus(response?.data));
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // }, []);
+
   console.log(project);
+
   return (
     <>
       <div className="ml-[50px] text-[20px]">

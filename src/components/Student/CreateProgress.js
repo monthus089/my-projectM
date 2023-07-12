@@ -23,15 +23,19 @@ const CreateProgress = (props) => {
     };
 
     try {
-      await jwtInterceptor.post(
-        `${process.env.REACT_APP_API}/ProjectProgress?projectId=${getProjectId}`,
-        payload
-      );
-      notyf.success("The Progress has been created successfully.");
+      await jwtInterceptor
+        .post(
+          `${process.env.REACT_APP_API}/ProjectProgress?projectId=${getProjectId}`,
+          payload
+        )
+        .then(() => {
+          notyf.success("The Progress has been created successfully.");
+          navigate("/Student/JoinProgress");
+        });
     } catch (error) {
       console.log(error);
     }
-    navigate("/Student/JoinProgress");
+    
   };
   return (
     <>

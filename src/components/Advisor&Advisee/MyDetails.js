@@ -8,6 +8,9 @@ const Details = (props) => {
   const { user } = useContext(AuthContext);
   const [showModal, setShowModal] = useState(false);
   let navigate = useNavigate();
+  const { getProjectId } = useParams();
+  const [project, setProject] = useState({});
+  
   const handleDelete = () => {
     setShowModal(true);
   };
@@ -27,9 +30,6 @@ const Details = (props) => {
     }
     setShowModal(false);
   };
-
-  const { getProjectId } = useParams();
-  const [project, setProject] = useState({});
 
   useEffect(() => {
     try {

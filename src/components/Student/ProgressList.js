@@ -10,14 +10,14 @@ const ProgressList = (props) => {
     try {
       jwtInterceptor
         .get(
-          `${process.env.REACT_APP_API}/ProjectProgress/project/` + getProjectId
+          `${process.env.REACT_APP_API}/ProjectProgress/project/${getProjectId}` 
         )
         .then((response) => setProjectProgresses(response?.data));
     } catch (error) {
       console.log(error);
     }
   }, []);
-
+  console.log("Progresses"+projectProgresses);
   return (
     <>
       <div className="ml-[50px] text-[20px]">
@@ -73,11 +73,11 @@ const ProgressList = (props) => {
                     : "-"}
                 </td>
                 <td className="px-6 py-4">
-                  {projectProgress.dateTeacher ? 
+                  {projectProgress.dateTeacher ? (
                     <BsCheck2Circle className="text-green-600 w-4 h-4 inline-block"></BsCheck2Circle>
-                   : 
+                  ) : (
                     <BsCheck2Circle className="text-stone-400 w-4 h-4 inline-block"></BsCheck2Circle>
-                  }
+                  )}
                 </td>
                 <td className="px-6 py-4">
                   <div className="flex w-full h-4 bg-gray-200 rounded-[55px] overflow-hidden dark:bg-gray-700">
@@ -104,12 +104,17 @@ const ProgressList = (props) => {
                     </div>
                   </div>
                 </td>
-                
+
                 <td className="px-6 py-4">
                   <button
                     type="button"
                     className="text-white bg-gradient-to-r from-violet-400 via-violet-500 to-violet-600 hover:bg-gradient-to-br font-medium rounded-[18px] text-sm  px-12 py-1.5 text-center focus:outline-none"
-                    onClick={() => navigate("/Student/ReadProgressStudent/" + projectProgress.projectProgressId)}
+                    onClick={() =>
+                      navigate(
+                        "/Student/ReadProgressStudent/" +
+                          projectProgress.projectProgressId
+                      )
+                    }
                   >
                     Read
                   </button>
