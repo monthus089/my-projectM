@@ -21,7 +21,7 @@ const AllProgress = () => {
   const sortedProjectProgresses = projectProgresses.sort(
     (a, b) => new Date(b.dateForm) - new Date(a.dateForm)
   );
-
+  console.table(projectProgresses);
   return (
     <>
       <div className="ml-[50px] text-[20px]">
@@ -32,7 +32,7 @@ const AllProgress = () => {
           <thead className="text-sm font-bold text-black uppercase bg-gray-50 dark:bg-gray-100 ">
             <tr>
               <th scope="col" className="px-6 py-3">
-                Project
+                Number
               </th>
               <th scope="col" className="px-6 py-3">
                 Date Sent
@@ -58,7 +58,7 @@ const AllProgress = () => {
                 key={projectProgress.projectProgressId}
               >
                 <td className="px-6 py-4">
-                  {projectProgress.project.projectName}
+                  {projectProgress.numberProgress}
                 </td>
                 <td className="px-6 py-4">{projectProgress.dateForm}</td>
                 <td className="px-6 py-4">
@@ -109,7 +109,7 @@ const AllProgress = () => {
                       )
                     }
                   >
-                    Progress
+                    Deatail
                   </button>
                 </td>
               </tr>

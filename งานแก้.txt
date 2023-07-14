@@ -53,10 +53,4 @@
 
 --------------////////////////////////////////////////////////-------------------------------------------------------------------
 
-- แก้ navbar และหัวกะดาษ ส่วน Project Progress Board -> Project Progress
-- แก้ navbar และหัวกะดาษ ส่วน Project Board -> Project List
-- แก้ progressList เป็น ตัวเลขเอาชื่อ project ออก เช็ค path หน้าให้ถูก ทุกส่วน
-- แก้ path หน้า Appointment -> button Booking ///ส่วน course
-- แก้ member ไม่แสดง หน้า all project ///ส่วน advisee
 - แก้ project progress เพิ่ม status -> เมื่อ status === 0 ให้ เป็น รออนุมัติ และ disable button progress ///ส่วน advisee
-- แก้ Appointment ของ advisee confirm การจองให้ alert ว่าแน่ใจไหมที่จะเลือกเวลานี้เพราะแก้ไม่ได้ /// ส่วน advisee กดไม่ได้ถ้าเป็นค่าว่าง

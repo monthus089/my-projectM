@@ -31,7 +31,7 @@ const MainLayoutAdvisor = () => {
   };
   const Menu = [
     {
-      title: "All Project",
+      title: "All Projects",
       icon: <IoMdClipboard/>,
       url: "CAllProject",
     },

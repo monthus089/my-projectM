@@ -3,7 +3,9 @@ import React, { useEffect, useState } from "react";
 import jwtInterceptor from "../Auth/jwtInterceptor";
 import { BiSearch } from "react-icons/bi";
 
+
 const AllProject = (props) => {
+
   const navigate = useNavigate();
   const [projects, setProjects] = useState([]);
   const [searchValue, setSearchValue] = useState("");
@@ -31,7 +33,7 @@ const AllProject = (props) => {
   return (
     <>
       <div className="ml-[50px] text-[20px]">
-        <h5>All Project</h5>
+        <h5>All Projects</h5>
       </div>
       <form
         id="search-form"

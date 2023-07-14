@@ -19,7 +19,6 @@ const JoinProgress = (props) => {
       console.log(error);
     }
   }, []);
-  console.log(projects);
 
   return (
     <>
@@ -41,6 +40,9 @@ const JoinProgress = (props) => {
               </th>
               <th scope="col" className="px-6 py-3">
                 Year
+              </th>
+              <th scope="col" className="px-6 py-3">
+                Status
               </th>
               <th scope="col" className="px-6 py-3">
                 Action
@@ -67,6 +69,17 @@ const JoinProgress = (props) => {
                     ))}
                   </td>
                   <td className="px-6 py-4">{project.projectYear}</td>
+                  <td className="px-6 py-4">
+                    {project.advisees.map((advisee) =>
+                      advisee.memberUserId === user.nameid
+                        ? advisee.status === 1
+                          ? <div className="text-green-500">Joined</div>
+                          : advisee.status === 0
+                          ? <div className="text-yellow-500">Pending</div>
+                          : null
+                        : ""
+                    )}
+                  </td>
                   <td className="px-6 py-4">
                     <button
                       type="button"

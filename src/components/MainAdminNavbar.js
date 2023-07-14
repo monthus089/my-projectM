@@ -30,12 +30,12 @@ const MainLayoutAdmin = () => {
   };
   const Menu = [
     {
-      title: "Project Progress Board",
+      title: "Project Progress",
       icon: <IoMdClipboard></IoMdClipboard>,
       url: "AllProject",
     },
     {
-      title: "Project Board",
+      title: "Project List",
       icon: <IoMdClipboard></IoMdClipboard>,
       url: "Board",
     },

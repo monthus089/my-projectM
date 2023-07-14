@@ -32,7 +32,7 @@ const ListProgress = () => {
           <thead className="text-sm font-bold text-black uppercase bg-gray-50 dark:bg-gray-100 ">
             <tr>
               <th scope="col" className="px-6 py-3">
-                Project
+                Number
               </th>
               <th scope="col" className="px-6 py-3">
                 Date Sent
@@ -58,7 +58,7 @@ const ListProgress = () => {
                 key={projectProgress.projectProgressId}
               >
                 <td className="px-6 py-4">
-                  {projectProgress.project.projectName}
+                  {projectProgress.numberProgress}
                 </td>
                 <td className="px-6 py-4">{projectProgress.dateForm}</td>
                 <td className="px-6 py-4">
@@ -109,7 +109,7 @@ const ListProgress = () => {
                       )
                     }
                   >
-                    Progress
+                    Detail
                   </button>
                 </td>
               </tr>

@@ -52,7 +52,7 @@ const Broad = (props) => {
   return (
     <>
       <div className="ml-[50px] text-[20px]">
-        <h5>Project Broad</h5>
+        <h5>Project List</h5>
       </div>
       {OpenAccept ? (
         <Accept onClose={closeModal} projectId={selectedProjectId} />

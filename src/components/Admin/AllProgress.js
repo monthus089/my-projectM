@@ -17,22 +17,22 @@ const AllProgress = () => {
     } catch (error) {
       console.log(error);
     }
-  },[]);
+  }, []);
   const sortedProjectProgresses = projectProgresses.sort(
     (a, b) => new Date(b.dateForm) - new Date(a.dateForm)
   );
-
+  
   return (
     <>
       <div className="ml-[50px] text-[20px]">
-        <h5>ProgressList</h5>
+        <h5>Progress List</h5>
       </div>
       <div className="relative w-[70%] h-[83%] overflow-y-auto shadow-[1px_1px_6px_-1px_rgba(0,0,0,0.1)] sm:rounded-[20px] left-[80px] mt-12 scrollbar-hide ">
         <table className="w-full text-sm text-center text-gray-500">
           <thead className="text-sm font-bold text-black uppercase bg-gray-50">
             <tr>
               <th scope="col" className="px-6 py-3">
-                Project
+                Number
               </th>
               <th scope="col" className="px-6 py-3">
                 Date Sent
@@ -58,7 +58,7 @@ const AllProgress = () => {
                 key={projectProgress.projectProgressId}
               >
                 <td className="px-6 py-4">
-                  {projectProgress.project.projectName}
+                  {projectProgress.numberProgress}
                 </td>
                 <td className="px-6 py-4">{projectProgress.dateForm}</td>
                 <td className="px-6 py-4">
@@ -109,7 +109,7 @@ const AllProgress = () => {
                       )
                     }
                   >
-                    Progress
+                    Deatail
                   </button>
                 </td>
               </tr>
@@ -121,4 +121,4 @@ const AllProgress = () => {
   );
 };
 
-export default  AllProgress;
+export default AllProgress;

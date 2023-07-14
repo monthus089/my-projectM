@@ -30,7 +30,7 @@ const MainLayoutStudent = () => {
   };
   const Menu = [
     {
-      title: "Project Board",
+      title: "Project List",
       icon: <IoMdClipboard />,
       url: "JoinBoard",
     },

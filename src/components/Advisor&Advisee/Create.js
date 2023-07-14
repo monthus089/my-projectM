@@ -4,6 +4,7 @@ import jwtInterceptor from "../Auth/jwtInterceptor";
 import AuthContext from "../Auth/AuthProvider";
 import notyf from "../../js/Notyf";
 
+
 const Create = (props) => {
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
@@ -48,6 +49,10 @@ const Create = (props) => {
               onChange={(e) => setProjectName(e.target.value)}
               required
             ></textarea>
+          </div>
+          <div className="detailsProject">
+            <h4 className="ml-[40px] mt-[20px]">Advisor</h4>
+            <p className="px-4 pt-[0.35rem] ml-[50px] mt-[10px] text-[20px] text-gray-900">{user.email} {user.given_name}</p>
           </div>
           <div className="detailsProject">
             <h4 className="ml-[40px] mt-[20px]">Details</h4>

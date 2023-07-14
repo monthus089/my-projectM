@@ -3,6 +3,7 @@ import jwtInterceptor from "../Auth/jwtInterceptor";
 import AuthContext from "../Auth/AuthProvider";
 import notyf from "../../js/Notyf";
 import moment from "moment/moment";
+import { isDisabled } from "@testing-library/user-event/dist/utils";
 
 const JoinAppointment = (props) => {
   const { user } = useContext(AuthContext);
@@ -10,6 +11,24 @@ const JoinAppointment = (props) => {
   const [projects, setProjects] = useState([]);
   const [reserveTime, setReserveTime] = useState("");
   const [selectedAppointment, setSelectedAppointment] = useState(null);
+  const [showModal, setSowModal] = useState(false);
+  const [appointmentreserveTime, setAppointmentReserveTime] = useState();
+
+  const confirmedReserveTime = () => {
+    setSowModal(true);
+  };
+
+  const closeModal = () => {
+    setSowModal(false);
+  };
+  const AppointmentTime = (time) => {
+    if (!reserveTime) {
+      notyf.error("Please Enter the Reserve Time.");
+      return;
+    }
+    setAppointmentReserveTime(time);
+    confirmedReserveTime();
+  };
 
   useEffect(() => {
     try {
@@ -20,7 +39,7 @@ const JoinAppointment = (props) => {
     } catch (error) {
       console.log(error);
     }
-  },[]);
+  }, []);
 
   const fetchAppointments = async () => {
     try {
@@ -36,10 +55,10 @@ const JoinAppointment = (props) => {
 
   const handlerSubmitJoin = async (e, appointmentId, projects) => {
     e.preventDefault();
-    // Use the appointmentId and projectId as needed
+    
     let payload = {
       appointmentId: appointmentId,
-      projectId: projects[0]?.projectId, // Use optional chaining to handle the case when project is still being fetched
+      projectId: projects[0]?.projectId,
       reserveTime: reserveTime,
     };
 
@@ -49,7 +68,7 @@ const JoinAppointment = (props) => {
         payload
       );
       notyf.success("Joined the appointment successfully.");
-      // Update the local state to reflect the changes
+      setSowModal(false);
       setAppointments((prevAppointments) =>
         prevAppointments.map((appointment) => {
           if (appointment.appointmentId === appointmentId) {
@@ -99,7 +118,7 @@ const JoinAppointment = (props) => {
   const handleReserveTimeChange = (e) => {
     const selectedReserveTime = e.target.value;
     setReserveTime(selectedReserveTime);
-    
+
     const appointmentId = e.target
       .closest("tr")
       .getAttribute("data-appointment-id");
@@ -207,20 +226,33 @@ const JoinAppointment = (props) => {
                         </select>
                       </td>
 
-                      <td className="px-6 py-4 text-center">
-                        <button
-                          type="button"
-                          className="text-white bg-gradient-to-r from-violet-400 via-violet-500 to-violet-600 hover:bg-gradient-to-br font-medium rounded-[18px] text-sm  px-12 py-1.5 text-center focus:outline-none"
-                          onClick={(e) =>
-                            handlerSubmitJoin(
-                              e,
-                              appointment.appointmentId,
-                              projects
-                            )
-                          }
-                        >
-                          Reserve
-                        </button>
+                      <td className="px-6 py-4">
+                        {appointment.appointmentReserves.length > 0 ? (
+                          <button
+                            type="button"
+                            disabled
+                            className="text-white bg-gray-300 font-medium rounded-[18px] text-sm  px-12 py-1.5 text-center focus:outline-none"
+                            onClick={(e) =>
+                              handlerSubmitJoin(
+                                e,
+                                appointment.appointmentId,
+                                projects
+                              )
+                            }
+                          >
+                            Reserve
+                          </button>
+                        ) : (
+                          <button
+                            type="button"
+                            className="text-white bg-gradient-to-r from-violet-400 via-violet-500 to-violet-600 hover:bg-gradient-to-br font-medium rounded-[18px] text-sm  px-12 py-1.5 text-center focus:outline-none"
+                            onClick={(e) =>
+                              AppointmentTime(appointment.appointmentId)
+                            }
+                          >
+                            Reserve
+                          </button>
+                        )}
                       </td>
                     </tr>
                   );
@@ -229,6 +261,39 @@ const JoinAppointment = (props) => {
             </table>
           </form>
         </div>
+      </div>
+      <div
+        id="id01"
+        className={`fixed left-0 top-[280px] w-full h-full overflow-auto pt-200  ${
+          showModal ? "block" : "hidden"
+        }`}
+      >
+        <form className="bg-white mx-auto mt-5 mb-15 border border-gray-300 shadow-lg w-[482px] h-[250px] rounded-[18px]">
+          <div className="py-8 text-center">
+            <h1>Select Time</h1>
+            <p className="text-center p-4 mt-4">
+            Are you sure you want to choose between  {reserveTime} ?
+            </p>
+            <div className="mt-[40px] mx-[40px] grid grid-cols-2 gap-x-8">
+              <button
+                type="button"
+                onClick={closeModal}
+                className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:outline-none  font-medium rounded-[18px] text-sm px-5 py-2.5 text-center mb-2"
+              >
+                No
+              </button>
+              <button
+                type="button"
+                onClick={(e) =>
+                  handlerSubmitJoin(e, appointmentreserveTime, projects)
+                }
+                className="text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:outline-none font-medium rounded-[18px] text-sm px-6 py-2.5 text-center mr-2 mb-2"
+              >
+                Yes
+              </button>
+            </div>
+          </div>
+        </form>
       </div>
     </>
   );

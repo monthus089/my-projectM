@@ -17,7 +17,7 @@ const JoinBroad = (props) => {
   return (
     <>
       <div className="ml-[50px] text-[20px]">
-        <h5>Project Broad</h5>
+        <h5>Project List</h5>
       </div>
       <div className="relative w-[70%] h-[83%] overflow-y-auto shadow-[1px_1px_6px_-1px_rgba(0,0,0,0.1)] sm:rounded-[20px] left-[80px] mt-12 scrollbar-hide ">
         <table className="w-full text-sm text-center text-gray-500 ">
@@ -42,7 +42,7 @@ const JoinBroad = (props) => {
           </thead>
           <tbody className="overflow-y-auto">
             {projects.map((project, i) =>
-              project.projectStatus !== 2 ? (
+              project.projectStatus !== 2 &&project.projectStatus !== 1 ? (
                 <tr className="bg-white border-b " key={project.projectId}>
                   <th scope="row" className="px-6 py-4 ">
                     {i + 1}

@@ -52,7 +52,7 @@ function App() {
           element={<AllProgress />}
         ></Route>
         <Route
-          path="AllReadProgress/:getProjectProgressId"
+          path="ReadProgress/:getProjectProgressId"
           element={<AllReadProgress />}
         ></Route>
         <Route path="Board" element={<Board />}></Route>

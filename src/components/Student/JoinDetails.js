@@ -56,7 +56,7 @@ const [checkStatus,setCheckStatus]=useState({});
   //   }
   // }, []);
 
-  console.log(project);
+  console.table(project);
 
   return (
     <>

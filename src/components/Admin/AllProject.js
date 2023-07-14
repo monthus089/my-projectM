@@ -34,7 +34,7 @@ const AllProject = (props) => {
   return (
     <>
       <div className="ml-[50px] text-[20px]">
-        <h5>All Project</h5>
+        <h5>Project Progress</h5>
       </div>
       <form
         id="search-form"
