@@ -95,18 +95,14 @@ const Editing = (props) => {
           <div className="consultant">
             <h4 className="ml-[40px] mt-[20px]">Advisees</h4>
             {advisees.map((advisee, index) =>
-              advisee.status === 0 ? (
-                <p className="ml-[50px] mt-[10px] pr-[300px] text-[20px]">
-                  No Member
-                </p>
-              ) : (
+              advisee.status === 1 ? (
                 <p
                   key={index}
                   className="ml-[50px] mt-[10px] pr-[300px] text-[20px]"
                 >
                   {`${advisee.memberUser.firstname} ${advisee.memberUser.lastname}`}
                 </p>
-              )
+              ) : null
             )}
           </div>
 
