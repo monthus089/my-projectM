@@ -50,11 +50,7 @@ const JoinProgress = (props) => {
             </tr>
           </thead>
           <tbody className="overflow-y-auto">
-            {projects
-              .filter((project) =>
-                project.advisees.some((advisee) => advisee.status === 1)
-              )
-              .map((project, index) => (
+            {projects.map((project, index) => (
                 <tr className="bg-white border-b" key={project.projectId}>
                   <th scope="row" className="px-6 py-4">
                     {index + 1}
@@ -81,15 +77,29 @@ const JoinProgress = (props) => {
                     )}
                   </td>
                   <td className="px-6 py-4">
-                    <button
-                      type="button"
-                      className="text-white bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 hover:bg-gradient-to-br shadow-purple-500/50 dark:shadow-purple-800/80 font-medium rounded-[25px] text-sm px-12 py-2.5 text-center mr-2 mb-2"
-                      onClick={() =>
-                        navigate("/Student/ProgressList/" + project.projectId)
-                      }
-                    >
-                      Progress
-                    </button>
+                  {project.advisees.map((advisee) =>
+                      advisee.memberUserId === user.nameid
+                        ? advisee.status === 1
+                          ? <button
+                          type="button"
+                          className="text-white bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 hover:bg-gradient-to-br shadow-purple-500/50 dark:shadow-purple-800/80 font-medium rounded-[25px] text-sm px-12 py-2.5 text-center mr-2 mb-2"
+                          onClick={() =>
+                            navigate("/Student/ProgressList/" + project.projectId)
+                          }
+                        >
+                          Progress
+                        </button>
+                          : advisee.status === 0
+                          ? <button
+                          type="button"
+                          className="text-white bg-gray-300 shadow-gray-500/50 dark:shadow-gray-800/80 font-medium rounded-[25px] text-sm px-12 py-2.5 text-center mr-2 mb-2"
+                          disabled
+                        >
+                          Progress
+                        </button>
+                          : null
+                        : ""
+                    )}
                   </td>
                 </tr>
               ))}
