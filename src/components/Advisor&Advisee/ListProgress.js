@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import jwtInterceptor from "../Auth/jwtInterceptor";
 import { BsCheck2Circle } from "react-icons/bs";
+import AuthContext from "../Auth/AuthProvider";
 
 const ListProgress = () => {
+  const { user } = useContext(AuthContext);
   let navigate = useNavigate();
   const { getProjectId } = useParams();
   const [projectProgresses, setProjectProgresses] = useState([]);
@@ -21,6 +23,21 @@ const ListProgress = () => {
   const sortedProjectProgresses = projectProgresses.sort(
     (a, b) => new Date(b.dateForm) - new Date(a.dateForm)
   );
+
+  const PathChange = (projectProgressId) => {
+    if(user.role === "PM01"){
+      navigate(
+        "/CAdvisor/ReadProgress/" + projectProgressId
+      )
+
+    }else if (user.role === "PM02"){
+      navigate(
+        "/Advisor/ReadProgress/" + projectProgressId
+      )
+    }
+    
+
+  }
 
   return (
     <>
@@ -103,10 +120,7 @@ const ListProgress = () => {
                     type="button"
                     className="text-white bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 hover:bg-gradient-to-br shadow-purple-500/50 dark:shadow-purple-800/80 font-medium rounded-[25px] text-sm px-12 py-2.5 text-center mr-2 mb-2"
                     onClick={() =>
-                      navigate(
-                        "/Advisor/ReadProgress/" +
-                          projectProgress.projectProgressId
-                      )
+                      PathChange(projectProgress.projectProgressId)
                     }
                   >
                     Detail

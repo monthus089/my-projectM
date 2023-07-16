@@ -109,7 +109,7 @@ const AllProgress = () => {
                       )
                     }
                   >
-                    Deatail
+                    Detail
                   </button>
                 </td>
               </tr>
