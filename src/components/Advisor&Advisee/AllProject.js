@@ -30,6 +30,8 @@ const AllProject = (props) => {
     }
   };
 
+  console.table(projects)
+
   return (
     <>
       <div className="ml-[50px] text-[20px]">

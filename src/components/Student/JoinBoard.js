@@ -10,9 +10,10 @@ const JoinBroad = (props) => {
 
   useEffect(() => {
     jwtInterceptor
-      .get(`${process.env.REACT_APP_API}/Project`)
+      .get(`${process.env.REACT_APP_API}/Project/Join`)
       .then((response) => setProjects(response?.data));
   }, []);
+  console.table(projects)
 
   return (
     <>
@@ -42,7 +43,7 @@ const JoinBroad = (props) => {
           </thead>
           <tbody className="overflow-y-auto">
             {projects.map((project, i) =>
-              project.projectStatus !== 2 &&project.projectStatus !== 1 ? (
+              project.projectStatus === 0  ? (
                 <tr className="bg-white border-b " key={project.projectId}>
                   <th scope="row" className="px-6 py-4 ">
                     {i + 1}

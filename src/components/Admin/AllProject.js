@@ -30,7 +30,7 @@ const AllProject = (props) => {
         .then((response) => setProjects(response?.data));
     }
   };
-
+  console.table(projects)
   return (
     <>
       <div className="ml-[50px] text-[20px]">

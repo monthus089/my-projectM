@@ -9,6 +9,7 @@ const ReadProgress = () => {
   const { getProjectProgressId } = useParams();
   const [projectProgress, setProjectProgress] = useState({});
   const [commentTeacher, setCommentTeacher] = useState("");
+  const [commentPercent, setCommentPercent] = useState("");
   useEffect(() => {
     try {
       jwtInterceptor
@@ -17,16 +18,16 @@ const ReadProgress = () => {
         )
         .then((response) => {
           setProjectProgress(response?.data);
+          setCommentPercent(response.data.workProgress)
           setCommentTeacher(response.data.commentTeacher);
         });
     } catch (error) {
       console.log(error);
     }
   }, []);
-
   const handlerSubmitCheck = async (e) => {
     e.preventDefault();
-    if(!commentTeacher){
+    if (!commentTeacher) {
       notyf.open({
         type: "warning",
         message: "Please Enter Comment.",
@@ -40,8 +41,10 @@ const ReadProgress = () => {
       summaryProgress: projectProgress.summaryProgress,
       solutionToImprove: projectProgress.solutionToImprove,
       goalOfWork: projectProgress.goalOfWork,
-      workProgress: projectProgress.workProgress,
+      workProgress: commentPercent,
       commentTeacher: commentTeacher,
+      progressStatus: 1,
+
     };
     try {
       await jwtInterceptor.put(
@@ -92,14 +95,28 @@ const ReadProgress = () => {
               </p>
             </div>
           </div>
-          <div className="items-center text-start my-10">
+          {!projectProgress.commentTeacher ? (
+            <div className="grid grid-cols-3 text-start my-10 w-max">
+              <div className="pl-6 py-5">
+                <span>The project is now complete and</span>
+              </div>
+              <div className="">
+                <textarea
+                  placeholder="0-100"
+                  className="px-4 pt-[0.35rem] mt-[10px] mr-[0px] text-[20px] w-[100%] h-[45px] block text-gray-900 bg-gray-50 rounded-[18px] border border-gray-300 resize-none scrollbar-hide focus:outline-none"
+                  value={commentPercent}
+                  onChange={(e) => setCommentPercent(e.target.value)}
+                  required
+                ></textarea>
+              </div>
+              <div className="pl-6 py-5">
+                <span>Percentage</span>
+              </div>
+            </div>) : <div className="items-center text-start my-10">
             <div className="pl-6 pb-5 pt-10">
-              <p>
-                The project is now complete and {projectProgress.workProgress}{" "}
-                Percentage
-              </p>
+              <p>The project is now complete and {projectProgress.workProgress} Percentage</p>
             </div>
-          </div>
+          </div>}
           <div className="items-center text-start my-10 whitespace-nowrap">
             <div className="pl-6 py-5">
               <span>Comment</span>
@@ -125,7 +142,7 @@ const ReadProgress = () => {
             <div className="pt-20 pr-2 grid grid-cols-12 ">
               <button
                 type="submit"
-                className="col-start-12 text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:outline-none font-medium rounded-[18px] text-sm px-6 py-2.5 text-center mr-2 mb-2"
+                className="col-start-12 text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:outline-none font-medium rounded-[18px] text-sm px-6 py-2.5 text-center mr-2 mb-2"
               >
                 Check
               </button>

@@ -18,9 +18,7 @@ const AllProgress = () => {
       console.log(error);
     }
   },[]);
-  const sortedProjectProgresses = projectProgresses.sort(
-    (a, b) => new Date(b.dateForm) - new Date(a.dateForm)
-  );
+ 
   console.table(projectProgresses);
   return (
     <>
@@ -52,8 +50,8 @@ const AllProgress = () => {
             </tr>
           </thead>
           <tbody className="overflow-y-auto">
-            {sortedProjectProgresses.map((projectProgress) => (
-              <tr
+            {projectProgresses.map((projectProgress) => (
+              projectProgress.progressStatus===1?( <tr
                 className="bg-white border-b"
                 key={projectProgress.projectProgressId}
               >
@@ -112,7 +110,8 @@ const AllProgress = () => {
                     Deatail
                   </button>
                 </td>
-              </tr>
+              </tr>):null
+             
             ))}
           </tbody>
         </table>

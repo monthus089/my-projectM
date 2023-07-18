@@ -55,7 +55,7 @@ const JoinAppointment = (props) => {
 
   const handlerSubmitJoin = async (e, appointmentId, projects) => {
     e.preventDefault();
-    
+
     let payload = {
       appointmentId: appointmentId,
       projectId: projects[0]?.projectId,
@@ -148,9 +148,9 @@ const JoinAppointment = (props) => {
                   <th scope="col" className="px-6 py-3">
                     From
                   </th>
-                  <th scope="col" className="px-6 py-3">
+                  {/* <th scope="col" className="px-6 py-3">
                     Reserved
-                  </th>
+                  </th> */}
                   <th scope="col" className="px-6 py-3">
                     Reserve Time
                   </th>
@@ -200,15 +200,17 @@ const JoinAppointment = (props) => {
                         {appointment.appointmentDateFrom} -{" "}
                         {appointment.appointmentDateTo}
                       </td>
-                      <td className="px-6 py-4">
+                      {/* <td className="px-6 py-4">
                         {appointment.appointmentReserves.length > 0
                           ? appointment.appointmentReserves.map(
-                              (reserve, index) => (
-                                <span key={index}>{reserve.reserveTime}</span>
-                              )
+                            (reserve, index) => (
+                              reserve.projectId === projects.projectId ?
+                                (<span key={index}>{reserve.reserveTime}</span>)
+                                : "-"
                             )
+                          )
                           : "-"}
-                      </td>
+                      </td> */}
 
                       <td className="px-6 py-4">
                         <select
@@ -242,15 +244,15 @@ const JoinAppointment = (props) => {
                             Reserve
                           </button>
                         ) : ( */}
-                          <button
-                            type="button"
-                            className="text-white bg-gradient-to-r from-violet-400 via-violet-500 to-violet-600 hover:bg-gradient-to-br font-medium rounded-[18px] text-sm  px-12 py-1.5 text-center focus:outline-none"
-                            onClick={(e) =>
-                              AppointmentTime(appointment.appointmentId)
-                            }
-                          >
-                            Reserve
-                          </button>
+                        <button
+                          type="button"
+                          className="text-white bg-gradient-to-r from-violet-400 via-violet-500 to-violet-600 hover:bg-gradient-to-br font-medium rounded-[18px] text-sm  px-12 py-1.5 text-center focus:outline-none"
+                          onClick={(e) =>
+                            AppointmentTime(appointment.appointmentId)
+                          }
+                        >
+                          Reserve
+                        </button>
                         {/* )} */}
                       </td>
                     </tr>
@@ -263,15 +265,14 @@ const JoinAppointment = (props) => {
       </div>
       <div
         id="id01"
-        className={`fixed left-0 top-[280px] w-full h-full overflow-auto pt-200  ${
-          showModal ? "block" : "hidden"
-        }`}
+        className={`fixed left-0 top-[280px] w-full h-full overflow-auto pt-200  ${showModal ? "block" : "hidden"
+          }`}
       >
         <form className="bg-white mx-auto mt-5 mb-15 border border-gray-300 shadow-lg w-[482px] h-[250px] rounded-[18px]">
           <div className="py-8 text-center">
             <h1>Select Time</h1>
             <p className="text-center p-4 mt-4">
-            Are you sure you want to choose between  {reserveTime} ?
+              Are you sure you want to choose between  {reserveTime} ?
             </p>
             <div className="mt-[40px] mx-[40px] grid grid-cols-2 gap-x-8">
               <button

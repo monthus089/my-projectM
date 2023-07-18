@@ -10,14 +10,14 @@ const ProgressList = (props) => {
     try {
       jwtInterceptor
         .get(
-          `${process.env.REACT_APP_API}/ProjectProgress/project/${getProjectId}` 
+          `${process.env.REACT_APP_API}/ProjectProgress/project/${getProjectId}`
         )
         .then((response) => setProjectProgresses(response?.data));
     } catch (error) {
       console.log(error);
     }
   }, []);
-  console.log("Progresses"+projectProgresses);
+  console.log("Progresses" + projectProgresses);
   return (
     <>
       <div className="ml-[50px] text-[20px]">
@@ -52,12 +52,15 @@ const ProgressList = (props) => {
                 Percentage
               </th>
               <th scope="col" className="px-6 py-3">
+
+              </th>
+              <th scope="col" className="px-6 py-3">
                 Action
               </th>
             </tr>
           </thead>
           <tbody className="overflow-y-auto">
-            {projectProgresses.map((projectProgress) => (
+            {projectProgresses.map((projectProgress, i) => (
               <tr
                 className="bg-white border-b "
                 key={projectProgress.projectProgressId}
@@ -82,19 +85,18 @@ const ProgressList = (props) => {
                 <td className="px-6 py-4">
                   <div className="flex w-full h-4 bg-gray-200 rounded-[55px] overflow-hidden dark:bg-gray-700">
                     <div
-                      className={`flex flex-col justify-center overflow-hidden ${
-                        projectProgress.workProgress <= 20
+                      className={`flex flex-col justify-center overflow-hidden ${projectProgress.workProgress <= 20
                           ? "bg-gradient-to-r from-red-500 via-red-600 to-red-700 pr-5 pl-2"
                           : projectProgress.workProgress <= 40
-                          ? "bg-gradient-to-r from-orange-500 via-orange-600 to-orange-700"
-                          : projectProgress.workProgress <= 60
-                          ? "bg-gradient-to-r from-yellow-500 via-yellow-600 to-yellow-700"
-                          : projectProgress.workProgress <= 80
-                          ? "bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700"
-                          : projectProgress.workProgress <= 100
-                          ? "bg-gradient-to-r from-green-500 via-green-600 to-green-700"
-                          : ""
-                      } text-xs text-white text-center`}
+                            ? "bg-gradient-to-r from-orange-500 via-orange-600 to-orange-700"
+                            : projectProgress.workProgress <= 60
+                              ? "bg-gradient-to-r from-yellow-500 via-yellow-600 to-yellow-700"
+                              : projectProgress.workProgress <= 80
+                                ? "bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700"
+                                : projectProgress.workProgress <= 100
+                                  ? "bg-gradient-to-r from-green-500 via-green-600 to-green-700"
+                                  : ""
+                        } text-xs text-white text-center`}
                       role="progressbar"
                       style={{ width: `${projectProgress.workProgress}%` }}
                       aria-valuemin="0"
@@ -104,6 +106,9 @@ const ProgressList = (props) => {
                     </div>
                   </div>
                 </td>
+                <td className="px-6 py-4">
+                  {/* {projectProgress[i - 1].workProgress - projectProgress[i].workProgress} */}
+                </td>
 
                 <td className="px-6 py-4">
                   <button
@@ -112,7 +117,7 @@ const ProgressList = (props) => {
                     onClick={() =>
                       navigate(
                         "/Student/ReadProgressStudent/" +
-                          projectProgress.projectProgressId
+                        projectProgress.projectProgressId
                       )
                     }
                   >

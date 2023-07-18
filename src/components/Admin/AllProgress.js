@@ -53,6 +53,7 @@ const AllProgress = () => {
           </thead>
           <tbody className="overflow-y-auto">
             {sortedProjectProgresses.map((projectProgress) => (
+              projectProgress.progressStatus===1?(
               <tr
                 className="bg-white border-b"
                 key={projectProgress.projectProgressId}
@@ -112,7 +113,7 @@ const AllProgress = () => {
                     Detail
                   </button>
                 </td>
-              </tr>
+              </tr>):null
             ))}
           </tbody>
         </table>
