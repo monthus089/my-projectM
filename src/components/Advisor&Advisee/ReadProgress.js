@@ -48,7 +48,8 @@ const ReadProgress = () => {
     };
     try {
       await jwtInterceptor.put(
-        `${process.env.REACT_APP_API}/ProjectProgress/${getProjectProgressId}?projectId=${projectProgress.project.projectId}`,
+        // `${process.env.REACT_APP_API}/ProjectProgress/${getProjectProgressId}?projectId=${projectProgress.project.projectId}`,
+        `${process.env.REACT_APP_API}/ProjectProgress/${getProjectProgressId}`,
         payload
       );
       notyf.success("Check");
@@ -57,6 +58,7 @@ const ReadProgress = () => {
     }
     navigate("/Advisor/Progress");
   };
+
   return (
     <>
       <div className="ml-[50px] text-[20px]">
