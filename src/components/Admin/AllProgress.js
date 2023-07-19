@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import jwtInterceptor from "../Auth/jwtInterceptor";
 import { BsCheck2Circle } from "react-icons/bs";
+import { IoIosArrowUp, IoIosArrowDown } from "react-icons/io"
 
 const AllProgress = () => {
   let navigate = useNavigate();
@@ -47,12 +48,14 @@ const AllProgress = () => {
                 Percentage
               </th>
               <th scope="col" className="px-6 py-3">
+              </th>
+              <th scope="col" className="px-6 py-3">
                 Action
               </th>
             </tr>
           </thead>
           <tbody className="overflow-y-auto">
-            {sortedProjectProgresses.map((projectProgress) => (
+            {sortedProjectProgresses.map((projectProgress,index ) => (
               projectProgress.progressStatus===1?(
               <tr
                 className="bg-white border-b"
@@ -98,6 +101,23 @@ const AllProgress = () => {
                       {projectProgress.workProgress}%
                     </div>
                   </div>
+                </td>
+                <td className="px-6 py-4">
+                  {index === 0 ? (
+                    <>
+                      {projectProgress.resultWork > 0 ? (
+                        <IoIosArrowUp className="text-green-500 w-4 h-4 inline-block pr-1" />
+                      ) : projectProgress.resultWork <= 0 ? (
+                        <IoIosArrowDown className="text-red-500 w-4 h-4 inline-block pr-1" />
+                      ) : null}
+                      {projectProgress.resultWork}%
+                    </>
+                  ) : (
+                    <>
+                      <IoIosArrowUp className="text-green-500 w-4 h-4 inline-block pr-1" />
+                      {projectProgress.workProgress}%
+                    </>
+                  )}
                 </td>
                 <td className="px-6 py-4">
                   <button

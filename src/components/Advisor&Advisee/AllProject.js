@@ -30,7 +30,7 @@ const AllProject = (props) => {
     }
   };
 
-  console.table(projects)
+ 
 
   return (
     <>

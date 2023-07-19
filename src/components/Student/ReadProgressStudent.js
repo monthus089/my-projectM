@@ -167,16 +167,17 @@ const ReadProgressStudent = () => {
                 <p>The project is now complete and {projectProgress.workProgress} Percentage</p>
               </div>
             </div>
-            <div className="items-center text-start my-10">
-              <div className="pl-6 pb-5 pt-10">
-                <span>Comment Teacher</span>
-              </div>
-              <div>
-                <p className="px-4 pt-[0.35rem] ml-[50px] mt-[10px] text-[19px] w-[90%] h-[120px] block text-gray-900">
-                  {projectProgress.commentTeacher}
-                </p>
-              </div>
-            </div>
+            {projectProgress.commentTeacher ?
+              <div className="items-center text-start my-10">
+                <div className="pl-6 pb-5 pt-10">
+                  <span>Comment Teacher</span>
+                </div>
+                <div>
+                  <p className="px-4 pt-[0.35rem] ml-[50px] mt-[10px] text-[19px] w-[90%] h-[120px] block text-gray-900">
+                    {projectProgress.commentTeacher}
+                  </p>
+                </div>
+              </div> : null}
           </form>
         </div>))}
     </>

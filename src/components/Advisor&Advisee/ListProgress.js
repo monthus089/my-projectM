@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import jwtInterceptor from "../Auth/jwtInterceptor";
 import { BsCheck2Circle } from "react-icons/bs";
+import { IoIosArrowUp, IoIosArrowDown } from "react-icons/io"
 import AuthContext from "../Auth/AuthProvider";
 
 const ListProgress = () => {
@@ -10,7 +11,6 @@ const ListProgress = () => {
   const { getProjectId } = useParams();
   const [projectProgresses, setProjectProgresses] = useState([]);
   const [progressesPer, setProgressesPer] = useState([]);
-  let sum = 0;
   useEffect(() => {
     try {
       jwtInterceptor
@@ -19,7 +19,6 @@ const ListProgress = () => {
         )
         .then((response) => {
           setProjectProgresses(response?.data)
-          setProgressesPer(response?.data.workProgress)
         });
     } catch (error) {
       console.log(error);
@@ -41,13 +40,38 @@ const ListProgress = () => {
       )
     }
   }
-  const cal = () => {
-    let previousWorkProgress = 0;
-    for (let i = 0; i < progressesPer.length; i++) {
-      previousWorkProgress = progressesPer[i] - previousWorkProgress;
-    }
-    console.log(previousWorkProgress);
-  };
+
+  // function findChangesInWorkProgress(projectProgresses) {
+  //   const changes = [];
+  //   let previousValue = null;
+
+  //   for (let i = 0; i < projectProgresses.length; i++) {
+  //     const projectProgress = projectProgresses[i];
+  //     if (projectProgress.progressStatus === 1) {
+  //       const currentValue = projectProgress.workProgress;
+
+  //       if (previousValue) {
+  //         if (currentValue > previousValue) {
+  //           changes.push(`Increased by ${currentValue - previousValue}`);
+  //           projectProgress.Value = currentValue - previousValue; 
+  //         } else if (currentValue < previousValue) {
+  //           changes.push(`Decreased by ${previousValue - currentValue}`);
+  //           projectProgress.Value = previousValue - currentValue; 
+  //         }
+  //       }
+
+  //       previousValue = currentValue;
+  //     }
+  //   }
+
+  //   return changes;
+  // }
+
+
+
+  // const changes = findChangesInWorkProgress(projectProgresses);
+  // console.table(projectProgresses);
+  // console.log("changes"+changes);
 
   return (
     <>
@@ -74,6 +98,7 @@ const ListProgress = () => {
                 Percentage
               </th>
               <th scope="col" className="px-6 py-3">
+
               </th>
               <th scope="col" className="px-6 py-3">
                 Action
@@ -81,7 +106,7 @@ const ListProgress = () => {
             </tr>
           </thead>
           <tbody className="overflow-y-auto">
-            {sortedProjectProgresses.map((projectProgress, index) => (
+            {projectProgresses.map((projectProgress, index) => (
               projectProgress.progressStatus === 1 ? (
                 <tr
                   className="bg-white border-b"
@@ -128,9 +153,22 @@ const ListProgress = () => {
                     </div>
                   </td>
                   <td className="px-6 py-4">
-                    {projectProgress.workProgress - sum}
-
-                  </td>
+                  {index === 0 ? (
+                    <>
+                      {projectProgress.resultWork > 0 ? (
+                        <IoIosArrowUp className="text-green-500 w-4 h-4 inline-block pr-1" />
+                      ) : projectProgress.resultWork <= 0 ? (
+                        <IoIosArrowDown className="text-red-500 w-4 h-4 inline-block pr-1" />
+                      ) : null}
+                      {projectProgress.resultWork}%
+                    </>
+                  ) : (
+                    <>
+                      <IoIosArrowUp className="text-green-500 w-4 h-4 inline-block pr-1" />
+                      {projectProgress.workProgress}%
+                    </>
+                  )}
+                </td>
                   <td className="px-6 py-4">
                     <button
                       type="button"
