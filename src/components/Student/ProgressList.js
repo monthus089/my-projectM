@@ -18,7 +18,7 @@ const ProgressList = (props) => {
       console.log(error);
     }
   }, []);
-  console.log("Progresses" + projectProgresses);
+  console.table(projectProgresses);
   return (
     <>
       <div className="ml-[50px] text-[20px]">
@@ -61,10 +61,10 @@ const ProgressList = (props) => {
             </tr>
           </thead>
           <tbody className="overflow-y-auto">
-            {projectProgresses.map((projectProgress,index) => (
+            {projectProgresses.map((projectProgress, index) => (
               <tr
                 className="bg-white border-b "
-                key={projectProgress.projectProgressId}
+                key={index}
               >
                 <td className="px-6 py-4">
                   {projectProgress.numberProgress}
@@ -109,7 +109,12 @@ const ProgressList = (props) => {
                 </td>
 
                 <td className="px-6 py-4">
-                  {index === 0 ? (
+                  {projectProgress.numberProgress === 1 ? (
+                    <>
+                      <IoIosArrowUp className="text-green-500 w-4 h-4 inline-block pr-1" />
+                      {projectProgress.workProgress}%
+                    </>
+                  ) : (
                     <>
                       {projectProgress.resultWork > 0 ? (
                         <IoIosArrowUp className="text-green-500 w-4 h-4 inline-block pr-1" />
@@ -117,11 +122,6 @@ const ProgressList = (props) => {
                         <IoIosArrowDown className="text-red-500 w-4 h-4 inline-block pr-1" />
                       ) : null}
                       {projectProgress.resultWork}%
-                    </>
-                  ) : (
-                    <>
-                      <IoIosArrowUp className="text-green-500 w-4 h-4 inline-block pr-1" />
-                      {projectProgress.workProgress}%
                     </>
                   )}
                 </td>

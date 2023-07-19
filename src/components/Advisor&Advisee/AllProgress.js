@@ -78,16 +78,16 @@ const AllProgress = () => {
                   <div className="flex w-full h-4 bg-gray-200 rounded-[55px] overflow-hidden dark:bg-gray-700">
                     <div
                       className={`flex flex-col justify-center overflow-hidden ${projectProgress.workProgress <= 20
-                          ? "bg-gradient-to-r from-red-500 via-red-600 to-red-700 pr-5 pl-2"
-                          : projectProgress.workProgress <= 40
-                            ? "bg-gradient-to-r from-orange-500 via-orange-600 to-orange-700"
-                            : projectProgress.workProgress <= 60
-                              ? "bg-gradient-to-r from-yellow-500 via-yellow-600 to-yellow-700"
-                              : projectProgress.workProgress <= 80
-                                ? "bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700"
-                                : projectProgress.workProgress <= 100
-                                  ? "bg-gradient-to-r from-green-500 via-green-600 to-green-700"
-                                  : ""
+                        ? "bg-gradient-to-r from-red-500 via-red-600 to-red-700 pr-5 pl-2"
+                        : projectProgress.workProgress <= 40
+                          ? "bg-gradient-to-r from-orange-500 via-orange-600 to-orange-700"
+                          : projectProgress.workProgress <= 60
+                            ? "bg-gradient-to-r from-yellow-500 via-yellow-600 to-yellow-700"
+                            : projectProgress.workProgress <= 80
+                              ? "bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700"
+                              : projectProgress.workProgress <= 100
+                                ? "bg-gradient-to-r from-green-500 via-green-600 to-green-700"
+                                : ""
                         } text-xs text-white text-center`}
                       role="progressbar"
                       style={{ width: `${projectProgress.workProgress}%` }}
@@ -99,7 +99,12 @@ const AllProgress = () => {
                   </div>
                 </td>
                 <td className="px-6 py-4">
-                  {index === 0 ? (
+                  {projectProgress.numberProgress === 1 ? (
+                    <>
+                      <IoIosArrowUp className="text-green-500 w-4 h-4 inline-block pr-1" />
+                      {projectProgress.workProgress}%
+                    </>
+                  ) : (
                     <>
                       {projectProgress.resultWork > 0 ? (
                         <IoIosArrowUp className="text-green-500 w-4 h-4 inline-block pr-1" />
@@ -107,11 +112,6 @@ const AllProgress = () => {
                         <IoIosArrowDown className="text-red-500 w-4 h-4 inline-block pr-1" />
                       ) : null}
                       {projectProgress.resultWork}%
-                    </>
-                  ) : (
-                    <>
-                      <IoIosArrowUp className="text-green-500 w-4 h-4 inline-block pr-1" />
-                      {projectProgress.workProgress}%
                     </>
                   )}
                 </td>

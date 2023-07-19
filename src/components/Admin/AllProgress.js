@@ -103,7 +103,12 @@ const AllProgress = () => {
                   </div>
                 </td>
                 <td className="px-6 py-4">
-                  {index === 0 ? (
+                  {projectProgress.numberProgress === 1 ? (
+                    <>
+                      <IoIosArrowUp className="text-green-500 w-4 h-4 inline-block pr-1" />
+                      {projectProgress.workProgress}%
+                    </>
+                  ) : (
                     <>
                       {projectProgress.resultWork > 0 ? (
                         <IoIosArrowUp className="text-green-500 w-4 h-4 inline-block pr-1" />
@@ -111,11 +116,6 @@ const AllProgress = () => {
                         <IoIosArrowDown className="text-red-500 w-4 h-4 inline-block pr-1" />
                       ) : null}
                       {projectProgress.resultWork}%
-                    </>
-                  ) : (
-                    <>
-                      <IoIosArrowUp className="text-green-500 w-4 h-4 inline-block pr-1" />
-                      {projectProgress.workProgress}%
                     </>
                   )}
                 </td>
