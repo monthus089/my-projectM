@@ -92,6 +92,9 @@ const ReadProgress = () => {
               </p>
             </div>
           </div>
+          <div className="pl-6 py-5">
+              <span>Previous percentage {projectProgress.currentPer} Percentage</span>
+            </div>
           <div className="items-center text-start my-10">
             <div className="pl-6 pb-5 pt-10">
               <p>

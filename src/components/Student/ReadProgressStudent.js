@@ -104,6 +104,9 @@ const ReadProgressStudent = () => {
               ></textarea>
             </div>
           </div>
+          <div className="pl-6 py-5">
+              <span>Previous percentage {projectProgress.currentPer} Percentage</span>
+            </div>
           <div className="grid grid-cols-3 text-start my-10 w-max">
             <div className="pl-6 py-5">
               <span>The project is now complete and</span>
